@@ -1,16 +1,17 @@
+using System.Reflection;
 namespace Controller
 {
     public class Builder
     {
-        public string type;
         public Builder()
         {
-            thisObject = this;
-            this.type = typeof(thisObject);
-            if(this.type == "Serveur")
+            string type = MethodBase.GetCurrentMethod().DeclaringType.Name;
+            if(type == "Serveur")
             {
-                this.method = MoveServeur.method();
+                this.method = MoveServeur.method;
             }
         }
+
+        public static object method;
     }
 }
