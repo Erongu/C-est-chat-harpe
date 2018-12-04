@@ -5,6 +5,11 @@
       "taskName": "tâche-Builder",
       "appliesTo": "Controller/Builder.cs",
       "type": "launch"
+    },
+    {
+      "taskName": "tâche-Test",
+      "appliesTo": "Test.cs",
+      "type": "launch"
     }
   ]
 }

@@ -10,7 +10,7 @@ namespace Test
             this.miaou = 2;
         }
 
-        public static void Main(string[] args)
+        public static void Main()
         {
             Console.WriteLine(this.miaou);
         }
