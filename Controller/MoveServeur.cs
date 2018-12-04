@@ -1,7 +1,11 @@
+using System;
 namespace Controller
 {
-    public class MoveServeur
+    public static class MoveServeur
     {
-
+        public static void method()
+        {
+            Console.WriteLine('Le serveur bouge');
+        }
     }
 }

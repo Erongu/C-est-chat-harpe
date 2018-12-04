@@ -1,7 +1,9 @@
 namespace Controller
 {
-    public class ClassTemplate
+    public class ClassTemplate : Builder
     {
-
+        public ClassTemplate()
+        {
+        }
     }
 }
