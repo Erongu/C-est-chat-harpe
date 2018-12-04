@@ -1,7 +1,7 @@
 using System;
 namespace Test
 {
-    public class Test
+    public class Program
     {
         public int miaou { get => miaou; set => miaou = value; }
 
