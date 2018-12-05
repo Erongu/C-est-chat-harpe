@@ -7,11 +7,11 @@ namespace Controller
 {
     public class Factory
     {
-        private AssemblyName asemblyName;
+        private AssemblyName assemblyName;
 
         public Factory(string className)
         {
-            this.asemblyName = new AssemblyName(className);
+            this.assemblyName = new AssemblyName(className);
         }
         public object CreateObject(string[] PropertyNames, Type[] Types)
         {
