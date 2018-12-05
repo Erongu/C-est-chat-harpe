@@ -30,9 +30,9 @@ namespace Controller
         }
         private TypeBuilder CreateClass()
         {
-            AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(this.asemblyName, AssemblyBuilderAccess.Run);
+            AssemblyBuilder assemblyBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly(this.assemblyName, AssemblyBuilderAccess.Run);
             ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule("MainModule");
-            TypeBuilder typeBuilder = moduleBuilder.DefineType(this.asemblyName.FullName
+            TypeBuilder typeBuilder = moduleBuilder.DefineType(this.assemblyName.FullName
                                 , TypeAttributes.Public |
                                 TypeAttributes.Class |
                                 TypeAttributes.AutoClass |

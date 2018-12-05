@@ -1,7 +1,7 @@
 using System;
 namespace Controller
 {
-    public static class MoveServeur
+    public static class StrategyServeur
     {
         public static void method()
         {

@@ -9,7 +9,7 @@ namespace Controller
             string type = MethodBase.GetCurrentMethod().DeclaringType.Name;
             if(type == "Serveur")
             {
-                this.method = (Action)(() => MoveServeur.method());
+                this.method = (Action)(() => StrategyServeur.method());
             }
         }
 
