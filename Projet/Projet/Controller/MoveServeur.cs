@@ -5,7 +5,7 @@ namespace Controller
     {
         public static void method()
         {
-            Console.WriteLine('Le serveur bouge');
+            Console.WriteLine("Le serveur bouge");
         }
     }
 }

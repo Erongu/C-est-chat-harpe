@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 namespace Controller
 {
@@ -8,10 +9,10 @@ namespace Controller
             string type = MethodBase.GetCurrentMethod().DeclaringType.Name;
             if(type == "Serveur")
             {
-                this.method = MoveServeur.method;
+                this.method = (Action)(() => MoveServeur.method());
             }
         }
 
-        public static object method;
+        public object method;
     }
 }
