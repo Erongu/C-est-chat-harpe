@@ -38,8 +38,8 @@ namespace Controller
                                 TypeAttributes.AutoClass |
                                 TypeAttributes.AnsiClass |
                                 TypeAttributes.BeforeFieldInit |
-                                TypeAttributes.AutoLayout
-                                , null);
+                                TypeAttributes.ExplicitLayout
+                                , typeof(Controller.ClassTemplate));
             return typeBuilder;
         }
         private void CreateConstructor(TypeBuilder typeBuilder)
