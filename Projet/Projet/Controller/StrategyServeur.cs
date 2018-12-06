@@ -1,7 +1,7 @@
 using System;
 namespace Controller
 {
-    public class StrategyServeur
+    public class StrategyServeur : IStrategy
     {
         public void method()
         {

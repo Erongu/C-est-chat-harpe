@@ -12,6 +12,17 @@ namespace Controller
         public Factory(string className)
         {
             this.assemblyName = new AssemblyName(className);
+            /*string type = this.GetType().Name;
+            Console.WriteLine(type);
+            if (type == "Serveur")
+            {
+                strategy = new StrategyServeur();
+            }
+            else
+            {
+                strategy = new StrategyPlonge();
+            }*/
+            return this.CreateObject(IStrategy Strategy);
         }
         public object CreateObject(string[] PropertyNames, Type[] Types)
         {
