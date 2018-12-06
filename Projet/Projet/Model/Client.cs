@@ -16,6 +16,7 @@ namespace Projet.Model
             //Typage du client
             Random rnd = new Random();
             this.type = rnd.Next(1, 3);
+            
         }
 
         public int getType(){return this.type;}

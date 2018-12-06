@@ -12,6 +12,13 @@ namespace Projet.Model
         private int numero;
         private int place;
 
+        //Constructeur
+        public Table(int numero, int place)
+        {
+            this.numero = numero;
+            this.place = place;
+        }
+
         //Getter and Setter
         public Groupe getGroupe()
         {
