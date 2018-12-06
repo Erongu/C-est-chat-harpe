@@ -37,8 +37,7 @@ namespace Controller
                                 TypeAttributes.Class |
                                 TypeAttributes.AutoClass |
                                 TypeAttributes.AnsiClass |
-                                TypeAttributes.BeforeFieldInit |
-                                TypeAttributes.ExplicitLayout
+                                TypeAttributes.BeforeFieldInit 
                                 , typeof(Controller.ClassTemplate));
             return typeBuilder;
         }

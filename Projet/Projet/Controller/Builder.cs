@@ -4,15 +4,20 @@ namespace Controller
 {
     public class Builder
     {
+        readonly object strategy;
+        
         public Builder()
         {
-            string type = MethodBase.GetCurrentMethod().DeclaringType.Name;
+            string type = this.GetType().Name;
+            Console.WriteLine(type);
             if(type == "Serveur")
             {
-                this.method = (Action)(() => StrategyServeur.method());
+                object strategy = new StrategyServeur();
             }
         }
 
-        public object method;
+        public void method() {
+            strategy.method();
+        };
     }
 }
