@@ -46,15 +46,20 @@
     <Compile Include="Controller\ClassTemplate.cs" />
     <Compile Include="Controller\Factory.cs" />
     <Compile Include="Controller\GetEvent.cs" />
-    <Compile Include="Controller\MoveServeur.cs" />
-    <Compile Include="Controller\Program.cs" />
+    <Compile Include="Controller\RestaurantController.cs" />
+    <Compile Include="Controller\StrategyCuisinier.cs" />
+    <Compile Include="Controller\StrategyPlonge.cs" />
+    <Compile Include="Controller\StrategyServeur.cs" />
     <Compile Include="Model\ElementMAP.cs" />
     <Compile Include="Model\Personnel.cs" />
     <Compile Include="Model\Recettes.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Ustensiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Vue\Client.cs" />
+    <Compile Include="Vue\Personnel.cs" />
     <Compile Include="Vue\Restaurant.cs" />
+    <Compile Include="Vue\Table.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
