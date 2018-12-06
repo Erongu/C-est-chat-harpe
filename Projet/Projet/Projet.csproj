@@ -63,6 +63,10 @@
     <Compile Include="Model\VitrineChauffante.cs" />
     <Compile Include="Model\Frigo.cs" />
     <Compile Include="Model\Plat.cs" />
+    <Compile Include="Model\Four.cs" />
+    <Compile Include="Model\Plaque.cs" />
+    <Compile Include="Model\LaveVaisselle.cs" />
+    <Compile Include="Model\MachineLaver.cs" />
     <Compile Include="Model\Restaurant.cs" />
     <Compile Include="Model\Rang.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

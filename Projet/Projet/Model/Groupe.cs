@@ -14,6 +14,7 @@ namespace Projet.Model
         private int bouteille;
         private int nombrePlat;
         private int etat;
+        
        
         //Constructeur
         public Groupe()
