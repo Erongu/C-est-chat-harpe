@@ -15,6 +15,7 @@ namespace Projet.Model
         private int nombrePlat;
         private int etat;
         
+        
        
         //Constructeur
         public Groupe()
