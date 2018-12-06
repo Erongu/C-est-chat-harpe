@@ -10,7 +10,7 @@ namespace Controller
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("IZI");
+            Console.WriteLine("IZII");
             Console.ReadKey(true);
         }
     }

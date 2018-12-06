@@ -8,5 +8,40 @@ namespace Projet.Model
 {
     class Table
     {
+        private Groupe groupe;
+        private int numero;
+        private int place;
+
+        //Getter and Setter
+        public Groupe getGroupe()
+        {
+            return this.groupe;
+        }
+
+        public int getNumero()
+        {
+            return this.numero;
+        }
+
+        public int getPlace()
+        {
+            return this.place;
+        }
+
+        public void setGroupe(Groupe grp)
+        {
+            this.groupe = grp;
+        }
+
+        public void setNumero(int numero)
+        {
+            this.numero = numero;
+        }
+
+        public void setPlace(int place)
+        {
+            this.place = place;
+        }
+
     }
 }

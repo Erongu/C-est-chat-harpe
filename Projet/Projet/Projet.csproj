@@ -55,6 +55,11 @@
     <Compile Include="Model\Recettes.cs" />
     <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Ustensiles.cs" />
+    <Compile Include="Model\Client.cs" />
+    <Compile Include="Model\Groupe.cs" />
+    <Compile Include="Model\Table.cs" />
+    <Compile Include="Model\Carre.cs" />
+    <Compile Include="Model\Rang.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Vue\Client.cs" />
     <Compile Include="Vue\Personnel.cs" />
