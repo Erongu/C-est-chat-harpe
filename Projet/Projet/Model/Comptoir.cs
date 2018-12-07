@@ -12,6 +12,21 @@ namespace Projet.Model
         
         public List<Plat> getPlat(int numeroTable)
         {
+            List<Plat> platsAservir;
+            
+            for(i=0; i<5 ;i++){
+
+                for(j=0; j<14; j++){
+                     if (this.plats[j].getTable == numeroTable){
+                        platsAservir.Add(this.plats[j]);
+                        break;
+                     }
+                }
+
+            }
+           
+            return platsAservir;
+            
 
         }
 
@@ -21,7 +36,7 @@ namespace Projet.Model
             this.plats.Add(plat);
 
         else
-                Console.WriteLine($"Le comptoir est plein !")
+                Console.WriteLine($"Le comptoir est plein !");
         }
 
     }
