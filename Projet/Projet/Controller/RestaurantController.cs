@@ -11,11 +11,17 @@ namespace Controller
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("IZII");
-            Factory factory = new Factory("Serveur"); 
+            Factory factory = new Factory("Serveur");
 
-            serveur = factory.CreateObject();
-
+            object serveur = factory.CreateObject(new string[0], new Type[0]);
+            Console.WriteLine("====");
+            string[] MethodNames = serveur.GetType().GetMethods().Select(I => I.Name).ToArray();
+            foreach (string method in MethodNames)
+            {
+                Console.WriteLine(method);
+            }
+            serveur.method();
+            Console.WriteLine("====");
             Console.WriteLine(serveur.GetType());
             Console.WriteLine("IZI");
             Console.ReadKey(true);
