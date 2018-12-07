@@ -26,19 +26,23 @@ namespace Projet.Model
             if (ust.getType() == Ustensile.TYPE.COUTEAUCUISINE)
             {
                 Thread.Sleep(500);
+                addStock(couteaucuisine); ///////////
             }
             else if (ust.getType() == Ustensile.TYPE.CUILLERE)
             {
                 Thread.Sleep(500);
+                addStock(cuillere); /////////////////
             }
             else
             {
                 Thread.Sleep(1000);
+                addStock(casserole); ////////////////
             }
 
             /**
              * 
              * MAJ STOCK
+             * 
              * 
              * 
              */

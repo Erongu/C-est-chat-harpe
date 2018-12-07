@@ -1,6 +1,6 @@
 namespace Model
 {
-    public class Recettes
+    public class Recette
     {
 
     }

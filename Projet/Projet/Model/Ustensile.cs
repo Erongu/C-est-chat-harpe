@@ -8,7 +8,7 @@ namespace Projet.Model
 {
     class Ustensile
     {
-        public enum TYPE { COUTEAUCUISINE, CASSEROLE, CUILLERE}
+        public enum TYPE { COUTEAUCUISINE, CASSEROLE, CUILLERE, ASSIETTE, VERRE, COUTEAU, FOURCHETTE}
 
         private TYPE type;
 
