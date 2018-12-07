@@ -12,17 +12,6 @@ namespace Controller
         public Factory(string className)
         {
             this.assemblyName = new AssemblyName(className);
-            /*string type = this.GetType().Name;
-            Console.WriteLine(type);
-            if (type == "Serveur")
-            {
-                strategy = new StrategyServeur();
-            }
-            else
-            {
-                strategy = new StrategyPlonge();
-            }*/
-            return this.CreateObject(IStrategy Strategy);
         }
         public object CreateObject(string[] PropertyNames, Type[] Types)
         {
@@ -37,7 +26,17 @@ namespace Controller
                 CreateProperty(DynamicClass, PropertyNames[ind], Types[ind]);
             Type type = DynamicClass.CreateType();
 
-            return Activator.CreateInstance(type);
+            IStrategy strategy;
+            if (this.assemblyName.Name == "Serveur")
+            {
+                strategy = new StrategyServeur();
+            }
+            else
+            {
+                strategy = new StrategyPlonge();
+            }
+
+            return Activator.CreateInstance(type, strategy);
         }
         private TypeBuilder CreateClass()
         {
@@ -48,7 +47,8 @@ namespace Controller
                                 TypeAttributes.Class |
                                 TypeAttributes.AutoClass |
                                 TypeAttributes.AnsiClass |
-                                TypeAttributes.BeforeFieldInit 
+                                TypeAttributes.BeforeFieldInit |
+                                TypeAttributes.ExplicitLayout
                                 , typeof(Controller.ClassTemplate));
             return typeBuilder;
         }

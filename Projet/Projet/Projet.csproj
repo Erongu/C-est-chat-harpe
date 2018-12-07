@@ -54,6 +54,10 @@
     <Compile Include="Controller\StrategyServeur.cs" />
     <Compile Include="Model\Personnel.cs" />
     <Compile Include="Model\Recettes.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Model\Ustensiles.cs" />
+>>>>>>> master
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\Groupe.cs" />
     <Compile Include="Model\Table.cs" />

@@ -4,6 +4,6 @@ namespace Controller
 {
     public class ClassTemplate : Builder
     {
-        public ClassTemplate(IStrategy Strategy) { }
+        public ClassTemplate(IStrategy strategy) : base(strategy) { }
     }
 }
