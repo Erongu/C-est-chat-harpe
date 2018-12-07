@@ -1,9 +1,9 @@
 using System;
 namespace Controller
 {
-    public class StrategyCuisinier : IStrategy
+    public static class StrategyCuisinier
     {
-        public void method()
+        public static void method()
         {
             Console.WriteLine("Le cuisinier cuisine");
         }

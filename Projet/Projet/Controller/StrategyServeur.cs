@@ -1,9 +1,9 @@
 using System;
 namespace Controller
 {
-    public class StrategyServeur : IStrategy
+    public static class StrategyServeur
     {
-        public void method()
+        public static void method()
         {
             Console.WriteLine("Le serveur bouge");
         }
