@@ -50,10 +50,8 @@
     <Compile Include="Controller\StrategyCuisinier.cs" />
     <Compile Include="Controller\StrategyPlonge.cs" />
     <Compile Include="Controller\StrategyServeur.cs" />
-    <Compile Include="Model\ElementMAP.cs" />
     <Compile Include="Model\Personnel.cs" />
     <Compile Include="Model\Recettes.cs" />
-    <Compile Include="Model\Stock.cs" />
     <Compile Include="Model\Ustensiles.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\Groupe.cs" />

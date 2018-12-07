@@ -26,7 +26,17 @@ namespace Controller
                 CreateProperty(DynamicClass, PropertyNames[ind], Types[ind]);
             Type type = DynamicClass.CreateType();
 
-            return Activator.CreateInstance(type);
+            IStrategy strategy;
+            if (this.assemblyName.Name == "Serveur")
+            {
+                strategy = new StrategyServeur();
+            }
+            else
+            {
+                strategy = new StrategyPlonge();
+            }
+
+            return Activator.CreateInstance(type, strategy);
         }
         private TypeBuilder CreateClass()
         {
