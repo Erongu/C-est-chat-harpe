@@ -15,6 +15,10 @@ namespace Controller
 
         static void Main(string[] args)
         {
+            vue = new View.Restaurant();
+            vue.ShowDialog();
+            Console.ReadKey(true);
+
             Factory factory = new Factory("Serveur");
 
             object serveur = factory.CreateObject(new string[0], new Type[0]);
@@ -26,10 +30,8 @@ namespace Controller
             }
             Console.WriteLine("====");
             Console.WriteLine(serveur.GetType());
-            Console.ReadKey(true);
+            
 
-            vue = new View.Restaurant();
-            vue.ShowDialog();
             
         }
     }

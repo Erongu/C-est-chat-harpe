@@ -52,6 +52,7 @@
     <Compile Include="Controller\StrategyCuisinier.cs" />
     <Compile Include="Controller\StrategyPlonge.cs" />
     <Compile Include="Controller\StrategyServeur.cs" />
+    <Compile Include="Model\Ingredient.cs" />
     <Compile Include="Model\Personnel.cs" />
     <Compile Include="Model\Recettes.cs" />
     <Compile Include="Model\Client.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Model\Carre.cs" />
     <Compile Include="Model\Comptoir.cs" />
     <Compile Include="Model\Evier.cs" />
+    <Compile Include="Model\Ustensile.cs" />
     <Compile Include="Model\VitrineChauffante.cs" />
     <Compile Include="Model\Frigo.cs" />
     <Compile Include="Model\Plat.cs" />

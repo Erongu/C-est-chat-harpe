@@ -13,8 +13,7 @@ namespace Projet.Model
 
         public void cuisson(int temps, List<Ingredient> ingredients)
         {
-            Thread.Sleep(1000*temps);
-            return ingredients;
+            System.Threading.Thread.Sleep(1000*temps);
         }
     }
 }
