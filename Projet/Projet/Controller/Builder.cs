@@ -2,17 +2,17 @@ using System;
 using System.Reflection;
 namespace Controller
 {
+    public interface IStrategy
+    {
+        void method();
+    }
+
     public class Builder
     {
-        public Builder()
-        {
-            string type = MethodBase.GetCurrentMethod().DeclaringType.Name;
-            if(type == "Serveur")
-            {
-                this.method = (Action)(() => StrategyServeur.method());
-            }
-        }
+        readonly IStrategy strategy;
 
-        public object method;
+        public Builder(IStrategy strategy) => this.strategy = strategy;
+
+        public void method() => strategy.method();
     }
 }
