@@ -54,7 +54,6 @@
     <Compile Include="Controller\StrategyServeur.cs" />
     <Compile Include="Model\Personnel.cs" />
     <Compile Include="Model\Recettes.cs" />
-    <Compile Include="Model\Ustensiles.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\Groupe.cs" />
     <Compile Include="Model\Table.cs" />

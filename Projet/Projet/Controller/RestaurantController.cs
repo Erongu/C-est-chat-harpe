@@ -4,11 +4,15 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using View;
 
 namespace Controller
 {
     class RestaurantController
     {
+
+        private static View.Restaurant vue;
+
         static void Main(string[] args)
         {
             Factory factory = new Factory("Serveur");
@@ -22,8 +26,11 @@ namespace Controller
             }
             Console.WriteLine("====");
             Console.WriteLine(serveur.GetType());
-            Console.WriteLine("IZI");
             Console.ReadKey(true);
+
+            vue = new View.Restaurant();
+            vue.ShowDialog();
+            
         }
     }
 }
