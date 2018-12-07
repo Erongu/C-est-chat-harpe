@@ -20,7 +20,6 @@ namespace Controller
             {
                 Console.WriteLine(method);
             }
-            serveur.method();
             Console.WriteLine("====");
             Console.WriteLine(serveur.GetType());
             Console.WriteLine("IZI");
