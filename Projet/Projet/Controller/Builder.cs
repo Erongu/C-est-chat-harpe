@@ -4,7 +4,7 @@ namespace Controller
 {
     public interface IStrategy
     {
-        void method();
+        void method(object[] args);
     }
 
     public class Builder
@@ -16,9 +16,9 @@ namespace Controller
             this.strategies = strategies;
         }
 
-        public void method(string key)
+        public void method(string key, object[] args)
         {
-            this.strategies[key].method();
+            this.strategies[key].method(args);
         }
     }
 }
