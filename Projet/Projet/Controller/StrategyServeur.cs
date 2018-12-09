@@ -74,13 +74,20 @@ namespace Controller
                             if (!obstacles.Contains(g[v["x"]][v["y"]]))
                             {
                                 v["cout"] = u["cout"] + 1;
-                                if (closedList.Any(x => x["x"] == v["x"] && x["y"] == v["y"]) || openList.Any(x => x["x"] == v["x"] && x["y"] == v["y"]))
+                                if (closedList.Any(x => x["x"] == v["x"] && x["y"] == v["y"]))
                                 {
                                     if (closedList.First(x => x["x"] == v["x"] && x["y"] == v["y"])["cout"] > v["cout"])
                                     {
                                         openList.Add(v);
                                     }
                                 }
+                                else if (openList.Any(x => x["x"] == v["x"] && x["y"] == v["y"]))
+                                {
+                                    if (openList.First(x => x["x"] == v["x"] && x["y"] == v["y"])["cout"] > v["cout"])
+                                    {
+                                        openList.Add(v);
+                                    }
+                                })
                                 else
                                 {
                                     openList.Add(v);
