@@ -19,15 +19,15 @@ namespace Controller
             vue.ShowDialog();
             Console.ReadKey(true);
 
-            Factory factory = new Factory("Serveur");
-
-            object serveur = factory.CreateObject(new string[0], new Type[0]);
+            Personnel serveur = new Factory().Create<Personnel>();
+            
             Console.WriteLine("====");
             string[] MethodNames = serveur.GetType().GetMethods().Select(I => I.Name).ToArray();
             foreach (string method in MethodNames)
             {
                 Console.WriteLine(method);
             }
+            serveur.method("Serve");
             Console.WriteLine("====");
             Console.WriteLine(serveur.GetType());
             

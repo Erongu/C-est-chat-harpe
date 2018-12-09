@@ -1,9 +1,9 @@
-using System;
+using System.Collections.Generic;
 
 namespace Controller
 {
     public class ClassTemplate : Builder
     {
-        public ClassTemplate(IStrategy strategy) : base(strategy) { }
+        public ClassTemplate(Dictionary<string, IStrategy> strategies) : base(strategies) { }
     }
 }
