@@ -48,13 +48,22 @@
     <Compile Include="Controller\ClassTemplate.cs" />
     <Compile Include="Controller\Factory.cs" />
     <Compile Include="Controller\GetEvent.cs" />
+    <Compile Include="Controller\Network\Client\Client.cs" />
+    <Compile Include="Controller\Network\Server\NetworkController.cs" />
     <Compile Include="Controller\RestaurantController.cs" />
     <Compile Include="Controller\StrategyCuisinier.cs" />
     <Compile Include="Controller\StrategyPlonge.cs" />
     <Compile Include="Controller\StrategyServeur.cs" />
     <Compile Include="Model\Ingredient.cs" />
+    <Compile Include="Model\Network\BufferPool.cs" />
+    <Compile Include="Model\Network\Protocol\Identification\PingMessage.cs" />
+    <Compile Include="Model\Network\Protocol\Identification\PongMessage.cs" />
+    <Compile Include="Model\Network\Protocol\IO\Reader.cs" />
+    <Compile Include="Model\Network\Protocol\IO\Writer.cs" />
+    <Compile Include="Model\Network\Protocol\Message.cs" />
+    <Compile Include="Model\Network\Protocol\MessageHandler.cs" />
+    <Compile Include="Model\Network\Server\NetworkClient.cs" />
     <Compile Include="Model\Personnel.cs" />
-    <Compile Include="Model\Recettes.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\Groupe.cs" />
     <Compile Include="Model\Table.cs" />
@@ -96,5 +105,6 @@
   <ItemGroup>
     <None Include="Resources\cuisine.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

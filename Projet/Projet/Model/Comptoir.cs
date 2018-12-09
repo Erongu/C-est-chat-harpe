@@ -12,12 +12,12 @@ namespace Projet.Model
         
         public List<Plat> getPlat(int numeroTable)
         {
-            List<Plat> platsAservir;
+            List<Plat> platsAservir = new List<Plat>();
             
-            for(i=0; i<5 ;i++){
+            for(var i=0; i<5 ;i++){
 
-                for(j=0; j<14; j++){
-                     if (this.plats[j].getTable == numeroTable){
+                for(var j=0; j<14; j++){
+                     if (this.plats[j].getTable() == numeroTable){
                         platsAservir.Add(this.plats[j]);
                         break;
                      }
