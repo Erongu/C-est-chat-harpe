@@ -87,7 +87,7 @@ namespace Controller
                                     {
                                         openList.Add(v);
                                     }
-                                })
+                                }
                                 else
                                 {
                                     openList.Add(v);
