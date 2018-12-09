@@ -3,7 +3,7 @@ namespace Controller
 {
     public class StrategyCuisinier : IStrategy
     {
-        public void method()
+        public void method(object[] args)
         {
             Console.WriteLine("Le cuisinier cuisine");
         }
