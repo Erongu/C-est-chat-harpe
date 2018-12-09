@@ -1,5 +1,5 @@
-using System;
-using System.Reflection;
+using System.Collections.Generic;
+
 namespace Controller
 {
     public interface IStrategy
@@ -9,10 +9,16 @@ namespace Controller
 
     public class Builder
     {
-        readonly IStrategy strategy;
+        readonly Dictionary<string, IStrategy> strategies;
 
-        public Builder(IStrategy strategy) => this.strategy = strategy;
+        public Builder(Dictionary<string, IStrategy> strategies)
+        {
+            this.strategies = strategies;
+        }
 
-        public void method() => strategy.method();
+        public void method(string key)
+        {
+            this.strategies[key].method();
+        }
     }
 }
