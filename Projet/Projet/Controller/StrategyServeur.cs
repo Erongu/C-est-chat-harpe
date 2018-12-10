@@ -24,7 +24,7 @@ namespace Controller
                     {
                         Dictionary<string, int> j = closedList[i];
                         Dictionary<string, int> test = new Dictionary<string, int>() { { "x", j["x"] }, { "y", j["y"] } };
-                        if (test == end)
+                        if (test["x"] == end["x"] && test["y"] == end["y"] )
                         {
                             if (j["cout"] < cout)
                             {
@@ -104,7 +104,7 @@ namespace Controller
                 }
                 return GetChemin(closedList, objectif);
             }
-            catch
+            catch(Exception e)
             {
                 return new List<Dictionary<string, int>>() { };
             }
