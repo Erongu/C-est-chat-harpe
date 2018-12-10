@@ -5,7 +5,7 @@ namespace Controller
 {
     public interface IStrategy
     {
-        void method(Personnel instance, object[] args);
+        void method(object instance, object[] args);
     }
 
     public class Builder
