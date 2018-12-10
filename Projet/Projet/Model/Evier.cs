@@ -5,12 +5,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Projet.Model
+namespace Model
 {
     class Evier
     {
         //Liste d'ustensiles
-        private List<Ustensile> ustensiles;
+        private List<Ustensile> Ustensiles
+        {
+            get;
+        } = new List<Ustensile>();
 
         //Constructeur
         public Evier()
@@ -21,14 +24,15 @@ namespace Projet.Model
         //Laver un Ustensile
         public void laverUstensible()
         {    
-            Ustensile ust = ustensiles[0];
-            ustensiles.RemoveAt(0);
-            if (ust.getType() == Ustensile.TYPE.COUTEAUCUISINE)
+            Ustensile ust = Ustensiles[0];
+            Ustensiles.RemoveAt(0);
+
+            if (ust.Type == Ustensile.TYPE.COUTEAUCUISINE)
             {
                 Thread.Sleep(500);
                 //addStock(couteaucuisine); ///////////
             }
-            else if (ust.getType() == Ustensile.TYPE.CUILLERE)
+            else if (ust.Type == Ustensile.TYPE.CUILLERE)
             {
                 Thread.Sleep(500);
                 //addStock(cuillere); /////////////////
@@ -46,12 +50,6 @@ namespace Projet.Model
              * 
              * 
              */
-        }
-
-        //Getter et Setter
-        public List<Ustensile> getUstensile()
-        {
-            return ustensiles;
         }
 
     }

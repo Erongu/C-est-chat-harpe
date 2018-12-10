@@ -3,9 +3,9 @@ namespace Controller
 {
     public class StrategyPlonge : IStrategy
     {
-        public void method(object[] args)
+        public void method(object instance, object[] args)
         {
-            Console.WriteLine("Le plongeur plonge");
+            Console.WriteLine("Le cuisinier cuisine");
         }
     }
 }

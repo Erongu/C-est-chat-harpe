@@ -1,11 +1,11 @@
-﻿using Projet.Model.Network.Protocol.IO;
+﻿using Model.Network.Protocol.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model.Network.Protocol.Salle
+namespace Model.Network.Protocol.Salle
 {
     public class CommandeMessage : Message
     {

@@ -4,34 +4,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model
+namespace Model
 {
     class Plat
     {
-        private String nom;
-        private int table;
+        public string Nom
+        {
+            get;
+            set;
+        }
+
+        public int Table
+        {
+            get;
+            set;
+        }
 
         //Constructeur
-        public Plat(String nom, int table)
+        public Plat(string nom, int table)
         {
-            this.nom = nom;
-            this.table = table;
-        }
-
-        //Getter and setter
-        public String getNom()
-        {
-            return this.nom;
-        }
-
-        public int getTable()
-        {
-            return this.table;
-        }
-
-        public void setTable(int table)
-        {
-            this.table = table;
+            this.Nom = nom;
+            this.Table = table;
         }
 
     }

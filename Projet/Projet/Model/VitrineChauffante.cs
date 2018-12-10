@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model
+namespace Model
 {
     class VitrineChauffante
     {
         //Liste de plat
-        private List<Plat> plats;
+        private List<Plat> Plats
+        {
+            get;
+        } = new List<Plat>();
 
         //Constructeur
         public VitrineChauffante()
@@ -18,33 +21,25 @@ namespace Projet.Model
         }
 
         //Ajout d'un plat
-        public void addPlat(Plat plat)
+        public void AddPlat(Plat plat)
         {
-            plat.setTable(0);
-            this.plats.Add(plat);
+            plat.Table = 0;
+
+            this.Plats.Add(plat);
         }
 
         //Prendre un plat
-        public Plat prendrePlat(String nom)
+        public Plat PrendrePlat(string nom)
         {
-            Plat pl = getPlat(nom);
-            plats.Remove(new Plat(nom, 0));
+            Plat pl = GetPlat(nom);
+            Plats.Remove(new Plat(nom, 0));
             return pl;
         }
 
         //Getter and setter
-        public List<Plat> getPlat()
+        public Plat GetPlat(string nom)
         {
-            return this.plats;
-        }
-
-        public Plat getPlat(String nom)
-        {
-            foreach (Plat plat in plats)
-            {
-                if (plat.getNom() == nom) { return plat; }
-            }
-            return null;
+            return Plats.FirstOrDefault(x => x.Nom == nom);
         }
     }
 }

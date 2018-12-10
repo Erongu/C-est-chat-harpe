@@ -4,22 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model
+namespace Model
 {
     
     class Client
     {
-        private int type;
+        public int Type
+        {
+            get;
+            protected set;
+        }
 
         public Client()
         {
             //Typage du client
             Random rnd = new Random();
-            this.type = rnd.Next(1, 3);
+            this.Type = rnd.Next(1, 3);
             
         }
-
-        public int getType(){return this.type;}
        
     }
 }

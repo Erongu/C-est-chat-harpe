@@ -1,7 +1,7 @@
-﻿using Projet.Controller.Network.Server;
-using Projet.Model.Network.Protocol;
-using Projet.Model.Network.Protocol.Identification;
-using Projet.Model.Network.Protocol.Salle;
+﻿using Controller.Network.Server;
+using Model.Network.Protocol;
+using Model.Network.Protocol.Identification;
+using Model.Network.Protocol.Salle;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model.Network
+namespace Model.Network
 {
     public class NetworkClient : IDisposable
     {

@@ -4,24 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model
+namespace Model
 {
     class Ustensile
     {
         public enum TYPE { COUTEAUCUISINE, CASSEROLE, CUILLERE, ASSIETTE, VERRE, COUTEAU, FOURCHETTE}
 
-        private TYPE type;
+        public TYPE Type
+        {
+            get;
+            set;
+        }
 
         //Constructeur
         public Ustensile(TYPE type)
         {
-            this.type = type;
-        }
-
-        //Getter et Setter
-        public TYPE getType()
-        {
-            return this.type;
+            this.Type = type;
         }
     }
 }

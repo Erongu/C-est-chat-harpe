@@ -4,12 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model
+namespace Model
 {
     class MachineLaver
     {
-        private List<Ustensile> ustensiles;
-        private int etat;
+        private List<Ustensile> Ustensiles
+        {
+            get;
+        } = new List<Ustensile>();
+
+        public int Etat
+        {
+            get;
+        }
 
         //Constructeur
         public MachineLaver()
@@ -18,19 +25,20 @@ namespace Projet.Model
         }
 
         //Ajout d'ustensile
-        public void addUstensile(Ustensile ust)
+        public void AddUstensile(Ustensile ust)
         {
-            ustensiles.Add(ust);
+            Ustensiles.Add(ust);
         }
 
         //Vider la machine
-        public void videLaveVaisselle()
+        public void VideLaveVaisselle()
         {
-            foreach (Ustensile ust in ustensiles)
+            foreach (Ustensile ust in Ustensiles)
             {
                 //MAJ BDD
             }
-            ustensiles.Clear();
+
+            Ustensiles.Clear();
 
         }
     }

@@ -4,16 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model
+namespace Model
 {
     class Four
     {
-       private List<Ingredient> ingredients;
-       private bool etat; //Definit si le four est en cours d utilsation
+        private List<Ingredient> Ingredients
+        {
+            get;
+        } = new List<Ingredient>();
+
+       public bool Etat
+        {
+            get;
+            set;
+        } //Definit si le four est en cours d utilsation
 
         public void cuisson(int temps, List<Ingredient> ingredients)
         {
-            System.Threading.Thread.Sleep(1000*temps);
+            System.Threading.Thread.Sleep(1000 * temps);
         }
     }
 }

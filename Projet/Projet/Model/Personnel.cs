@@ -1,56 +1,55 @@
+using Controller;
+using System.Collections.Generic;
+
 namespace Model
 {
-    public class Personnel
+    public class Personnel : ClassTemplate
     {
-        private int ID;
-        private string prenom;
-        private string nom;
-        private string metier;
-        private int posX;
-        private int posY;
-
-
-       
-
-        //Getter 
-        public int getID()
+        public int Id
         {
-            return this.ID;
+            get;
+            protected set;
         }
 
-        public string getPrenom()
+        public string Prenom
         {
-            return this.prenom;
+            get;
+            protected set;
         }
 
-        public string getNom()
+        public string Nom
         {
-            return this.nom;
+            get;
+            protected set;
         }
 
-        public string getMetier()
+        public string Metier
         {
-            return this.metier;
+            get;
+            protected set;
         }
 
-        public int getPosX()
-        {
-            return this.posX;
-        }
-        public int getPosY()
 
+        public int PosX
         {
-            return this.posY;
+            get;
+            set;
         }
 
-        public void setPosX(int posX)
+        public int PosY
         {
-            this.posX = posX;
+            get;
+            set;
         }
 
-        public void setPosY(int posY)
+        public Personnel(Dictionary<string, IStrategy> strategies, Dictionary<string, object> args) : base(strategies, args)
         {
-            this.posY = posY;
+            this.Id = (int)args["id"];
+            this.Prenom = (string)args["prenom"];
+            this.Nom = (string)args["nom"];
+            this.Metier = (string)args["metier"];
+            this.PosX = (int)args["posx"];
+            this.PosY = (int)args["posy"];
         }
     }
 }

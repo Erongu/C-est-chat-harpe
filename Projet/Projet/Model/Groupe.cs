@@ -4,16 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model
+namespace Model
 {
     class Groupe
     {
-        private List<Client> clients; //Liste des clients du groupes
-        private int type; //Type du groupe
-        private int pain;
-        private int bouteille;
-        private int nombrePlat;
-        private int etat;
+        private List<Client> Clients
+        {
+            get;
+        } = new List<Client>(); //Liste des clients du groupes
+
+        public int Type
+        {
+            get;
+        } //Type du groupe
+
+        public int Pain
+        {
+            get;
+            private set;
+        }
+
+        public int Bouteille
+        {
+            get;
+            private set;
+        }
+
+        public int NombrePlat
+        {
+            get;
+            private set;
+        }
+
+        public int Etat
+        {
+            get;
+        }
         
         
        
@@ -27,24 +53,24 @@ namespace Projet.Model
             {
                 for(int j = 0;j < rnd.Next(1, 4); j++)
                 {
-                    clients.Add(new Client());
+                    Clients.Add(new Client());
                 }
             }
             else if(i < 7)//Groupe de 5 à 8 clients ~28%
             {
                 for (int j = 0; j < rnd.Next(5, 8); j++)
                 {
-                    clients.Add(new Client());
+                    Clients.Add(new Client());
                 }
             }
             else//Groupe de 9 à 10 clients ~14%
             {
                 for (int j = 0; j < rnd.Next(9, 10); j++)
                 {
-                    clients.Add(new Client());
+                    Clients.Add(new Client());
                 }
             }
-            this.type = moyenneGroupe();
+            this.Type = moyenneGroupe();
         }
 
         //Moyenne du groupe
@@ -52,10 +78,10 @@ namespace Projet.Model
         {
             int count = 0;
             double total = 0;
-            foreach (Client client in clients)
+            foreach (Client client in Clients)
             {
                 count++;
-                total += client.getType();
+                total += client.Type;
             }
             total = total / count;
             return Convert.ToInt32(Math.Round(total,0));
@@ -67,49 +93,20 @@ namespace Projet.Model
         }
 
         //Getter and Setter
-        public List<Client> getClients()
+
+        public void SetPain(int pain)
         {
-            return this.clients;
+            this.Pain = pain;
         }
 
-        public int getType()
+        public void SetBouteille(int bouteille)
         {
-            return this.type;
+            this.Bouteille = bouteille;
         }
 
-        public int getPain()
+        public void SetNombrePlat(int nbPlat)
         {
-            return this.pain;
-        }
-
-        public int getBouteille()
-        {
-            return this.bouteille;
-        }
-
-        public int getNombrePlat()
-        {
-            return this.nombrePlat;
-        }
-
-        public int getEtat()
-        {
-            return this.etat;
-        }
-
-        public void setPain(int pain)
-        {
-            this.pain = pain;
-        }
-
-        public void setBouteille(int bouteille)
-        {
-            this.bouteille = bouteille;
-        }
-
-        public void setNombrePlat(int nbPlat)
-        {
-            this.nombrePlat = nbPlat;
+            this.NombrePlat = nbPlat;
         }
 
     }

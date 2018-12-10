@@ -3,9 +3,9 @@ using Controller;
 
 namespace View
 {
-    public class Personnel : ClassTemplate
+    public class Personnel
     {
-        public Personnel(Dictionary<string, IStrategy> strategies) : base(strategies)
+        public Personnel()
         {
         }
     }
