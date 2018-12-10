@@ -9,17 +9,21 @@ namespace Controller
 {
     class StrategyMaitreHotel : IStrategy
     {
-        private int trouverTable(int nombrePersonne, Restaurant restaurant)
+        private int trouverTable(int numeroRang, int numeroCarre, int nombrePersonne, Restaurant restaurant)
         {
-            //foreach ()
-            //{
-            //}
+            foreach (Table table in new Rang(numeroRang, numeroCarre).GetTable())
+            {
+                if (table.Groupe == null)
+                {
+                    return table.Numero;
+                }
+            }
             return 0;
         }
 
         public void method(object instance, object[] args)
         {
-            //TODO : add things
+            //(Client)instance.table = trouverTable(args[0], args[1], args[2], args[3]);
         }
     }
 }

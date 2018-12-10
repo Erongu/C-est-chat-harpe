@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Controller;
 
 namespace Model
 {
@@ -53,21 +54,21 @@ namespace Model
             {
                 for(int j = 0;j < rnd.Next(1, 4); j++)
                 {
-                    Clients.Add(new Client());
+                    Clients.Add(new Factory().Create<Client>());
                 }
             }
             else if(i < 7)//Groupe de 5 à 8 clients ~28%
             {
                 for (int j = 0; j < rnd.Next(5, 8); j++)
                 {
-                    Clients.Add(new Client());
+                    Clients.Add(new Factory().Create<Client>());
                 }
             }
             else//Groupe de 9 à 10 clients ~14%
             {
                 for (int j = 0; j < rnd.Next(9, 10); j++)
                 {
-                    Clients.Add(new Client());
+                    Clients.Add(new Factory().Create<Client>());
                 }
             }
             this.Type = moyenneGroupe();

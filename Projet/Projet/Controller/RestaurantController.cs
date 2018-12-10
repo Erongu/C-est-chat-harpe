@@ -14,16 +14,21 @@ namespace Controller
 
         private static View.Restaurant vue;
         private static List<Personnel> personnels;
-
+        private static Restaurant restaurant;
         static void Main(string[] args)
         {
-            Instanciation();
+            restaurant = new Factory().Create<Restaurant>();
+            
+            Random rand = new Random();
+
+            Thread.Sleep(1);
 
             vue = new View.Restaurant();
             vue.Show();
 
-            Personnel serveur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 0 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", "serveur" }, { "posx", 3 }, { "posy", 1 } });
-            Restaurant restaurant = new Factory().Create<Restaurant>();
+            Instanciation();
+
+            Personnel serveur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 0 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 1 }, { "posx", 3 }, { "posy", 1 } });
 
             
 
@@ -41,6 +46,13 @@ namespace Controller
             while (true)
             {
                 Thread.Sleep(10);
+
+                //Generate group
+                Thread.Sleep(rand.Next(100, 301));
+
+                Client pep = new Factory().Create<Client>();
+                peps.Add(pep);
+
                 Application.DoEvents();
             }
 
@@ -113,6 +125,7 @@ namespace Controller
 
         static private void runView(object id)//Mise a jour de la vue
         {
+            personnels = new List<Personnel>();
             vue.InitVue(personnels);
 
             while (1 == 1)
@@ -131,6 +144,7 @@ namespace Controller
         private static void Instanciation()
         {
             SqlConnection connection;
+            personnels = new List<Personnel>();
             try
             {
                 // Build connection string
@@ -245,17 +259,3 @@ namespace Controller
         }
     }
 }
-
-        private static List<Personnel> personnels = new List<Personnel>();
-        private static Restaurant restaurant;
-            restaurant = new Factory().Create<Restaurant>();
- 
-            Instanciation();
-            Random rand = new Random();
-                //Generate group
-                Thread.Sleep(rand.Next(100,301));
-
-                Client pep = new Factory().Create<Client>();
-                peps.Add(pep);
-
-                Thread.Sleep(1);
