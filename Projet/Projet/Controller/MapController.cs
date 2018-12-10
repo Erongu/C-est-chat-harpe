@@ -63,5 +63,28 @@ namespace Projet.Controller
         {
             return Cells.Any(entry => entry.X == x && entry.Y == y);
         }
+
+        //Chargement de map
+        private void LoadMap()
+        {
+            Console.WriteLine("WSHLESANG");
+            int counter = 0;
+            string line;
+
+            // Read the file and display it line by line.
+            System.IO.StreamReader file = new System.IO.StreamReader(@"collisions.txt");
+            while ((line = file.ReadLine()) != null)
+            {
+                int n = 0;
+                foreach (char c in line)
+                {
+                    RawMap[counter][n] = (int)Char.GetNumericValue(c);
+                    n++;
+                }
+                counter++;
+            }
+
+            file.Close();
+        }
     }
 }
