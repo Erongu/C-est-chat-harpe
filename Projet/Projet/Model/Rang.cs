@@ -79,5 +79,10 @@ namespace Model
             return Tables.FirstOrDefault(x => x.Numero == numero);
         }
 
+        public List<Table> GetTable()
+        {
+            return this.Tables;
+        }
+
     }
 }
