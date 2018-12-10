@@ -119,6 +119,8 @@ namespace Controller
                 List<List<int>> g = (List<List<int>>)args[4];
                 List<Dictionary<string, int>> path = this.Disperse(g, coordEnd, coordStart, new List<int>() { 1 });
 
+                path.ForEach(x => x.ToList().ForEach(y => Console.WriteLine(y.Key + y.Value)));
+
                 foreach (Dictionary<string, int> position in path)
                 {
                     Thread.Sleep(200);

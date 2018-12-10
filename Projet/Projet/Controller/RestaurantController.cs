@@ -22,7 +22,7 @@ namespace Controller
 
             NetworkController.Instance.Start("127.0.0.1", 8500);
 
-            var client = new Controller.Network.Client.Client();
+            var client = new Network.Client.Client();
             client.Connect("127.0.0.1", 8500);
 
             Console.WriteLine("====");
