@@ -23,8 +23,7 @@ namespace Controller
                     for (int i = 0; i < cout; i++)
                     {
                         Dictionary<string, int> j = closedList[i];
-                        Dictionary<string, int> test = new Dictionary<string, int>() { { "x", j["x"] }, { "y", j["y"] } };
-                        if (test["x"] == end["x"] && test["y"] == end["y"] )
+                        if (j["x"] == end["x"] && j["y"] == end["y"])
                         {
                             if (j["cout"] < cout)
                             {
@@ -47,6 +46,10 @@ namespace Controller
                     {
                         previous = j;
                         path.Insert(0, j);
+                        if (previous["x"] == end["x"] && previous["y"] == end["y"])
+                        {
+                            return path;
+                        }
                         for (int k = i; k < closedList.Count; k++)
                         {
                             closedList.RemoveAt(k);
@@ -119,7 +122,7 @@ namespace Controller
                 List<List<int>> g = (List<List<int>>)args[4];
                 List<Dictionary<string, int>> path = this.Disperse(g, coordEnd, coordStart, new List<int>() { 1 });
 
-                path.ForEach(x => x.ToList().ForEach(y => Console.WriteLine(y.Key + y.Value)));
+                path.ForEach(x => x.ToList().ForEach(y => Console.WriteLine(y.Key + " : " + y.Value)));
 
                 foreach (Dictionary<string, int> position in path)
                 {

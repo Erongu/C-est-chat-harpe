@@ -9,6 +9,17 @@ namespace Model
     class Ustensile
     {
         public enum TYPE { COUTEAUCUISINE, CASSEROLE, CUILLERE, ASSIETTE, VERRE, COUTEAU, FOURCHETTE}
+        private int id
+            {
+            get;
+            set;
+            }
+
+        private int quantite
+            {
+            get;
+            set;
+            }
 
         public TYPE Type
         {
