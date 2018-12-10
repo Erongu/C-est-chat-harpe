@@ -5,15 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Model;
 
-namespace Projet.Controller
+namespace Controller
 {
-    class StrategyMaitreHotel
+    class StrategyMaitreHotel : IStrategy
     {
-        public int TrouverTable(int nombrepersonne, Restaurant restaurant)
+        private int trouverTable(int nombrePersonne, Restaurant restaurant)
         {
-            //TODO
-            //TODO
-            //TODO
+            foreach ()
+            {
+            }
+            return 0;
+        }
+
+        public void method(object instance, object[] args)
+        {
         }
     }
 }

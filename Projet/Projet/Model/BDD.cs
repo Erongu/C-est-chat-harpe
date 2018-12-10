@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model
+namespace Model
 {
     class BDD
     {
@@ -20,12 +20,13 @@ namespace Projet.Model
 
                 string request = String.Format("EXEC check_stock {0}", plat);
                 SqlCommand command = new SqlCommand(request, conn);
+                string platExiste = "";
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     // while there is another record present
                     while (reader.Read())
                     {
-                        string platExiste = (String.Format("{0}", reader[0]));
+                        platExiste = (String.Format("{0}", reader[0]));
                     }
                 }
                 conn.Close();
