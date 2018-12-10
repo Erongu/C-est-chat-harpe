@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using Model;
 
 namespace Controller
 {
@@ -107,14 +110,20 @@ namespace Controller
             }
         }
 
-        public void method(object[] args)
+        public void method(Personnel instance, object[] args)
         {
-            Dictionary<string, int> coordEnd = new Dictionary<string, int>() { { "x", (int)args[2] }, { "y", (int)args[3] }};
+            Dictionary<string, int> coordEnd = new Dictionary<string, int>() { { "x", (int)args[2] }, { "y", (int)args[3] } };
             Dictionary<string, int> coordStart = new Dictionary<string, int>() { { "x", (int)args[0] }, { "y", (int)args[1] } };
-            List<List<int>> g = new List<List<int>>() { }; //map
+            List<List<int>> g = (List<List<int>>)args[4];
             List<Dictionary<string, int>> path = this.Disperse(g, coordEnd, coordStart, new List<int>() { 1 });
 
-            //TODO : graphic
+            foreach (Dictionary<string, int> position in path)
+            {
+                Thread.Sleep(200);
+                instance.setPosX(position["x"]);
+                instance.setPosY(position["y"]);
+                Console.WriteLine(position);
+            }
         }
     }
 }

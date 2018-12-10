@@ -10,7 +10,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model.Network
+namespace Model.Network
 {
     public class NetworkClient : IDisposable
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model.Network.Protocol.IO
+namespace Model.Network.Protocol.IO
 {
     public class Writer
     {
