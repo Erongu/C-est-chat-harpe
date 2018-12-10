@@ -8,9 +8,5 @@ namespace Model
 {
     class Plaque
     {
-        private List<Ingredient> ingredients
-        {
-            get;
-        } = new List<Ingredient>(); 
     }
 }
