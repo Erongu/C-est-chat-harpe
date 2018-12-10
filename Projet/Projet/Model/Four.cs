@@ -11,9 +11,10 @@ namespace Projet.Model
        private List<Ingredient> ingredients;
        private bool etat; //Definit si le four est en cours d utilsation
 
-        public void cuisson(int temps, List<Ingredient> ingredients)
+        public List<Ingredient> cuisson(int temps, List<Ingredient> ingredients)
         {
             System.Threading.Thread.Sleep(1000*temps);
+            return ingredients;
         }
     }
 }

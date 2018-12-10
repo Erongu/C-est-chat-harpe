@@ -8,5 +8,6 @@ namespace Projet.Model
 {
     class Ingredient
     {
+        
     }
 }

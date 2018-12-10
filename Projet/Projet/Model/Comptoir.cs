@@ -10,7 +10,7 @@ namespace Projet.Model
     {
         private List<Plat> plats;
         
-        public List<Plat> getPlat(int numeroTable)
+        public List<Plat> GetPlat(int numeroTable) //Le serveur prend un plat sur le comptoir
         {
             List<Plat> platsAservir = new List<Plat>();
             
@@ -30,7 +30,7 @@ namespace Projet.Model
 
         }
 
-        public void addPlat(Plat plat)
+        public void AddPlat(Plat plat) //Les cuisiniers reservent un plat sur le comptoir
         {
         if (this.plats.Count < 14)
             this.plats.Add(plat);
