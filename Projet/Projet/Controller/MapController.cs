@@ -1,6 +1,7 @@
 ﻿using Projet.Model.Pathfinding;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +23,6 @@ namespace Projet.Controller
             }
         }
 
-        public List<List<int>> RawMap
-        {
-            get;
-            private set;
-        }
-
         public MapPoint[] Cells
         {
             get;
@@ -39,25 +34,16 @@ namespace Projet.Controller
 
         }
 
-        public void Initialize(List<List<int>> map)
+        public void Initialize()
         {
-            RawMap = map;
+            if (m_isInitalized)
+                return;
 
-            BuildMap(map);
+            LoadMap();
 
             m_isInitalized = true;
         }
 
-        private void BuildMap(List<List<int>> map)
-        {
-            var cellsList = new List<MapPoint>();
-
-            for (var y = 0; y < map.Count; y++)
-                for (var x = 0; x < map[y].Count; x++)
-                    cellsList.Add(new MapPoint(y, x, x == 1));
-
-            Cells = cellsList.ToArray();
-        }
 
         public bool IsInMap(int x, int y)
         {
@@ -65,26 +51,28 @@ namespace Projet.Controller
         }
 
         //Chargement de map
-        public void LoadMap()
+        private void LoadMap()
         {
-            Console.WriteLine("WSHLESANG");
-            int counter = 0;
-            string line;
+            var cellsList = new List<MapPoint>();
 
             // Read the file and display it line by line.
-            System.IO.StreamReader file = new System.IO.StreamReader(@"collisions.txt");
-            while ((line = file.ReadLine()) != null)
+            StreamReader file = new StreamReader(@"collisions.txt");
+            var fileContent = file.ReadToEnd();
+
+            var lines = fileContent.Split('\n');
+
+            for(var y = 0; y < lines.Length; y++)
             {
-                int n = 0;
-                foreach (char c in line)
+                for(var x = 0; x < lines[y].Length; x++)
                 {
-                    RawMap[counter][n] = (int)Char.GetNumericValue(c);
-                    n++;
+                    var isObstacle = lines[y][x] == '1';
+                    cellsList.Add(new MapPoint(y, x, isObstacle));
                 }
-                counter++;
             }
 
             file.Close();
+
+            Cells = cellsList.ToArray();
         }
     }
 }
