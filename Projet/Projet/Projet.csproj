@@ -62,6 +62,7 @@
     <Compile Include="Model\Network\Protocol\IO\Writer.cs" />
     <Compile Include="Model\Network\Protocol\Message.cs" />
     <Compile Include="Model\Network\Protocol\MessageHandler.cs" />
+    <Compile Include="Model\Network\Protocol\Salle\CommandeMessage.cs" />
     <Compile Include="Model\Network\Server\NetworkClient.cs" />
     <Compile Include="Model\Personnel.cs" />
     <Compile Include="Model\Client.cs" />

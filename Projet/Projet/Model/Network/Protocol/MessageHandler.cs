@@ -1,5 +1,6 @@
 ﻿using Projet.Model.Network.Protocol.Identification;
 using Projet.Model.Network.Protocol.IO;
+using Projet.Model.Network.Protocol.Salle;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,12 @@ namespace Projet.Model.Network.Protocol
                 case PingMessage.Id:
                     message = new PingMessage();
                     break;
+
                 case PongMessage.Id:
                     message = new PongMessage();
+                    break;
+                case CommandeMessage.Id:
+                    message = new CommandeMessage();
                     break;
             }
 
