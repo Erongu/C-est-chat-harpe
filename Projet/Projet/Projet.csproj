@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Builder.cs" />
+    <Compile Include="Controller\StrategyMaitreHotel.cs" />
     <Compile Include="Controller\ClassTemplate.cs" />
     <Compile Include="Controller\Factory.cs" />
     <Compile Include="Controller\GetEvent.cs" />

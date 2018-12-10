@@ -88,5 +88,15 @@ namespace Model
         {
             return Carres.FirstOrDefault(x => x.Numero == numero);
         }
+
+        public List<Table> GetAllTables()
+        {
+            List<Table> tables = GetCarre(1).GetRang(1).GetTable();
+            tables.AddRange(GetCarre(1).GetRang(1).GetTable());
+            tables.AddRange(GetCarre(1).GetRang(2).GetTable());
+            tables.AddRange(GetCarre(2).GetRang(1).GetTable());
+            tables.AddRange(GetCarre(2).GetRang(2).GetTable());
+            return tables;
+        }
     }
 }
