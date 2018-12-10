@@ -22,7 +22,7 @@ namespace Model
             protected set;
         }
 
-        public string Metier
+        public int Metier
         {
             get;
             protected set;
@@ -46,7 +46,7 @@ namespace Model
             this.ID = (int)args["id"];
             this.Prenom = (string)args["prenom"];
             this.Nom = (string)args["nom"];
-            this.Metier = (string)args["metier"];
+            this.Metier = (int)args["metier"];
             this.PosX = (int)args["posx"];
             this.PosY = (int)args["posy"];
         }

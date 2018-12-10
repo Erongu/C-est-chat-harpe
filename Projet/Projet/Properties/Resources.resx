@@ -118,7 +118,46 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="chef_de_cusine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chef_de_cusine.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chef_de_partie" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chef_de_partie.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="chef_de_rang" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\chef_de_rang.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="client1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\client1.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="client2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\client2.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="client3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\client3.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="commis_c" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\commis-c.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="commis_s" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\commis-s.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="cuisine" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cuisine.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cuisine1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cuisine1.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="maître_d_hotel" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\maître_d_hotel.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="plongeur" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\plongeur.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="salle1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\salle1.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="serveur" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\serveur.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

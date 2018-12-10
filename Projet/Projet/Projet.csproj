@@ -109,6 +109,44 @@
   <ItemGroup>
     <None Include="Resources\cuisine.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\chef_de_cusine.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chef_de_partie.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chef_de_rang.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\client1.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\client2.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\client3.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\commis-c.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\commis-s.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cuisine1.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\maître_d_hotel.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plongeur.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\salle1.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\serveur.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
