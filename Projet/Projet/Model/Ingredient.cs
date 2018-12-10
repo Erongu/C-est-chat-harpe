@@ -8,6 +8,14 @@ namespace Model
 {
     class Ingredient
     {
-        
+        private string nom
+        {
+            get;
+        }
+
     }
+
+
+
+
 }

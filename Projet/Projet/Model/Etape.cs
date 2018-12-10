@@ -8,5 +8,10 @@ namespace Projet.Model
 {
     class Etape
     {
+        private string action;
+        private int temps;
+        private Ingredient ingredient;
+        private int numeroEtape;
+
     }
 }
