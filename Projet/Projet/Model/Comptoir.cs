@@ -13,12 +13,12 @@ namespace Model
             get;
         } = new List<Plat>();
         
-        public List<Plat> GetPlat(int numeroTable)
+        public List<Plat> GetPlat(int numeroTable) //Le serveur prend un plat sur le comptoir
         {
             return Plats.Where(x => x.Table == numeroTable).ToList();
         }
 
-        public void AddPlat(Plat plat)
+        public void AddPlat(Plat plat) //Les cuisiniers reservent un plat sur le comptoir
         {
             if (this.Plats.Count < 14)
                 this.Plats.Add(plat);

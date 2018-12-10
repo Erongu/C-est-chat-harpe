@@ -122,8 +122,10 @@ namespace Controller
                 foreach (Dictionary<string, int> position in path)
                 {
                     Thread.Sleep(200);
+
                     ((Personnel)instance).PosX = position["x"];
                     ((Personnel)instance).PosY = position["y"];
+                  
                     Console.WriteLine(position);
                 }
             }

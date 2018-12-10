@@ -5,12 +5,6 @@ namespace Model
 {
     public class Personnel : ClassTemplate
     {
-        public int Id
-        {
-            get;
-            protected set;
-        }
-
         public string Prenom
         {
             get;

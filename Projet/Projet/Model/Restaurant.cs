@@ -88,6 +88,5 @@ namespace Model
         {
             return Carres.FirstOrDefault(x => x.Numero == numero);
         }
-
     }
 }
