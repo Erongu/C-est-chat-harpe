@@ -1,6 +1,7 @@
 ﻿using Projet.Model.Pathfinding;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,12 +23,6 @@ namespace Projet.Controller
             }
         }
 
-        public List<List<int>> RawMap
-        {
-            get;
-            private set;
-        }
-
         public MapPoint[] Cells
         {
             get;
@@ -39,29 +34,45 @@ namespace Projet.Controller
 
         }
 
-        public void Initialize(List<List<int>> map)
+        public void Initialize()
         {
-            RawMap = map;
+            if (m_isInitalized)
+                return;
 
-            BuildMap(map);
+            LoadMap();
 
             m_isInitalized = true;
         }
 
-        private void BuildMap(List<List<int>> map)
-        {
-            var cellsList = new List<MapPoint>();
-
-            for (var y = 0; y < map.Count; y++)
-                for (var x = 0; x < map[y].Count; x++)
-                    cellsList.Add(new MapPoint(y, x, x == 1));
-
-            Cells = cellsList.ToArray();
-        }
 
         public bool IsInMap(int x, int y)
         {
             return Cells.Any(entry => entry.X == x && entry.Y == y);
+        }
+
+        //Chargement de map
+        private void LoadMap()
+        {
+            var cellsList = new List<MapPoint>();
+
+            // Read the file and display it line by line.
+            StreamReader file = new StreamReader(@"collisions.txt");
+            var fileContent = file.ReadToEnd();
+
+            var lines = fileContent.Split('\n');
+
+            for(var y = 0; y < lines.Length; y++)
+            {
+                for(var x = 0; x < lines[y].Length; x++)
+                {
+                    var isObstacle = lines[y][x] == '1';
+                    cellsList.Add(new MapPoint(y, x, isObstacle));
+                }
+            }
+
+            file.Close();
+
+            Cells = cellsList.ToArray();
         }
     }
 }
