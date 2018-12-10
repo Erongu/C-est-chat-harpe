@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,29 @@ namespace Projet.Model
 {
     class Etape
     {
-        private string action;
-        private int temps;
-        private Ingredient ingredient;
-        private int numeroEtape;
+        private string Action
+        {
+            get;
+            set;
+        }
+
+        private int Temps
+        {
+            get;
+            set;
+        }
+
+        private Ingredient ingredient
+        {
+            get;
+            set;
+        }
+
+        private int NumeroEtape
+        {
+            get;
+            set;
+        }
 
     }
 }

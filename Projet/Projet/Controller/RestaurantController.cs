@@ -5,6 +5,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Model;
 using System.Data.SqlClient;
+using Projet.Controller;
 
 namespace Controller
 {
@@ -12,17 +13,17 @@ namespace Controller
     {
 
         private static View.Restaurant vue;
-        private static List<Personnel> personnels = new List<Personnel>();
-        private static Restaurant restaurant;
+        private static List<Personnel> personnels;
 
         static void Main(string[] args)
         {
-            restaurant = new Factory().Create<Restaurant>();
- 
+            Instanciation();
+
             vue = new View.Restaurant();
             vue.Show();
 
-            Instanciation();
+            Personnel serveur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 0 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", "serveur" }, { "posx", 3 }, { "posy", 1 } });
+            Restaurant restaurant = new Factory().Create<Restaurant>();
 
             
 
@@ -33,12 +34,13 @@ namespace Controller
 
             Console.WriteLine("====");
 
-            //serveur.method("Serve", new object[5] { serveur.PosX, serveur.PosY, 10, 4, restaurant.Map });
+            serveur.method("Serve", new object[5] { serveur.PosX, serveur.PosY, 10, 4, restaurant.Map });
+
+            List<Client> peps = new List<Client>() { };
 
             while (true)
             {
                 Thread.Sleep(10);
-                new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 0 }, { "prenom", "bl" }, { "nom", "bl" }, { "metier", 1 }, { "posx", 4 }, { "posy", 1 } }).method("Serve", new object[5] { 4, 1, 7, 9, restaurant.Map });
                 Application.DoEvents();
             }
 
@@ -243,3 +245,17 @@ namespace Controller
         }
     }
 }
+
+        private static List<Personnel> personnels = new List<Personnel>();
+        private static Restaurant restaurant;
+            restaurant = new Factory().Create<Restaurant>();
+ 
+            Instanciation();
+            Random rand = new Random();
+                //Generate group
+                Thread.Sleep(rand.Next(100,301));
+
+                Client pep = new Factory().Create<Client>();
+                peps.Add(pep);
+
+                Thread.Sleep(1);

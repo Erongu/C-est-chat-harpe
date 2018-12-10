@@ -3,11 +3,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Model;
+using Projet.Model.Pathfinding;
 
 namespace Controller
 {
     public class StrategyServeur : IStrategy
     {
+        public const int MAX_ITERATION = 500;
+
+        public Path FindPath(MapPoint start, MapPoint end)
+        {
+            int iteration = 0;
+            bool success = false;
+
+            var currentPath = new Path(new List<MapPoint>());
+
+            var locationPoint = start;
+
+            while(!success)
+            {
+                if (iteration >= MAX_ITERATION)
+                    break;
+
+                MapPoint nextPoint = null;
+                Dictionary<MapPoint, uint> possiblePoints = new Dictionary<MapPoint, uint>();
+
+                for (var i = 0; i < 4; i++)
+                {
+                    var next = locationPoint.GetMapPointInDirection((DirectionsEnum)i);
+
+                    if (!next.IsInMap())
+                        continue;
+
+                    if (next.IsObstacle)
+                        continue;
+
+                    possiblePoints.Add(next, next.ManhattanDistanceTo(end));
+                }
+
+                nextPoint = possiblePoints.OrderBy(x => x.Value).FirstOrDefault().Key;
+
+                currentPath.AddPoint(nextPoint);
+
+                locationPoint = nextPoint;
+
+                if (nextPoint.Equals(end))
+                    success = true;
+
+                iteration++;
+            }
+
+            return currentPath;
+        }
+
         protected List<Dictionary<string, int>> GetChemin(List<Dictionary<string, int>> closedList, Dictionary<string, int> end)
         {
             int isSearching = 0;
@@ -117,7 +165,7 @@ namespace Controller
         {
             if (instance.GetType().Name == "Personnel")
             {
-                Dictionary<string, int> coordEnd = new Dictionary<string, int>() { { "x", (int)args[2] }, { "y", (int)args[3] } };
+                /*Dictionary<string, int> coordEnd = new Dictionary<string, int>() { { "x", (int)args[2] }, { "y", (int)args[3] } };
                 Dictionary<string, int> coordStart = new Dictionary<string, int>() { { "x", (int)args[0] }, { "y", (int)args[1] }, { "cout", 0 } };
                 List<List<int>> g = (List<List<int>>)args[4];
                 List<Dictionary<string, int>> path = this.Disperse(g, coordEnd, coordStart, new List<int>() { 1 });
@@ -132,7 +180,22 @@ namespace Controller
                     ((Personnel)instance).PosY = position["y"];
                   
                     Console.WriteLine(position);
+                }*/
+                var start = new MapPoint((int)args[0], (int)args[1]);
+                var end = new MapPoint((int)args[2], (int)args[3]);
+
+                var path = FindPath(start, end);
+
+                foreach (var point in path.Cells)
+                {
+                    Thread.Sleep(200);
+
+                    ((Personnel)instance).PosX = point.X;
+                    ((Personnel)instance).PosY = point.Y;
+
+                    Console.WriteLine(point);
                 }
+                
             }
         }
     }

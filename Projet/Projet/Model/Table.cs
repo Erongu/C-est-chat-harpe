@@ -26,11 +26,39 @@ namespace Model
             set;
         }
 
+        public int Rang
+        {
+            get;
+            set;
+        }
+
+        public int Carre
+        {
+            get;
+            set;
+        }
+
+        public int x
+        {
+            get;
+            set;
+        }
+
+        public int y
+        {
+            get;
+            set;
+        }
+
         //Constructeur
-        public Table(int numero, int place)
+        public Table(int numero, int place, int rang, int carre, int x, int y)
         {
             this.Numero = numero;
             this.Place = place;
+            this.Rang = rang;
+            this.Carre = carre;
+            this.x = x;
+            this.y = y;
         }
 
     }

@@ -1,11 +1,15 @@
-using System;
+using Model;
 namespace Controller
 {
     public class StrategyCuisinier : IStrategy
     {
         public void method(object instance, object[] args)
         {
-            Console.WriteLine("Le cuisinier cuisine");
+            BDD databaseConnection = new BDD();
+            foreach (int plat in args)
+            {
+                databaseConnection.UpdateStock(plat);
+            }
         }
     }
 }

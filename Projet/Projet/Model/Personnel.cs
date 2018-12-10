@@ -41,6 +41,8 @@ namespace Model
             set;
         }
 
+
+
         public Personnel(Dictionary<string, IStrategy> strategies, Dictionary<string, object> args) : base(strategies, args)
         {
             this.ID = (int)args["id"];
