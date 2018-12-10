@@ -65,7 +65,7 @@ namespace Projet.Controller
         }
 
         //Chargement de map
-        private void LoadMap()
+        public void LoadMap()
         {
             Console.WriteLine("WSHLESANG");
             int counter = 0;
