@@ -5,6 +5,11 @@ namespace Model
 {
     public class Personnel : ClassTemplate
     {
+        public int ID
+        {
+            get;
+            protected set;
+        }
         public string Prenom
         {
             get;
@@ -38,7 +43,7 @@ namespace Model
 
         public Personnel(Dictionary<string, IStrategy> strategies, Dictionary<string, object> args) : base(strategies, args)
         {
-            this.Id = (int)args["id"];
+            this.ID = (int)args["id"];
             this.Prenom = (string)args["prenom"];
             this.Nom = (string)args["nom"];
             this.Metier = (string)args["metier"];
