@@ -10,6 +10,8 @@ namespace Controller
             {
                 databaseConnection.UpdateStock(plat);
             }
+
+            //TODO : add cooking time
         }
     }
 }

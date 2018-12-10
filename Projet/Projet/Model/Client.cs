@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Controller;
 
 namespace Model
 {
     
-    class Client
+    class Client : ClassTemplate
     {
         public int Type
         {
@@ -15,7 +16,7 @@ namespace Model
             protected set;
         }
 
-        public Client()
+        public Client(Dictionary<string, IStrategy> strategies, Dictionary<string, object> args) : base(strategies, args)
         {
             //Typage du client
             Random rnd = new Random();
