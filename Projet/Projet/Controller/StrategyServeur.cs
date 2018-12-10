@@ -115,7 +115,7 @@ namespace Controller
             if (instance.GetType().Name == "Personnel")
             {
                 Dictionary<string, int> coordEnd = new Dictionary<string, int>() { { "x", (int)args[2] }, { "y", (int)args[3] } };
-                Dictionary<string, int> coordStart = new Dictionary<string, int>() { { "x", (int)args[0] }, { "y", (int)args[1] } };
+                Dictionary<string, int> coordStart = new Dictionary<string, int>() { { "x", (int)args[0] }, { "y", (int)args[1] }, { "cout", 0 } };
                 List<List<int>> g = (List<List<int>>)args[4];
                 List<Dictionary<string, int>> path = this.Disperse(g, coordEnd, coordStart, new List<int>() { 1 });
 
