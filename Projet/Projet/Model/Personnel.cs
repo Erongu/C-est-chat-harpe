@@ -1,6 +1,9 @@
+using Controller;
+using System.Collections.Generic;
+
 namespace Model
 {
-    public class Personnel
+    public class Personnel : ClassTemplate
     {
         private int ID;
         private string prenom;
@@ -9,8 +12,15 @@ namespace Model
         private int posX;
         private int posY;
 
-
-       
+        public Personnel(Dictionary<string, IStrategy> strategies, Dictionary<string, object> args) : base(strategies, args)
+        {
+            this.ID = (int)args["ID"];
+            this.prenom = (string)args["prenom"];
+            this.nom = (string)args["nom"];
+            this.metier = (string)args["metier"];
+            this.posX = (int)args["posX"];
+            this.posY = (int)args["posY"];
+        }
 
         //Getter 
         public int getID()

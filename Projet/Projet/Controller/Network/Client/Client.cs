@@ -1,6 +1,6 @@
-﻿using Projet.Model.Network;
-using Projet.Model.Network.Protocol;
-using Projet.Model.Network.Protocol.Identification;
+﻿using Model.Network;
+using Model.Network.Protocol;
+using Model.Network.Protocol.Identification;
 using System;
 using System.Collections.Generic;
 using System.Linq;

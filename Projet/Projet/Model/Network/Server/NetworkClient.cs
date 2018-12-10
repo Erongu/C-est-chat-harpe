@@ -1,6 +1,7 @@
 ﻿using Projet.Controller.Network.Server;
 using Projet.Model.Network.Protocol;
 using Projet.Model.Network.Protocol.Identification;
+using Projet.Model.Network.Protocol.Salle;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model.Network
+namespace Model.Network
 {
     public class NetworkClient : IDisposable
     {
@@ -119,7 +120,14 @@ namespace Projet.Model.Network
 
                     Console.WriteLine($"  TimeStamp: {crtl.TimeStamp}");
                     break;
+                case CommandeMessage.Id:
+                    var cm = message as CommandeMessage;
+
+                    Console.WriteLine($" {cm.Plats.Count} plats / {cm.Tables.Count} tables");
+                    break;
             }
+
+
         }
 
         protected virtual void Dispose()

@@ -4,6 +4,6 @@ namespace Controller
 {
     public class ClassTemplate : Builder
     {
-        public ClassTemplate(Dictionary<string, IStrategy> strategies) : base(strategies) { }
+        public ClassTemplate(Dictionary<string, IStrategy> strategies, Dictionary<string, object> args) : base(strategies, args) { }
     }
 }

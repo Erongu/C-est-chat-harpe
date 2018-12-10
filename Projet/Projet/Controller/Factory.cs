@@ -7,7 +7,7 @@ namespace Controller
     {
         public Factory() { }
 
-        public T Create<T>()
+        public T Create<T>(Dictionary<string, object> args = null)
         {
             Dictionary<string, IStrategy> strategies;
 
@@ -26,7 +26,7 @@ namespace Controller
                                             };
             }
 
-            return (T)Activator.CreateInstance(typeof(T), strategies);
+            return (T)Activator.CreateInstance(typeof(T), strategies, args );
         }
     }
 }

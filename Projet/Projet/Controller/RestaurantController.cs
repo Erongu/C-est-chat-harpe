@@ -1,8 +1,9 @@
 ﻿using Projet.Controller.Network.Server;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
-using View;
+using Model;
 
 namespace Controller
 {
@@ -16,7 +17,8 @@ namespace Controller
             vue = new View.Restaurant();
             vue.Show();
 
-            Personnel serveur = new Factory().Create<Personnel>();
+            Personnel serveur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 0 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", "serveur" }, { "posx", 3 }, { "posy", 1 } });
+            Restaurant restaurant = new Factory().Create<Restaurant>();
 
             NetworkController.Instance.Start("127.0.0.1", 8500);
 
@@ -25,7 +27,7 @@ namespace Controller
 
             Console.WriteLine("====");
 
-            serveur.method("Serve", null); // change argument
+            serveur.method("Serve", new object[5] { serveur.getPosX(), serveur.getPosY(), 10, 4, restaurant.getMap() });
 
             while (true)
             {
