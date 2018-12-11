@@ -44,14 +44,14 @@ namespace View
             // font
             // 
             this.font.BackgroundImage = global::Projet.Properties.Resources.cuisine;
+            this.font.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.font.Controls.Add(this.panel1);
-            this.font.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.font.Dock = System.Windows.Forms.DockStyle.Top;
             this.font.Location = new System.Drawing.Point(0, 0);
             this.font.Name = "font";
-            this.font.Size = new System.Drawing.Size(1314, 796);
+            this.font.Size = new System.Drawing.Size(1314, 839);
             this.font.TabIndex = 0;
             this.font.Paint += new System.Windows.Forms.PaintEventHandler(this.font_Paint);
-            this.font.BackgroundImageLayout = ImageLayout.None;
             // 
             // panel1
             // 
@@ -62,7 +62,7 @@ namespace View
             this.panel1.Controls.Add(this.fastBtn);
             this.panel1.Controls.Add(this.pauseBtn);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 757);
+            this.panel1.Location = new System.Drawing.Point(0, 800);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1314, 39);
             this.panel1.TabIndex = 0;
@@ -124,11 +124,11 @@ namespace View
             // 
             // Restaurant
             // 
-            this.ClientSize = new System.Drawing.Size(1314,850);
+            this.ClientSize = new System.Drawing.Size(1314, 841);
             this.Controls.Add(this.font);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1330, 850);
+            this.MaximumSize = new System.Drawing.Size(1330, 880);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1330, 0);
             this.Name = "Restaurant";
