@@ -1,0 +1,491 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Controller.DatabaseController">
+    <Position X="21" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAEAAAQAAAAIAAAgABAAACAAKYCAACAAAAAA=</HashCode>
+      <FileName>Controller\DatabaseController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.LogController">
+    <Position X="10.5" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAYAAAAAAABAAAAgAAAAIQAAAAEQAAAA=</HashCode>
+      <FileName>Controller\LogController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.MapController">
+    <Position X="14" Y="2.5" Width="2.5" />
+    <NestedTypes>
+      <Class Name="Controller.MapController.ComparePfNodeMatrix" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controller\MapController.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAgIAIAAEEAQAIAIIAIQAAAAAAAAAA=</HashCode>
+      <FileName>Controller\MapController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.RestaurantController">
+    <Position X="14" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAQCCIACAAAAICAAAAAIAQBAAiAkAAAAQIBAwAQCQ=</HashCode>
+      <FileName>Controller\RestaurantController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.Network.Client.Client">
+    <Position X="17.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CAQAAABAAAAASAAAAEAAAIAAAAAAAAIAAAABAAAAQAA=</HashCode>
+      <FileName>Controller\Network\Client\Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.Network.Server.NetworkController">
+    <Position X="21" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAEACGAABAAAAAAAAACAAAAgAAAIQAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Network\Server\NetworkController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.Strategy.Builder">
+    <Position X="2.5" Y="0.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Strategy\Builder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.Strategy.ClassTemplate">
+    <Position X="3.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Strategy\ClassTemplate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.Strategy.Factory">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Strategy\Factory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Controller.Strategy.Cuisine.StrategyCuisinier" BaseTypeListCollapsed="true">
+    <Position X="17.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Strategy\Cuisine\StrategyCuisinier.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Controller.Strategy.Cuisine.StrategyLavage" BaseTypeListCollapsed="true">
+    <Position X="19.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Strategy\Cuisine\StrategyLavage.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Controller.Strategy.Cuisine.StrategyPlonge" BaseTypeListCollapsed="true">
+    <Position X="22.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Strategy\Cuisine\StrategyPlonge.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Controller.Strategy.Salle.StrategyMaitreHotel" BaseTypeListCollapsed="true">
+    <Position X="21" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Strategy\Salle\StrategyMaitreHotel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Controller.Strategy.Salle.StrategyServeur" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Strategy\Salle\StrategyServeur.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Model.Comptoir">
+    <Position X="19.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABgAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Comptoir.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Personnel">
+    <Position X="2.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAwAAAACQAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Model\Personnel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Restaurant">
+    <Position X="5" Y="5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAACAAAAAAAAAAAAAAQACQAAAAAABAAAAAAAg=</HashCode>
+      <FileName>Model\Restaurant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Cuisine.Etape">
+    <Position X="22.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAABAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Model\Cuisine\Etape.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Cuisine.Evier">
+    <Position X="10.5" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Model\Cuisine\Evier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Cuisine.Four">
+    <Position X="14" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAACAAAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>Model\Cuisine\Four.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Cuisine.Frigo">
+    <Position X="15.75" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAABgAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Cuisine\Frigo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Cuisine.Ingredient">
+    <Position X="19.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Cuisine\Ingredient.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Cuisine.LaveVaisselle">
+    <Position X="21" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACABAAAAAAAAAAAAggAA=</HashCode>
+      <FileName>Model\Cuisine\LaveVaisselle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Cuisine.MachineLaver">
+    <Position X="12.25" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAggAA=</HashCode>
+      <FileName>Model\Cuisine\MachineLaver.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Cuisine.Plaque">
+    <Position X="14" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Cuisine\Plaque.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Cuisine.Recette">
+    <Position X="22.75" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAgAAAAAAAAACAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Model\Cuisine\Recette.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Cuisine.Ustensile">
+    <Position X="10.5" Y="6.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Model.Cuisine.Ustensile.TYPE" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Model\Cuisine\Ustensile.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAIAAAAAAA=</HashCode>
+      <FileName>Model\Cuisine\Ustensile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Cuisine.VitrineChauffante">
+    <Position X="12.25" Y="6.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAABgAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Cuisine\VitrineChauffante.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Network.BufferPool">
+    <Position X="12.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAAAAEAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Network\BufferPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Network.NetworkClient" BaseTypeListCollapsed="true">
+    <Position X="19.25" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAABAACAASAAAAEAAAAAAIAAAAQAAAAABAAAAQAA=</HashCode>
+      <FileName>Model\Network\Server\NetworkClient.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Model.Network.Protocol.Identification.PingMessage">
+    <Position X="4" Y="11.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAACAAAAAAAAAAAAAAAAAACBAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Network\Protocol\Identification\PingMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Network.Protocol.Identification.PongMessage">
+    <Position X="7" Y="11.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAACAAAAAAAAAAAAAAAAAACBAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Network\Protocol\Identification\PongMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Network.Protocol.IO.Reader">
+    <Position X="21" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAAIgAAAAUAAAAIAAAAAAAA=</HashCode>
+      <FileName>Model\Network\Protocol\IO\Reader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Network.Protocol.IO.Writer">
+    <Position X="14" Y="6.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAAAgAAAAIAAABAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Network\Protocol\IO\Writer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Network.Protocol.Message">
+    <Position X="4.25" Y="8.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACBAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Network\Protocol\Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Network.Protocol.MessageHandler">
+    <Position X="17.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model\Network\Protocol\MessageHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Network.Protocol.Salle.CommandeMessage">
+    <Position X="0.5" Y="11.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAgAAAAQAAAACBAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Network\Protocol\Salle\CommandeMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Pathfinding.MapPoint">
+    <Position X="15.75" Y="2.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EgAIIAAgAAAAACAFgAAAAAACAAIAgAAAAICAAAAAYBg=</HashCode>
+      <FileName>Model\Pathfinding\MapPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Pathfinding.NodesComparer" BaseTypeListCollapsed="true">
+    <Position X="22.75" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAIAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Model\Pathfinding\NodeComparer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Model.Pathfinding.Path">
+    <Position X="10.5" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAIIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Pathfinding\Path.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Pathfinding.PriorityQueueB&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="17.5" Y="3.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAEABAACAAABAQAAACAAAAFAEAgAABACQA=</HashCode>
+      <FileName>Model\Pathfinding\PriorityQueueB.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Model.Salle.Carre">
+    <Position X="14" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAACAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Model\Salle\Carre.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Salle.Client">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Model\Salle\Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Salle.Groupe">
+    <Position X="17.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAgAAAACAAgAAAAAAAAAQAAQAAAAAAgQA=</HashCode>
+      <FileName>Model\Salle\Groupe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Salle.Plat">
+    <Position X="15.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Salle\Plat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Salle.Rang">
+    <Position X="19.25" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Model\Salle\Rang.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Salle.Table">
+    <Position X="14" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAEBgAAABAAA=</HashCode>
+      <FileName>Model\Salle\Table.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Threading.AsyncRandom">
+    <Position X="10.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAACAA=</HashCode>
+      <FileName>Model\Threading\AsyncRandom.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Threading.SingleLinkNode&lt;T&gt;">
+    <Position X="15.75" Y="4.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Threading\LockFreeQueue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Threading.LockFreeQueue&lt;T&gt;" BaseTypeListCollapsed="true">
+    <Position X="22.75" Y="1.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>ACBAAAABAAAQABAAAAAAAAQAAAAABAAAAACAAABBAAA=</HashCode>
+      <FileName>Model\Threading\LockFreeQueue.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Model.Threading.TaskMessage">
+    <Position X="17.5" Y="5.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQEAIAAAAAAAAAAEAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Model\Threading\TaskMessage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Threading.TaskPool">
+    <Position X="19.25" Y="5.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAQAACAAAAAwAAAAQIQIAhAAAAAAAgBAAAACgBg=</HashCode>
+      <FileName>Model\Threading\TaskPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Threading.TaskFactoryExtension">
+    <Position X="15.75" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Threading\TaskPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Model.Threading.TaskTimer" BaseTypeListCollapsed="true">
+    <Position X="21" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AQAABAQAACAAAJEEAIAAABAAgAAIAAAAIAACAAAAAAQ=</HashCode>
+      <FileName>Model\Threading\TaskTimer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Model.Threading.TimedTimerComparer" BaseTypeListCollapsed="true">
+    <Position X="22.75" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Model\Threading\TaskTimer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Projet.Properties.Resources">
+    <Position X="10.5" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AgAACAAAAABAOAAAACABEAEBAQAACAIACBAAAAAgAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="View.Client">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vue\Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="View.Personnel">
+    <Position X="12.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAwAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vue\Personnel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="View.Restaurant">
+    <Position X="12.25" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAoBAAEAACCAAIEAAAAAgAACEYEAAQgEAEAIAQBAAAE=</HashCode>
+      <FileName>Vue\Restaurant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="View.Table">
+    <Position X="12.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Vue\Table.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Model.Pathfinding.PathNode">
+    <Position X="10.5" Y="7.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAQAAAAAAAAAAAAACAGEAAAAA=</HashCode>
+      <FileName>Model\Pathfinding\Path.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="Controller.Strategy.IStrategy">
+    <Position X="12.25" Y="9" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\Strategy\Builder.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Model.Pathfinding.IPriorityQueue&lt;T&gt;">
+    <Position X="10.5" Y="9" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAEAAAAAAAAAAAAAACAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Model\Pathfinding\PriorityQueueB.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Model.Enums.DirectionsEnum">
+    <Position X="10.5" Y="10" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAEAEAAAAABAAAAAAA=</HashCode>
+      <FileName>Model\Enums\DirectionsEnum.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Model.Enums.PersonnelEnums">
+    <Position X="14" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAAAAEAAAAAAAAgAAAAAwAAAAAACAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Model\Enums\PersonnelEnums.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Model.Pathfinding.NodeState">
+    <Position X="12.25" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAGAAAA=</HashCode>
+      <FileName>Model\Pathfinding\Path.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
