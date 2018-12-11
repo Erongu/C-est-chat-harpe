@@ -24,7 +24,7 @@ namespace Controller.Strategy
 
                 foreach (var point in path.Cells)
                 {
-                    Thread.Sleep(200);
+                    Thread.Sleep((int)Math.Round(100 / RestaurantController.Vitesse));
 
                     ((Personnel)instance).PosX = point.X;
                     ((Personnel)instance).PosY = point.Y;

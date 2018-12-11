@@ -2,6 +2,7 @@
 using Model.Pathfinding;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -81,6 +82,14 @@ namespace Controller
             Cells = cellsList.ToArray();
         }
 
+        public MapPoint GetRandomFreeCell()
+        {
+            var random = new Random();
+            var freeCells = Cells.Where(x => x.Obstacle == false).ToList();
+
+            return freeCells[random.Next(0, freeCells.Count - 1)];
+        }
+
         private static double GetHeuristic(MapPoint pointA, MapPoint pointB)
         {
             var dxy = new Point(Math.Abs(pointB.X - pointA.X), Math.Abs(pointB.Y - pointA.Y));
@@ -91,6 +100,8 @@ namespace Controller
 
         public Model.Pathfinding.Path FindPath(MapPoint start, MapPoint end)
         {
+            var stopwatch = Stopwatch.StartNew();
+
             int iteration = 0;
             bool success = false;
 
@@ -141,7 +152,7 @@ namespace Controller
                     if (!newLocationPoint.IsInMap())
                         continue;
 
-                    if (newLocationPoint.IsObstacle())
+                    if (!newLocationPoint.Equals(end) && newLocationPoint.IsObstacle())
                         continue;
 
                     double newG = matrix[location].G + 1;
@@ -183,6 +194,9 @@ namespace Controller
 
             var path = closedList.Select(x => new MapPoint(x.CellId)).ToList();
 
+            stopwatch.Stop();
+            LogController.Instance.Debug($"Chemin de {start} à {end} trouvé en {stopwatch.ElapsedMilliseconds}ms");
+            stopwatch.Reset();
             return new Model.Pathfinding.Path(path);
         }
 

@@ -9,19 +9,22 @@ using Controller;
 using Controller.Strategy;
 using Model.Enums;
 using Model.Salle;
+using Model.Pathfinding;
+using System.Linq;
+using System.Reflection;
 
 namespace Controller
 {
     class RestaurantController
     {
-
+        public static double Vitesse = 1.0;
         public static View.Restaurant Vue;
 
         private static Restaurant restaurant;
         private static Random random = new Random();
 
         private static List<Personnel> personnels = new List<Personnel>();
-        private static List<Client> clients = new List<Client>() { };
+        private static List<Groupe> groupes = new List<Groupe>() { };
 
         public static Network.Client.Client Client = new Network.Client.Client();
 
@@ -42,13 +45,14 @@ namespace Controller
             //DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
             MapController.Instance.Initialize();
             personnels.Add(serveur);
-            SpawnNpc();
 
             NetworkController.Instance.Start("127.0.0.1", 8500);
             Client.Connect("127.0.0.1", 8500);
 
             LogController.Instance.Info("Initialisation terminé.");
 
+            SpawnNpc();
+            StartThreads();
 
             while (true) // Loop Logic
             {
@@ -67,84 +71,185 @@ namespace Controller
             // Generate group
             // Thread.Sleep(random.Next(100, 301)); On évite les Thread Sleep, ça casse tout le temps réel
 
-            clients.Add(new Factory().Create<Client>());
-
+            // clients.Add(new Factory().Create<Client>());
             Vue.UpdateVue(personnels);
         }
 
-        static private void RunMaitreHotel(object id)
+        public static void AddGroupe()
         {
-
+            var groupe = new Factory().Create<Groupe>();
+            groupes.Add(groupe);
         }
 
-        static private void RunChefRang(object id)
+        private static void StartThreads()
         {
-
-        }
-
-        static private void RunServeur(object id)
-        {
-            while (true)
+            foreach (MethodInfo methodRun in typeof(RestaurantController).GetMethods(BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance))
             {
-                personnels[(int)id].Call("Serve", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, random.Next(0, 15), random.Next(0, 40) });
+                if (methodRun.Name.StartsWith("Run"))
+                {
+                    Action action = (Action)Delegate.CreateDelegate(typeof(Action), methodRun);
+                    Thread thread = new Thread(() => action());
 
-                Thread.Sleep(5000);
+                    thread.Start();
+                }
             }
 
         }
 
-        static private void RunCommis(object id)
+        static private void RunMaitreHotel()
         {
+            LogController.Instance.Debug("Start Thread");
 
-            
+            while (true)
+            {
+                var maitresDhotels = personnels.Where(x => x.Metier == (int)PersonnelEnums.Maitre_Hotel);
+
+                foreach (var mHotel in maitresDhotels)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
         }
 
-        static private void RunChef(object id)
+        static private void RunChefRang()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
+            {
+                var chefsRangs = personnels.Where(x => x.Metier == (int)PersonnelEnums.Chef_Rang);
+
+                foreach (var cRang in chefsRangs)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
+        }
+
+        static private void RunServeurs()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
+            {
+                var serveurs = personnels.Where(x => x.Metier == (int)PersonnelEnums.Serveur);
+
+                foreach (var serveur in serveurs)
+                {
+                    var cell = MapController.Instance.GetRandomFreeCell();
+                    serveur.Call("Serve", new object[4] { serveur.PosX, serveur.PosY, cell.X, cell.Y });
+                }
+
+                Thread.Sleep(30);
+            }
+
+        }
+
+        static private void RunCommis()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
+            {
+                var commisSalle = personnels.Where(x => x.Metier == (int)PersonnelEnums.Commis_Salle);
+
+                foreach (var cSalle in commisSalle)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
+        }
+
+        static private void RunChef()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
+            {
+                var chefCuistos = personnels.Where(x => x.Metier == (int)PersonnelEnums.Chef_Cuisto);
+
+                foreach (var cCuisto in chefCuistos)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
+        }
+
+        static private void RunChefPlat()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
+            {
+                var chefPlats = personnels.Where(x => x.Metier == (int)PersonnelEnums.Chef_Partie);
+
+                foreach (var cPlats in chefPlats)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
+        }
+
+        static private void RunCommisCuisine()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
+            {
+                var commisCuisine = personnels.Where(x => x.Metier == (int)PersonnelEnums.Commis_Cuisine);
+
+                foreach (var cCuisine in commisCuisine)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
+        }
+
+        static private void RunPlongeur()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
+            {
+                var plongeurs = personnels.Where(x => x.Metier == (int)PersonnelEnums.Plongeur);
+
+                foreach (var plongeur in plongeurs)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
+        }
+
+        static private void RunLaveVaisselle()
         {
 
         }
 
-        static private void RunChefPlat(object id)
+        static private void RunMachineLaver()
         {
 
         }
 
-        static private void RunCommisCuisine(object id)
+        static private void RunFour()
         {
 
         }
 
-        static private void RunPlongeur(object id)
-        {
-
-        }
-
-        static private void RunLaveVaisselle(object id)
-        {
-
-        }
-
-        static private void RunMachineLaver(object id)
-        {
-
-        }
-
-        static private void RunFour(object id)
-        {
-
-        }
-
-        static private void RunPlaque(object id)
-        {
-
-        }
-
-        static private void RunView() // Mise a jour de la vue
-        {
-            Vue.InitVue(personnels);           
-        }
-
-        static private void RunGenerator(object id)
+        static private void RunPlaque()
         {
 
         }
@@ -152,49 +257,9 @@ namespace Controller
         private static void SpawnNpc()
         {
             LogController.Instance.Info("Génération des NPCs");
-
             //personnels = DatabaseController.Instance.GetPersonnels();
 
-            if (personnels == null)
-                return;
-
-            foreach(var personnel in personnels)
-            {
-                Thread thread = null;
-
-                switch (personnel.Metier)
-                {
-                    case (int)PersonnelEnums.Serveur:
-                        thread = new Thread(new ParameterizedThreadStart(RunServeur));
-                        break;
-                    case (int)PersonnelEnums.Maitre_Hotel:
-                        thread = new Thread(new ParameterizedThreadStart(RunMaitreHotel));
-                        break;
-                    case (int)PersonnelEnums.Chef_Rang:
-                        thread = new Thread(new ParameterizedThreadStart(RunChefRang));
-                        break;
-                    case (int)PersonnelEnums.Commis_Salle:
-                        thread = new Thread(new ParameterizedThreadStart(RunCommis));
-                        break;
-                    case (int)PersonnelEnums.Chef_Cuisto:
-                        thread = new Thread(new ParameterizedThreadStart(RunChef));
-                        break;
-                    case (int)PersonnelEnums.Chef_Partie:
-                        thread = new Thread(new ParameterizedThreadStart(RunChefPlat));
-                        break;
-                    case (int)PersonnelEnums.Commis_Cuisine:
-                        thread = new Thread(new ParameterizedThreadStart(RunCommisCuisine));
-                        break;
-                    case (int)PersonnelEnums.Plongeur:
-                        thread = new Thread(new ParameterizedThreadStart(RunPlongeur));
-                        break;
-                }
-
-                thread.Start(personnel.ID);
-            }
-
-            Thread vueThread = new Thread(RunView);
-            vueThread.Start();
+            Vue.InitVue(personnels);
         }
     }
 }
