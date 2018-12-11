@@ -6,15 +6,14 @@ namespace Controller.Strategy.Cuisine
     {
         public void Call(object instance, object[] args)
         {
-            MachineLaver machineLaver = new MachineLaver();
-
-            switch (args[0])
-            {
+            LaveVaisselle laveVaisselle = new LaveVaisselle();
+   
+            switch (args[0]) {
                 case "vide":
-                    machineLaver.VideMachineLaver();
+                    laveVaisselle.VideLaveVaisselle();                 
                     break;
                 case "add":
-                    machineLaver.AddUstensile(new Ustensile((Ustensile.TYPE)args[1]));
+                    laveVaisselle.AddUstensile(new Ustensile((Ustensile.TYPE)args[1]));
                     break;
             }
         }
