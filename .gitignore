@@ -265,3 +265,4 @@ __pycache__/
 Projet/Projet/Controller/RestaurantController.cs
 .vs/slnx.sqlite
 *.sqlite
+*.sqlite
