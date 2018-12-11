@@ -9,6 +9,6 @@ namespace Controller.Strategy.Salle
 {
     class StrategyMaitreHotel : IStrategy
     {
-        public void Call(object instance, object[] args) => (Client)instance.table = (Rang)args[0].Tables.First(i => i.GetGroupe().Clients.count() == 0);
+        public void Call(object instance, object[] args) => (Rang)args[0].Tables.First(i => i.GetGroupe().Clients.count() == 0).SetGroupe((Groupe)args[1]);
     }
 }
