@@ -125,9 +125,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\cuisine.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\chef_de_cusine.gif" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +164,10 @@
     <None Include="Resources\serveur.gif" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\cuisine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\collisions.txt" />
     <None Include="Resources\cuisine_grille.bmp" />
   </ItemGroup>
   <ItemGroup>

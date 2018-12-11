@@ -9,7 +9,7 @@ namespace Model.Enums
     public enum PersonnelEnums
     {
         Serveur = 1,
-        Maitre_Hotel,
+        Maitre_Hotel = 2,
         Chef_Rang,
         Commis_Salle,
         Chef_Cuisto,

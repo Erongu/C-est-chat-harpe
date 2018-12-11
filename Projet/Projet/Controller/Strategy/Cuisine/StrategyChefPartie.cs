@@ -1,6 +1,6 @@
 using Model;
 
-namespace Controller.Strategy
+namespace Controller.Strategy.Cuisine
 {
     public class StrategyCuisinier : IStrategy
     {

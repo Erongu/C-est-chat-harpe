@@ -15,15 +15,16 @@ namespace Controller.Strategy
             {
                 strategies = new Dictionary<string, IStrategy>()
                                             {
-                                                {"Move", new StrategyServeur()}
+                                                {"Move", new StrategyServeur()},
+                                                {"ChooseTable", new StrategyMaitreHotel()},
+                                                {"Cook", new StrategyChefPartie()},
+                                                {"Plonge", new StrategyPlongeur()},
+                                                {"Lave", new StrategyLavage()}
                                             };
             }
             else
             {
-                strategies = new Dictionary<string, IStrategy>()
-                                            {
-                                                {"Plonge", new StrategyPlonge()}
-                                            };
+                strategies = new Dictionary<string, IStrategy>() { };
             }
 
             return (T)Activator.CreateInstance(typeof(T), strategies, args );

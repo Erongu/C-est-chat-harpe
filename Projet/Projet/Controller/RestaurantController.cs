@@ -39,10 +39,12 @@ namespace Controller
             Vue.Show();
 
             Personnel serveur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 0 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 1 }, { "posx", 3 }, { "posy", 1 } });
+            Personnel maitre_hotel = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 1 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 2 }, { "posx", 4 }, { "posy", 21 } });
 
             //DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
             MapController.Instance.Initialize();
             personnels.Add(serveur);
+            personnels.Add(maitre_hotel);
 
             NetworkController.Instance.Start("127.0.0.1", 8500);
             Client.Connect("127.0.0.1", 8500);
@@ -98,12 +100,20 @@ namespace Controller
         {
             LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
+            List<Groupe> groupeMAJ = new List<Groupe>();
+
             while (true)
             {
                 var maitresDhotels = personnels.Where(x => x.Metier == (int)PersonnelEnums.Maitre_Hotel);
+                
 
                 foreach (var mHotel in maitresDhotels)
                 {
+                    //Comparaison liste groupe
+                    if(groupeMAJ != groupes)
+                    {
+
+                    }
 
                 }
             }

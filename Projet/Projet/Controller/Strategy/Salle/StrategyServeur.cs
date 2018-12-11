@@ -8,7 +8,7 @@ using Model.Enums;
 using Model.Pathfinding;
 using Model.Threading;
 
-namespace Controller.Strategy
+namespace Controller.Strategy.Salle
 {
     public class StrategyServeur : IStrategy
     {
