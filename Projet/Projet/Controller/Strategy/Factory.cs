@@ -15,7 +15,7 @@ namespace Controller.Strategy
             {
                 strategies = new Dictionary<string, IStrategy>()
                                             {
-                                                {"Serve", new StrategyServeur()},
+                                                {"Move", new StrategyServeur()},
                                                 {"ChooseTable", new StrategyMaitreHotel()},
                                                 {"Cook", new StrategyChefPartie()},
                                                 {"Plonge", new StrategyPlongeur()}
