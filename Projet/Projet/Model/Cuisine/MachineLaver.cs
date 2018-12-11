@@ -31,7 +31,7 @@ namespace Model.Cuisine
         }
 
         //Vider la machine
-        public void VideLaveVaisselle()
+        public void VideMachineLaver()
         {
             foreach (Ustensile ust in Ustensiles)
             {

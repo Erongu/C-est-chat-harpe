@@ -1,5 +1,6 @@
 ﻿using Model.Enums;
 using Model.Pathfinding;
+using Model.Threading;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,6 +18,7 @@ namespace Controller
 
         private static MapController m_instance = null;
         private bool m_isInitalized = false;
+        private AsyncRandom m_random = new AsyncRandom();
 
         public static MapController Instance
         {
@@ -84,10 +86,9 @@ namespace Controller
 
         public MapPoint GetRandomFreeCell()
         {
-            var random = new Random();
             var freeCells = Cells.Where(x => x.Obstacle == false).ToList();
-
-            return freeCells[random.Next(0, freeCells.Count - 1)];
+            var peek = new AsyncRandom().Next(0, freeCells.Count - 1);
+            return freeCells[peek];
         }
 
         private static double GetHeuristic(MapPoint pointA, MapPoint pointB)

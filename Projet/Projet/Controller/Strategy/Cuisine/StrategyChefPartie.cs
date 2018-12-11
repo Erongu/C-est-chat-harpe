@@ -1,4 +1,5 @@
 using Model;
+using System.Linq;
 
 namespace Controller.Strategy.Cuisine
 {
@@ -8,10 +9,11 @@ namespace Controller.Strategy.Cuisine
         {
             foreach (int plat in args)
             {
-                DatabaseController.Instance.UpdateStock(plat);
+                if (DatabaseController.Instance.CheckStock(plat).All(i => i>0))
+                {
+                    DatabaseController.Instance.UpdateStock(plat);
+                }
             }
-
-            //TODO : add cooking time
         }
     }
 }
