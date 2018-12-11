@@ -153,7 +153,7 @@ namespace Controller
         {
             LogController.Instance.Info("Génération des NPCs");
 
-            //personnels = DatabaseController.Instance.GetPersonnels();
+            personnels = DatabaseController.Instance.GetPersonnels();
 
             if (personnels == null)
                 return;
