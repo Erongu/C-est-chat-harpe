@@ -115,9 +115,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\cuisine.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\chef_de_cusine.gif" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +152,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\serveur.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cuisine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\collisions.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
