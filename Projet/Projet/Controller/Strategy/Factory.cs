@@ -18,7 +18,8 @@ namespace Controller.Strategy
                                                 {"Move", new StrategyServeur()},
                                                 {"ChooseTable", new StrategyMaitreHotel()},
                                                 {"Cook", new StrategyChefPartie()},
-                                                {"Plonge", new StrategyPlongeur()}
+                                                {"Plonge", new StrategyPlongeur()},
+                                                {"Lave", new StrategyLavage()}
                                             };
             }
             else
