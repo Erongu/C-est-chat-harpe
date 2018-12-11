@@ -99,7 +99,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Vue\Client.cs" />
-    <Compile Include="Vue\Personnel.cs" />
+    <Compile Include="Vue\Personnel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Vue\Restaurant.cs">
       <SubType>Form</SubType>
     </Compile>
