@@ -1,3 +1,5 @@
+using Controller.Strategy.Cuisine;
+using Controller.Strategy.Salle;
 using System;
 using System.Collections.Generic;
 
@@ -17,8 +19,8 @@ namespace Controller.Strategy
                                             {
                                                 {"Move", new StrategyServeur()},
                                                 {"ChooseTable", new StrategyMaitreHotel()},
-                                                {"Cook", new StrategyChefPartie()},
-                                                {"Plonge", new StrategyPlongeur()},
+                                                {"Cook", new StrategyCuisinier()},
+                                                {"Plonge", new StrategyPlonge()},
                                                 {"Lave", new StrategyLavage()}
                                             };
             }

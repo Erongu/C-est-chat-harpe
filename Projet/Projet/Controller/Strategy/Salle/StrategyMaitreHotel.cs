@@ -9,6 +9,9 @@ namespace Controller.Strategy.Salle
 {
     class StrategyMaitreHotel : IStrategy
     {
-        public void Call(object instance, object[] args) => (Client)instance.table = (Rang)args[0].Tables.First(0);
+        public void Call(object instance, object[] args)
+        {
+
+        }
     }
 }
