@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+
 using System.Threading.Tasks;
 
 namespace Controller
@@ -51,6 +52,10 @@ namespace Controller
 
         private string m_connectionString;
 
+
+
+
+
         public string ConnectionString
         {
             get
@@ -66,7 +71,7 @@ namespace Controller
                         ConnectRetryCount = 0,
                         ConnectTimeout = 2
                     };
-                           
+
                     m_connectionString = builder.ConnectionString;
                 }
 
@@ -79,6 +84,9 @@ namespace Controller
 
         }
 
+
+
+
         public void Initialize(string host, string userId, string password, string database)
         {
             Host = host;
@@ -88,6 +96,11 @@ namespace Controller
 
             LogController.Instance.Info("Ouverture de la base de données");
         }
+
+
+
+
+
 
         public List<Personnel> GetPersonnels()
         {
@@ -131,6 +144,9 @@ namespace Controller
             }
         }
 
+
+
+
         public void UpdateStock(int plat)
         {
             try
@@ -143,7 +159,7 @@ namespace Controller
 
                 sqlConnection.Open();
                 command.ExecuteNonQuery();
-                sqlConnection.Dispose();
+
             }
             catch
             {
@@ -151,5 +167,61 @@ namespace Controller
             }
         }
 
-    }
+
+        public string CheckStock(int plat)
+        {
+            string platExiste = "";
+
+            try
+            {
+                
+
+                var sqlConnection = new SqlConnection(ConnectionString);
+
+                SqlCommand command = new SqlCommand("check_stock", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.Add(new SqlParameter("@plat", plat));
+                sqlConnection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    // while there is another record present
+
+                    while (reader.Read())
+                    {
+                        platExiste = (String.Format("{0}", reader[0]));
+                    }
+                }
+                sqlConnection.Dispose();
+            }
+            catch
+            {
+                LogController.Instance.Error("Database connection timeout");
+            }
+            return platExiste;
+        }
+
+
+        public void Livraison()
+        {
+            try
+            {
+                var sqlConnection = new SqlConnection(ConnectionString);
+
+                SqlCommand command = new SqlCommand("livraison", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                command.ExecuteNonQuery();
+            }
+            catch
+            {
+                LogController.Instance.Error("Database connection timeout");
+            }
+        }
+
+
+
+
+
+
+    }   
 }
