@@ -1,11 +1,11 @@
 using Model;
 using System.Collections.Generic;
 
-namespace Controller
+namespace Controller.Strategy
 {
     public interface IStrategy
     {
-        void method(object instance, object[] args);
+        void Call(object instance, object[] args);
     }
 
     public class Builder
@@ -17,9 +17,9 @@ namespace Controller
             this.strategies = strategies;
         }
 
-        public void method(string key, object[] args)
+        public void Call(string key, object[] args)
         {
-            this.strategies[key].method(this, args);
+            this.strategies[key].Call(this, args);
         }
     }
 }

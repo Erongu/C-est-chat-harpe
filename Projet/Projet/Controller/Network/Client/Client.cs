@@ -1,6 +1,7 @@
 ﻿using Model.Network;
 using Model.Network.Protocol;
 using Model.Network.Protocol.Identification;
+using Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,7 +59,7 @@ namespace Controller.Network.Client
             e.Completed -= OnConnected;
             e.Dispose();
 
-            Console.WriteLine("[Client] Connected !");
+            LogController.Instance.Info("Client connecté sur le port 8500");
 
             ResumeReceive();
         }
@@ -102,7 +103,7 @@ namespace Controller.Network.Client
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Client] Error receiving");
+                LogController.Instance.Error("Error receiving");
 
                 Disconnect();
             }
@@ -117,21 +118,18 @@ namespace Controller.Network.Client
             if (Connected)
             {
                 m_socket.Disconnect(false);
-                Console.WriteLine("[Client] Disconnected");
+                LogController.Instance.Network("Disconnected");
             }
         }
 
         private void HandleMessage(Message message)
         {
-            Console.WriteLine("[Client] Received " + message.GetType().Name);
+            LogController.Instance.Network("RCV: " + message.GetType().Name);
 
             switch (message.MessageId)
             {
                 case PingMessage.Id:
                     var crtl = message as PingMessage;
-
-                    Console.WriteLine($"  TimeStamp: {crtl.TimeStamp}");
-
                     Send(new PongMessage(crtl.TimeStamp));
                     break;
             }

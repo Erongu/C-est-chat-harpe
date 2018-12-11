@@ -1,4 +1,5 @@
 ﻿using Model.Network;
+using Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,8 @@ namespace Controller.Network.Server
             StartAccept();
 
             m_acceptArgs.Completed += (sender, e) => ProcessAccept(e);
+
+            LogController.Instance.Info("Serveur Socket en lecture sur le port 8500");
         }
 
         private void StartAccept()
@@ -71,7 +74,7 @@ namespace Controller.Network.Server
             }
             catch
             {
-                Console.WriteLine("Error when accepting client");
+                LogController.Instance.Error("Error when accepting client");
             }
             finally
             {
@@ -81,7 +84,7 @@ namespace Controller.Network.Server
 
         private void OnClientConnected(NetworkClient client)
         {
-            Console.WriteLine("[Server] New client connected !");
+            LogController.Instance.Network("New client connected !");
         }
 
         public void OnClientDisconnected(NetworkClient client)
@@ -93,7 +96,7 @@ namespace Controller.Network.Server
             if (!removed)
                 return;
 
-            Console.WriteLine("[Server] Client disconnected !");
+            LogController.Instance.Network("Client disconnected !");
         }
     }
 }

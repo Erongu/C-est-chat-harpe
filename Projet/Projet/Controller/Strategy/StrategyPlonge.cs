@@ -1,9 +1,10 @@
-using Model;
-namespace Controller
+using Model.Cuisine;
+
+namespace Controller.Strategy
 {
     public class StrategyPlonge : IStrategy
     {
-        public void method(object instance, object[] args)
+        public void Call(object instance, object[] args)
         {
             LaveVaisselle laveVaisselle = new LaveVaisselle();
    

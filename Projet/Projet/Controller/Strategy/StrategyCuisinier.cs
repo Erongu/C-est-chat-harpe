@@ -1,14 +1,14 @@
 using Model;
-namespace Controller
+
+namespace Controller.Strategy
 {
     public class StrategyCuisinier : IStrategy
     {
-        public void method(object instance, object[] args)
+        public void Call(object instance, object[] args)
         {
-            BDD databaseConnection = new BDD();
             foreach (int plat in args)
             {
-                databaseConnection.UpdateStock(plat);
+                DatabaseController.Instance.UpdateStock(plat);
             }
 
             //TODO : add cooking time

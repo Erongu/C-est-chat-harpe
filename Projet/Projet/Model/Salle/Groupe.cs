@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Controller;
+using Controller.Strategy;
 
-namespace Model
+namespace Model.Salle
 {
     class Groupe
     {
@@ -40,74 +42,60 @@ namespace Model
         {
             get;
         }
-        
-        
-       
+
+        //Moyenne du groupe
+        private int MoyenneGroupe
+        {
+            get
+            {
+                int count = 0;
+                double total = 0;
+                foreach (Client client in Clients)
+                {
+                    count++;
+                    total += client.Type;
+                }
+                total = total / count;
+                return Convert.ToInt32(Math.Round(total, 0));
+            }
+        }
+
+
         //Constructeur
         public Groupe()
         {
             //Création de la liste de client du groupe
             Random rnd = new Random();
             int i = rnd.Next(1, 7);
-            if (i < 5)//Groupe de 1 à 4 clients ~57%
+            if (i < 5) // Groupe de 1 à 4 clients ~57%
             {
-                for(int j = 0;j < rnd.Next(1, 4); j++)
+                for(int j = 0; j < rnd.Next(1, 4); j++)
                 {
-                    Clients.Add(new Client());
+                    Clients.Add(new Factory().Create<Client>());
                 }
             }
-            else if(i < 7)//Groupe de 5 à 8 clients ~28%
+            else if(i < 7) // Groupe de 5 à 8 clients ~28%
             {
                 for (int j = 0; j < rnd.Next(5, 8); j++)
                 {
-                    Clients.Add(new Client());
+                    Clients.Add(new Factory().Create<Client>());
                 }
             }
-            else//Groupe de 9 à 10 clients ~14%
+            else // Groupe de 9 à 10 clients ~14%
             {
                 for (int j = 0; j < rnd.Next(9, 10); j++)
                 {
-                    Clients.Add(new Client());
+                    Clients.Add(new Factory().Create<Client>());
                 }
             }
-            this.Type = moyenneGroupe();
+
+            this.Type = MoyenneGroupe;
         }
 
-        //Moyenne du groupe
-        private int moyenneGroupe()
-        {
-            int count = 0;
-            double total = 0;
-            foreach (Client client in Clients)
-            {
-                count++;
-                total += client.Type;
-            }
-            total = total / count;
-            return Convert.ToInt32(Math.Round(total,0));
-        }
 
-        public void runGroupe()
+        public void RunGroupe()
         {
 
         }
-
-        //Getter and Setter
-
-        public void SetPain(int pain)
-        {
-            this.Pain = pain;
-        }
-
-        public void SetBouteille(int bouteille)
-        {
-            this.Bouteille = bouteille;
-        }
-
-        public void SetNombrePlat(int nbPlat)
-        {
-            this.NombrePlat = nbPlat;
-        }
-
     }
 }

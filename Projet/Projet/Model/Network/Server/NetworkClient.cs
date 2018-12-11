@@ -2,6 +2,7 @@
 using Model.Network.Protocol;
 using Model.Network.Protocol.Identification;
 using Model.Network.Protocol.Salle;
+using Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -111,19 +112,16 @@ namespace Model.Network
 
         private void HandleMessage(Message message)
         {
-            Console.WriteLine("[ServerClient] Received " + message.GetType().Name);
+            LogController.Instance.Network($"RCV: {message.GetType().Name}");
 
             switch (message.MessageId)
             {
                 case PongMessage.Id:
                     var crtl = message as PongMessage;
-
-                    Console.WriteLine($"  TimeStamp: {crtl.TimeStamp}");
                     break;
                 case CommandeMessage.Id:
                     var cm = message as CommandeMessage;
-
-                    Console.WriteLine($" {cm.Plats.Count} plats / {cm.Tables.Count} tables");
+                    LogController.Instance.Debug($" {cm.Plats.Count} plats / {cm.Tables.Count} tables");
                     break;
             }
 

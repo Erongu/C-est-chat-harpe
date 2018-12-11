@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace Model.Cuisine
 {
-    class LaveVaisselle
+    class MachineLaver
     {
         private List<Ustensile> Ustensiles
         {
@@ -19,7 +19,7 @@ namespace Model
         }
 
         //Constructeur
-        public LaveVaisselle()
+        public MachineLaver()
         {
 
         }
@@ -33,13 +33,13 @@ namespace Model
         //Vider la machine
         public void VideLaveVaisselle()
         {
-            foreach(Ustensile ust in Ustensiles)
+            foreach (Ustensile ust in Ustensiles)
             {
                 //MAJ BDD
             }
 
             Ustensiles.Clear();
-        }
 
+        }
     }
 }

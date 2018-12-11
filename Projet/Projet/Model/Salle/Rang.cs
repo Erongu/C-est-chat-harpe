@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace Model.Salle
 {
     class Rang
     {
         //Liste des tables
-        private List<Table> Tables
+        public List<Table> Tables
         {
             get;
         } = new List<Table>();
@@ -77,11 +77,6 @@ namespace Model
         public Table GetTable(int numero)
         {
             return Tables.FirstOrDefault(x => x.Numero == numero);
-        }
-
-        public List<Table> GetTable()
-        {
-            return this.Tables;
         }
 
     }

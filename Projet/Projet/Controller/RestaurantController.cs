@@ -5,257 +5,261 @@ using System.Threading;
 using System.Windows.Forms;
 using Model;
 using System.Data.SqlClient;
-using Projet.Controller;
+using Controller;
+using Controller.Strategy;
+using Model.Enums;
+using Model.Salle;
+using Model.Pathfinding;
+using System.Linq;
+using System.Reflection;
 
 namespace Controller
 {
     class RestaurantController
     {
+        public static double Vitesse = 1.0;
+        public static View.Restaurant Vue;
 
-        private static View.Restaurant vue;
-        private static List<Personnel> personnels;
+        private static Restaurant restaurant;
+        private static Random random = new Random();
+
+        private static List<Personnel> personnels = new List<Personnel>();
+        private static List<Groupe> groupes = new List<Groupe>() { };
+
+        public static Network.Client.Client Client = new Network.Client.Client();
 
         static void Main(string[] args)
         {
-            Instanciation();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
 
-            vue = new View.Restaurant();
-            vue.Show();
-
-            Personnel serveur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 0 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", "serveur" }, { "posx", 3 }, { "posy", 1 } });
-            Restaurant restaurant = new Factory().Create<Restaurant>();
-
+            restaurant = new Factory().Create<Restaurant>();
             
+            Thread.Sleep(1);
+
+            Vue = new View.Restaurant();
+            Vue.Show();
+
+            Personnel serveur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 0 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 1 }, { "posx", 3 }, { "posy", 1 } });
+
+            //DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
+            MapController.Instance.Initialize();
+            personnels.Add(serveur);
 
             NetworkController.Instance.Start("127.0.0.1", 8500);
+            Client.Connect("127.0.0.1", 8500);
 
-            var client = new Network.Client.Client();
-            client.Connect("127.0.0.1", 8500);
+            LogController.Instance.Info("Initialisation terminé.");
 
-            Console.WriteLine("====");
+            SpawnNpc();
+            StartThreads();
 
-            serveur.method("Serve", new object[5] { serveur.PosX, serveur.PosY, 10, 4, restaurant.Map });
-
-            List<Client> peps = new List<Client>() { };
-
-            while (true)
+            while (true) // Loop Logic
             {
-                Thread.Sleep(10);
+                Thread.Sleep(1);
+
+                Loop(); // On mets tout ce qui doit être en temps réel dans cette fonction
+
                 Application.DoEvents();
             }
 
 
         }
 
-        static private void runMaitreHotel(object id)
+        static private void Loop()
         {
+            // Generate group
+            // Thread.Sleep(random.Next(100, 301)); On évite les Thread Sleep, ça casse tout le temps réel
 
+            // clients.Add(new Factory().Create<Client>());
+            Vue.UpdateVue(personnels);
         }
 
-        static private void runChefRang(object id)
+        public static void AddGroupe()
         {
-
+            var groupe = new Factory().Create<Groupe>();
+            groupes.Add(groupe);
         }
 
-        static private void runServeur(object id)
+        private static void StartThreads()
         {
-            Thread.Sleep(3000);
-            Console.WriteLine(personnels[(int)id].PosX);
-            personnels[(int)id].method("Serve", new object[5] { personnels[(int)id].PosX, personnels[(int)id].PosY, 7, 9, restaurant.Map });
-            Console.WriteLine(personnels[(int)id].PosX);
-        }
-
-        static private void runCommis(object id)
-        {
-
-            
-        }
-
-        static private void runChef(object id)
-        {
-
-        }
-
-        static private void runChefPlat(object id)
-        {
-
-        }
-
-        static private void runCommisCuisine(object id)
-        {
-
-        }
-
-        static private void runPlongeur(object id)
-        {
-
-        }
-
-        static private void runLaveVaisselle(object id)
-        {
-
-        }
-
-        static private void runMachineLaver(object id)
-        {
-
-        }
-
-        static private void runFour(object id)
-        {
-
-        }
-
-        static private void runPlaque(object id)
-        {
-
-        }
-
-        static private void runView(object id)//Mise a jour de la vue
-        {
-            vue.InitVue(personnels);
-
-            while (1 == 1)
+            foreach (MethodInfo methodRun in typeof(RestaurantController).GetMethods(BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance))
             {
-                vue.UpdateVue(personnels);
-                Thread.Sleep(33);
-            }
-            
-        }
-
-        static private void runGenerator(object id)
-        {
-
-        }
-
-        private static void Instanciation()
-        {
-            SqlConnection connection;
-            try
-            {
-                // Build connection string
-                SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-                builder.DataSource = "10.176.50.249";   // update me
-                builder.UserID = "chef";              // update me
-                builder.Password = "password";     // update me
-                builder.InitialCatalog = "resto";
-
-                // Connect to SQL
-                Console.Write("Connecting to SQL Server ... ");
-                using (connection = new SqlConnection(builder.ConnectionString))
+                if (methodRun.Name.StartsWith("Run"))
                 {
-                    connection.Open();//Ouverture de la connection
-                    Console.WriteLine("Done.");
-                    Console.WriteLine("Chargement des personnages :");
+                    Action action = (Action)Delegate.CreateDelegate(typeof(Action), methodRun);
+                    Thread thread = new Thread(() => action());
 
-                    SqlCommand command = connection.CreateCommand();//Création de la commande
-                    command.CommandText = "SELECT * FROM personnel";
-
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        // while there is another record present
-                        int i = 0;
-                        while (reader.Read())
-                        {
-                            int result;
-                            int.TryParse(reader[4].ToString(), out result);
-                            //Instance des personnage
-                            Thread th;
-                            if (result == 1)//Construction d'un serveur
-                            {
-                                Console.WriteLine("Creation d'un serveur");
-                                Personnel serveur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", i }, { "prenom", reader[1] }, { "nom", reader[2] }, { "metier", reader[4] }, { "posx", 3 }, { "posy", 9 } });
-                                personnels.Add(serveur);
-                                th = new Thread(new ParameterizedThreadStart(runServeur));
-                                th.Start(i);
-                            }
-                            else if (result == 2)//Maitre d'hotel
-                            {
-                                Console.WriteLine("Creation d'un Maitre d'Hotel");
-                                Personnel mHotel = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", i }, { "prenom", reader[1] }, { "nom", reader[2] }, { "metier", reader[4] }, { "posx", 3 }, { "posy", 1 } });
-                                personnels.Add(mHotel);
-                                th = new Thread(new ParameterizedThreadStart(runMaitreHotel));
-                                th.Start(i);
-                            }
-                            else if (result == 3)//Chef de rang
-                            {
-                                Console.WriteLine("Creation d'un Chef de Rang");
-                                Personnel cRang = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", i }, { "prenom", reader[1] }, { "nom", reader[2] }, { "metier", reader[4] }, { "posx", 3 }, { "posy", 1 } });
-                                personnels.Add(cRang);
-                                th = new Thread(new ParameterizedThreadStart(runChefRang));
-                                th.Start(i);
-                            }
-                            else if (result == 4)//Commis salle
-                            {
-                                Console.WriteLine("Creation d'un Commis de salle");
-                                Personnel cSalle = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", i }, { "prenom", reader[1] }, { "nom", reader[2] }, { "metier", reader[4] }, { "posx", 0 }, { "posy", 0 } });
-                                personnels.Add(cSalle);
-                                th = new Thread(new ParameterizedThreadStart(runCommis));
-                                th.Start(i);
-                            }
-                            else if (result == 5)//Chef cuisto
-                            {
-                                Console.WriteLine("Creation d'un Chef");
-                                Personnel cCuisto = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", i }, { "prenom", reader[1] }, { "nom", reader[2] }, { "metier", reader[4] }, { "posx", 3 }, { "posy", 3 } });
-                                personnels.Add(cCuisto);
-                                th = new Thread(new ParameterizedThreadStart(runChef));
-                                th.Start(i);
-                            }
-                            else if (result == 6)//Chef de partie
-                            {
-                                Console.WriteLine("Creation d'un Chef de Partie");
-                                Personnel cPartie = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", i }, { "prenom", reader[1] }, { "nom", reader[2] }, { "metier", reader[4] }, { "posx", 3 }, { "posy", 1 } });
-                                personnels.Add(cPartie);
-                                th = new Thread(new ParameterizedThreadStart(runChefPlat));
-                                th.Start(i);
-                            }
-                            else if (result == 7)//Commis de cuisine
-                            {
-                                Console.WriteLine("Creation d'un Commis en cuisine");
-                                Personnel cCuisine = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", i }, { "prenom", reader[1] }, { "nom", reader[2] }, { "metier", reader[4] }, { "posx", 3 }, { "posy", 1 } });
-                                personnels.Add(cCuisine);
-                                th = new Thread(new ParameterizedThreadStart(runCommisCuisine));
-                                th.Start(i);
-                            }
-                            else if (result == 7)//Plongeur
-                            {
-                                Console.WriteLine("Creation d'un Plongeur");
-                                Personnel plongeur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", i }, { "prenom", reader[1] }, { "nom", reader[2] }, { "metier", reader[4] }, { "posx", 3 }, { "posy", 1 } });
-                                personnels.Add(plongeur);
-                                th = new Thread(new ParameterizedThreadStart(runPlongeur));
-                                th.Start(i);
-                            }
-                            i++;
-                        }
-                    }
-                    connection.Close();//Fermeture de la connection
+                    thread.Start();
                 }
             }
-            catch (SqlException e)
+
+        }
+
+        static private void RunMaitreHotel()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
             {
-                Console.WriteLine(e.ToString());
+                var maitresDhotels = personnels.Where(x => x.Metier == (int)PersonnelEnums.Maitre_Hotel);
+
+                foreach (var mHotel in maitresDhotels)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
+        }
+
+        static private void RunChefRang()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
+            {
+                var chefsRangs = personnels.Where(x => x.Metier == (int)PersonnelEnums.Chef_Rang);
+
+                foreach (var cRang in chefsRangs)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
+        }
+
+        static private void RunServeurs()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
+            {
+                var serveurs = personnels.Where(x => x.Metier == (int)PersonnelEnums.Serveur);
+
+                foreach (var serveur in serveurs)
+                {
+                    var cell = MapController.Instance.GetRandomFreeCell();
+                    serveur.Call("Serve", new object[4] { serveur.PosX, serveur.PosY, cell.X, cell.Y });
+                }
+
+                Thread.Sleep(30);
             }
 
-            //Partie de l'instanciation des machines
+        }
 
+        static private void RunCommis()
+        {
+            LogController.Instance.Debug("Start Thread");
 
-            //Partie d'instanciation de la vue
-            Thread vueThread = new Thread(runView);
-            vueThread.Start();
+            while (true)
+            {
+                var commisSalle = personnels.Where(x => x.Metier == (int)PersonnelEnums.Commis_Salle);
+
+                foreach (var cSalle in commisSalle)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
+        }
+
+        static private void RunChef()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
+            {
+                var chefCuistos = personnels.Where(x => x.Metier == (int)PersonnelEnums.Chef_Cuisto);
+
+                foreach (var cCuisto in chefCuistos)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
+        }
+
+        static private void RunChefPlat()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
+            {
+                var chefPlats = personnels.Where(x => x.Metier == (int)PersonnelEnums.Chef_Partie);
+
+                foreach (var cPlats in chefPlats)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
+        }
+
+        static private void RunCommisCuisine()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
+            {
+                var commisCuisine = personnels.Where(x => x.Metier == (int)PersonnelEnums.Commis_Cuisine);
+
+                foreach (var cCuisine in commisCuisine)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
+        }
+
+        static private void RunPlongeur()
+        {
+            LogController.Instance.Debug("Start Thread");
+
+            while (true)
+            {
+                var plongeurs = personnels.Where(x => x.Metier == (int)PersonnelEnums.Plongeur);
+
+                foreach (var plongeur in plongeurs)
+                {
+
+                }
+
+                Thread.Sleep(30);
+            }
+        }
+
+        static private void RunLaveVaisselle()
+        {
+
+        }
+
+        static private void RunMachineLaver()
+        {
+
+        }
+
+        static private void RunFour()
+        {
+
+        }
+
+        static private void RunPlaque()
+        {
+
+        }
+
+        private static void SpawnNpc()
+        {
+            LogController.Instance.Info("Génération des NPCs");
+            //personnels = DatabaseController.Instance.GetPersonnels();
+
+            Vue.InitVue(personnels);
         }
     }
 }
-
-        private static List<Personnel> personnels = new List<Personnel>();
-        private static Restaurant restaurant;
-            restaurant = new Factory().Create<Restaurant>();
- 
-            Instanciation();
-            Random rand = new Random();
-                //Generate group
-                Thread.Sleep(rand.Next(100,301));
-
-                Client pep = new Factory().Create<Client>();
-                peps.Add(pep);
-
-                Thread.Sleep(1);

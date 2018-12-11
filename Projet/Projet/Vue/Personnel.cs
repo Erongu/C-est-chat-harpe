@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Controller;
@@ -33,7 +33,13 @@ namespace View
             this.Metier = metier;
 
             if (Metier == 1) { this.Image = Projet.Properties.Resources.serveur; }
-            if (Metier == 2) { this.Image = Projet.Properties.Resources.ma�tre_d_hotel; }
+            if (Metier == 2) { this.Image = Projet.Properties.Resources.maître_d_hotel; }
+            this.DoubleBuffered = true;
+
+            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
+             ControlStyles.AllPaintingInWmPaint, true);
+
+            this.UpdateStyles();
 
             this.BackColor = Color.Transparent;
             this.SetBounds(PosX*32, (PosY*32)-1, 32, 64);
