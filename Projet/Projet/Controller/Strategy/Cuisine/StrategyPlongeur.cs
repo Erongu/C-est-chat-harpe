@@ -1,6 +1,6 @@
 using Model.Cuisine;
 
-namespace Controller.Strategy
+namespace Controller.Strategy.Cuisine
 {
     public class StrategyPlonge : IStrategy
     {
