@@ -155,7 +155,7 @@ namespace Controller
 
         public List<int> CheckStock(int plat)
         {
-            List <int> platExiste = new List<int>();
+            List<int> platExiste = new List<int>();
 
             try
             {
