@@ -50,7 +50,6 @@
     <Compile Include="Controller\Strategy\StrategyMaitreHotel.cs" />
     <Compile Include="Controller\Strategy\ClassTemplate.cs" />
     <Compile Include="Controller\Strategy\Factory.cs" />
-    <Compile Include="Controller\Strategy\GetEvent.cs" />
     <Compile Include="Controller\MapController.cs" />
     <Compile Include="Controller\Network\Client\Client.cs" />
     <Compile Include="Controller\Network\Server\NetworkController.cs" />

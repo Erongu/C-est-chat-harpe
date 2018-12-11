@@ -31,12 +31,12 @@ namespace View
         {
             this.font = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lb_positionVoulu = new System.Windows.Forms.Label();
+            this.lb_serveurPosition = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.reverseBtn = new System.Windows.Forms.Button();
             this.fastBtn = new System.Windows.Forms.Button();
             this.pauseBtn = new System.Windows.Forms.Button();
-            this.lb_serveurPosition = new System.Windows.Forms.Label();
-            this.lb_positionVoulu = new System.Windows.Forms.Label();
             this.font.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -50,6 +50,8 @@ namespace View
             this.font.Name = "font";
             this.font.Size = new System.Drawing.Size(1314, 796);
             this.font.TabIndex = 0;
+            this.font.Paint += new System.Windows.Forms.PaintEventHandler(this.font_Paint);
+            this.font.BackgroundImageLayout = ImageLayout.None;
             // 
             // panel1
             // 
@@ -64,6 +66,24 @@ namespace View
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1314, 39);
             this.panel1.TabIndex = 0;
+            // 
+            // lb_positionVoulu
+            // 
+            this.lb_positionVoulu.AutoSize = true;
+            this.lb_positionVoulu.Location = new System.Drawing.Point(480, 18);
+            this.lb_positionVoulu.Name = "lb_positionVoulu";
+            this.lb_positionVoulu.Size = new System.Drawing.Size(84, 13);
+            this.lb_positionVoulu.TabIndex = 5;
+            this.lb_positionVoulu.Text = "Position requise:";
+            // 
+            // lb_serveurPosition
+            // 
+            this.lb_serveurPosition.AutoSize = true;
+            this.lb_serveurPosition.Location = new System.Drawing.Point(329, 18);
+            this.lb_serveurPosition.Name = "lb_serveurPosition";
+            this.lb_serveurPosition.Size = new System.Drawing.Size(79, 13);
+            this.lb_serveurPosition.TabIndex = 4;
+            this.lb_serveurPosition.Text = "Position actuel:";
             // 
             // button1
             // 
@@ -102,31 +122,13 @@ namespace View
             this.pauseBtn.Text = "Pause";
             this.pauseBtn.UseVisualStyleBackColor = true;
             // 
-            // lb_serveurPosition
-            // 
-            this.lb_serveurPosition.AutoSize = true;
-            this.lb_serveurPosition.Location = new System.Drawing.Point(329, 18);
-            this.lb_serveurPosition.Name = "lb_serveurPosition";
-            this.lb_serveurPosition.Size = new System.Drawing.Size(79, 13);
-            this.lb_serveurPosition.TabIndex = 4;
-            this.lb_serveurPosition.Text = "Position actuel:";
-            // 
-            // lb_positionVoulu
-            // 
-            this.lb_positionVoulu.AutoSize = true;
-            this.lb_positionVoulu.Location = new System.Drawing.Point(480, 18);
-            this.lb_positionVoulu.Name = "lb_positionVoulu";
-            this.lb_positionVoulu.Size = new System.Drawing.Size(84, 13);
-            this.lb_positionVoulu.TabIndex = 5;
-            this.lb_positionVoulu.Text = "Position requise:";
-            // 
             // Restaurant
             // 
-            this.ClientSize = new System.Drawing.Size(1314, 796);
+            this.ClientSize = new System.Drawing.Size(1314,850);
             this.Controls.Add(this.font);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1330, 835);
+            this.MaximumSize = new System.Drawing.Size(1330, 850);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(1330, 0);
             this.Name = "Restaurant";
@@ -199,6 +201,11 @@ namespace View
         private void button1_Click(object sender, EventArgs e)
         {
             font.BackgroundImage = global::Projet.Properties.Resources.cuisine_grille;
+        }
+
+        private void font_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
