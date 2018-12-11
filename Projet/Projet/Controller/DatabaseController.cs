@@ -168,9 +168,9 @@ namespace Controller
         }
 
 
-        public string CheckStock(int plat)
+        public List<int> CheckStock(int plat)
         {
-            string platExiste = "";
+            List<int> platExiste = new List<int>();
 
             try
             {
@@ -188,7 +188,7 @@ namespace Controller
 
                     while (reader.Read())
                     {
-                        platExiste = (String.Format("{0}", reader[0]));
+                        platExiste.Add(reader[0]);
                     }
                 }
                 sqlConnection.Dispose();
