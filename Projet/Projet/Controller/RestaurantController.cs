@@ -4,14 +4,12 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
 using Model;
-using System.Data.SqlClient;
-using Controller;
 using Controller.Strategy;
 using Model.Enums;
 using Model.Salle;
-using Model.Pathfinding;
 using System.Linq;
 using System.Reflection;
+using Model.Threading;
 
 namespace Controller
 {
@@ -21,7 +19,7 @@ namespace Controller
         public static View.Restaurant Vue;
 
         private static Restaurant restaurant;
-        private static Random random = new Random();
+        private static AsyncRandom random = new AsyncRandom();
 
         private static List<Personnel> personnels = new List<Personnel>();
         private static List<Groupe> groupes = new List<Groupe>() { };
@@ -34,7 +32,7 @@ namespace Controller
             Application.SetCompatibleTextRenderingDefault(false);
 
             restaurant = new Factory().Create<Restaurant>();
-            
+
             Thread.Sleep(1);
 
             Vue = new View.Restaurant();
@@ -88,7 +86,7 @@ namespace Controller
                 if (methodRun.Name.StartsWith("Run"))
                 {
                     Action action = (Action)Delegate.CreateDelegate(typeof(Action), methodRun);
-                    Thread thread = new Thread(() => action());
+                    Thread thread = new Thread(new ThreadStart(action));
 
                     thread.Start();
                 }
@@ -98,7 +96,7 @@ namespace Controller
 
         static private void RunMaitreHotel()
         {
-            LogController.Instance.Debug("Start Thread");
+            LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
             while (true)
             {
@@ -108,14 +106,12 @@ namespace Controller
                 {
 
                 }
-
-                Thread.Sleep(30);
             }
         }
 
         static private void RunChefRang()
         {
-            LogController.Instance.Debug("Start Thread");
+            LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
             while (true)
             {
@@ -125,33 +121,32 @@ namespace Controller
                 {
 
                 }
-
-                Thread.Sleep(30);
             }
         }
 
         static private void RunServeurs()
         {
-            LogController.Instance.Debug("Start Thread");
+            LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
-            while (true)
+            var serveurs = personnels.Where(x => x.Metier == (int)PersonnelEnums.Serveur);
+
+            var taskPool = new TaskPool("Serveurs TaskPool", 100);
+            taskPool.Start();
+
+            foreach (var serveur in serveurs)
             {
-                var serveurs = personnels.Where(x => x.Metier == (int)PersonnelEnums.Serveur);
+                var cell = MapController.Instance.GetRandomFreeCell();
 
-                foreach (var serveur in serveurs)
+                taskPool.CallPeriodically(5000, () =>
                 {
-                    var cell = MapController.Instance.GetRandomFreeCell();
-                    serveur.Call("Serve", new object[4] { serveur.PosX, serveur.PosY, cell.X, cell.Y });
-                }
-
-                Thread.Sleep(30);
+                    serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, cell.X, cell.Y });
+                });                
             }
-
         }
 
         static private void RunCommis()
         {
-            LogController.Instance.Debug("Start Thread");
+            LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
             while (true)
             {
@@ -162,13 +157,12 @@ namespace Controller
 
                 }
 
-                Thread.Sleep(30);
             }
         }
 
         static private void RunChef()
         {
-            LogController.Instance.Debug("Start Thread");
+            LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
             while (true)
             {
@@ -179,13 +173,12 @@ namespace Controller
 
                 }
 
-                Thread.Sleep(30);
             }
         }
 
         static private void RunChefPlat()
         {
-            LogController.Instance.Debug("Start Thread");
+            LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
             while (true)
             {
@@ -196,13 +189,12 @@ namespace Controller
 
                 }
 
-                Thread.Sleep(30);
             }
         }
 
         static private void RunCommisCuisine()
         {
-            LogController.Instance.Debug("Start Thread");
+            LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
             while (true)
             {
@@ -213,13 +205,12 @@ namespace Controller
 
                 }
 
-                Thread.Sleep(30);
             }
         }
 
         static private void RunPlongeur()
         {
-            LogController.Instance.Debug("Start Thread");
+            LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
             while (true)
             {
@@ -230,7 +221,6 @@ namespace Controller
 
                 }
 
-                Thread.Sleep(30);
             }
         }
 

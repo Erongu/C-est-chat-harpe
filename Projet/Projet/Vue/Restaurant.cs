@@ -36,6 +36,7 @@ namespace View
             this.font = new System.Windows.Forms.Panel();
             this.imagesContainer = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.spawnClient = new System.Windows.Forms.Button();
             this.lb_vitesse = new System.Windows.Forms.Label();
             this.tb_vitesse = new System.Windows.Forms.TrackBar();
             this.lb_positionVoulu = new System.Windows.Forms.Label();
@@ -43,7 +44,6 @@ namespace View
             this.debugBtn = new System.Windows.Forms.Button();
             this.reverseBtn = new System.Windows.Forms.Button();
             this.pauseBtn = new System.Windows.Forms.Button();
-            this.spawnClient = new System.Windows.Forms.Button();
             this.font.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imagesContainer)).BeginInit();
             this.panel1.SuspendLayout();
@@ -88,6 +88,16 @@ namespace View
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1314, 39);
             this.panel1.TabIndex = 0;
+            // 
+            // spawnClient
+            // 
+            this.spawnClient.Location = new System.Drawing.Point(329, 3);
+            this.spawnClient.Name = "spawnClient";
+            this.spawnClient.Size = new System.Drawing.Size(91, 33);
+            this.spawnClient.TabIndex = 8;
+            this.spawnClient.Text = "Spawn Client";
+            this.spawnClient.UseVisualStyleBackColor = true;
+            this.spawnClient.Click += new System.EventHandler(this.spawnClient_Click);
             // 
             // lb_vitesse
             // 
@@ -154,16 +164,6 @@ namespace View
             this.pauseBtn.TabIndex = 0;
             this.pauseBtn.Text = "Pause";
             this.pauseBtn.UseVisualStyleBackColor = true;
-            // 
-            // spawnClient
-            // 
-            this.spawnClient.Location = new System.Drawing.Point(329, 3);
-            this.spawnClient.Name = "spawnClient";
-            this.spawnClient.Size = new System.Drawing.Size(75, 33);
-            this.spawnClient.TabIndex = 8;
-            this.spawnClient.Text = "Debug";
-            this.spawnClient.UseVisualStyleBackColor = true;
-            this.spawnClient.Click += new System.EventHandler(this.spawnClient_Click);
             // 
             // Restaurant
             // 
@@ -271,7 +271,7 @@ namespace View
 
         private void spawnClient_Click(object sender, EventArgs e)
         {
-
+            RestaurantController.AddGroupe();
         }
     }
 }

@@ -52,10 +52,6 @@ namespace Controller
 
         private string m_connectionString;
 
-
-
-
-
         public string ConnectionString
         {
             get
@@ -84,9 +80,6 @@ namespace Controller
 
         }
 
-
-
-
         public void Initialize(string host, string userId, string password, string database)
         {
             Host = host;
@@ -96,11 +89,6 @@ namespace Controller
 
             LogController.Instance.Info("Ouverture de la base de données");
         }
-
-
-
-
-
 
         public List<Personnel> GetPersonnels()
         {
@@ -144,9 +132,6 @@ namespace Controller
             }
         }
 
-
-
-
         public void UpdateStock(int plat)
         {
             try
@@ -168,14 +153,12 @@ namespace Controller
         }
 
 
-        public string CheckStock(int plat)
+        public List<int> CheckStock(int plat)
         {
-            string platExiste = "";
+            List <int> platExiste = new List<int>();
 
             try
             {
-                
-
                 var sqlConnection = new SqlConnection(ConnectionString);
 
                 SqlCommand command = new SqlCommand("check_stock", sqlConnection);
@@ -188,7 +171,7 @@ namespace Controller
 
                     while (reader.Read())
                     {
-                        platExiste = (String.Format("{0}", reader[0]));
+                        platExiste.Add((int)reader[0]);
                     }
                 }
                 sqlConnection.Dispose();
@@ -199,7 +182,6 @@ namespace Controller
             }
             return platExiste;
         }
-
 
         public void Livraison()
         {
@@ -217,11 +199,6 @@ namespace Controller
                 LogController.Instance.Error("Database connection timeout");
             }
         }
-
-
-
-
-
 
     }   
 }

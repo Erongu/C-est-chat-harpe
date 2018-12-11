@@ -6,6 +6,7 @@ using Model;
 using Controller;
 using Model.Enums;
 using Model.Pathfinding;
+using Model.Threading;
 
 namespace Controller.Strategy
 {
@@ -24,12 +25,10 @@ namespace Controller.Strategy
 
                 foreach (var point in path.Cells)
                 {
-                    Thread.Sleep((int)Math.Round(100 / RestaurantController.Vitesse));
-
                     ((Personnel)instance).PosX = point.X;
                     ((Personnel)instance).PosY = point.Y;
                 }
-                
+
             }
         }
     }
