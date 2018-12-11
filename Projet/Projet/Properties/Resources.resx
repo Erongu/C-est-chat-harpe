@@ -148,6 +148,9 @@
   <data name="cuisine1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\cuisine1.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cuisine_grille" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cuisine_grille.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="maître_d_hotel" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\maître_d_hotel.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

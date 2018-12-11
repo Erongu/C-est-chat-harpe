@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model
+namespace Model.Cuisine
 {
     class Etape
     {
@@ -21,7 +21,7 @@ namespace Projet.Model
             set;
         }
 
-        private Ingredient ingredient
+        private Ingredient Ingredient
         {
             get;
             set;

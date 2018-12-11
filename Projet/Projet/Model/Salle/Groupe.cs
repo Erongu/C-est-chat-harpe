@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Controller;
+using Controller.Strategy;
 
-namespace Model
+namespace Model.Salle
 {
     class Groupe
     {

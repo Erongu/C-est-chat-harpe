@@ -1,7 +1,7 @@
-using Projet.Model;
+using Model;
 using System.Collections.Generic;
 
-namespace Model
+namespace Model.Cuisine
 {
     public class Recette
     {

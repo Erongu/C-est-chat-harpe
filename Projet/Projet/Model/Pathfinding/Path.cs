@@ -4,8 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model.Pathfinding
+namespace Model.Pathfinding
 {
+    public struct PathNode
+    {
+        public int CellId;
+        public double F;
+        public double G;
+        public double H;
+        public int Parent;
+        public NodeState Status;
+    }
+
+    public enum NodeState : byte
+    {
+        None,
+        Open,
+        Closed
+    }
+
     public class Path
     {
         private List<MapPoint> m_path;

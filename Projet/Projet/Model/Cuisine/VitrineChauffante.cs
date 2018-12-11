@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Model.Salle;
 
-namespace Model
+namespace Model.Cuisine
 {
-    class Frigo
+    class VitrineChauffante
     {
         //Liste de plat
         private List<Plat> Plats
@@ -15,23 +16,24 @@ namespace Model
         } = new List<Plat>();
 
         //Constructeur
-        public Frigo()
+        public VitrineChauffante()
         {
-           
+
         }
 
         //Ajout d'un plat
         public void AddPlat(Plat plat)
         {
             plat.Table = 0;
+
             this.Plats.Add(plat);
         }
 
         //Prendre un plat
-        public Plat prendrePlat(string nom)
+        public Plat PrendrePlat(string nom)
         {
             Plat pl = GetPlat(nom);
-            Plats.Remove(new Plat(nom,0));
+            Plats.Remove(new Plat(nom, 0));
             return pl;
         }
 
@@ -40,6 +42,5 @@ namespace Model
         {
             return Plats.FirstOrDefault(x => x.Nom == nom);
         }
-
     }
 }

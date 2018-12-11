@@ -34,6 +34,12 @@ namespace View
 
             if (Metier == 1) { this.Image = Projet.Properties.Resources.serveur; }
             if (Metier == 2) { this.Image = Projet.Properties.Resources.maître_d_hotel; }
+            this.DoubleBuffered = true;
+
+            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |
+             ControlStyles.AllPaintingInWmPaint, true);
+
+            this.UpdateStyles();
 
             this.BackColor = Color.Transparent;
             this.SetBounds(PosX*32, (PosY*32)-1, 32, 64);

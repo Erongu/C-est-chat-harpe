@@ -1,4 +1,5 @@
-﻿using Projet.Controller;
+﻿using Controller;
+using Model.Enums;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -6,14 +7,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Projet.Model.Pathfinding
+namespace Model.Pathfinding
 {
     public class MapPoint
     {
+        static int MapWidth = 42;
+
         static readonly Point VectorRight = new Point(1, 0);
         static readonly Point VectorDown = new Point(0, -1);
         static readonly Point VectorLeft = new Point(-1, 0);
         static readonly Point VectorUp = new Point(0, 1);
+
+        private MapPoint m_pointInMap;
+
+        public int CellId
+        {
+            get
+            {
+                if (Y == 0)
+                    return X;
+
+                if (X == 0)
+                    return Y * MapWidth;
+
+                return X + (Y * MapWidth);
+            }
+        }
 
         public int X
         {
@@ -27,18 +46,37 @@ namespace Projet.Model.Pathfinding
             protected set;
         }
 
-
-        public bool IsObstacle
+        public bool Obstacle
         {
             get;
             set;
+        }
+
+        public MapPoint PointInMap
+        {
+            get
+            {
+                if (m_pointInMap == null)
+                    m_pointInMap = MapController.Instance.Cells.FirstOrDefault(entry => entry.X == X && entry.Y == Y);
+
+                return m_pointInMap;
+            }
         }
 
         public MapPoint(int x, int y, bool isObstacle = false)
         {
             this.X = x;
             this.Y = y;
-            this.IsObstacle = IsObstacle;
+            this.Obstacle = isObstacle;
+        }
+
+        public MapPoint(int cellId, bool isObstacle = false)
+        {
+            var cell = MapController.Instance.Cells[cellId];
+
+            this.X = cell.X;
+            this.Y = cell.Y;
+            this.Obstacle = cell.Obstacle;
         }
 
         public MapPoint GetMapPointInDirection(DirectionsEnum direction)
@@ -79,6 +117,11 @@ namespace Projet.Model.Pathfinding
         public bool IsInMap()
         {
             return MapController.Instance.IsInMap(X, Y);
+        }
+
+        public bool IsObstacle()
+        {
+            return (Obstacle || (PointInMap != null && PointInMap.Obstacle));
         }
 
         public uint ManhattanDistanceTo(MapPoint point)

@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Model
+namespace Model.Cuisine
 {
     class Ingredient
     {
-        private string nom
+        private string Nom
         {
             get;
         }

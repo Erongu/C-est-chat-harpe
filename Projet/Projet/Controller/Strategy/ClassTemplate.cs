@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Controller
+namespace Controller.Strategy
 {
     public class ClassTemplate : Builder
     {
