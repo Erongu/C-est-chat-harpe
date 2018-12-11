@@ -53,6 +53,8 @@ namespace Model
             this.PosX = (int)args["posx"];
             this.PosY = (int)args["posy"];
         }
+
+
     }
 }
 

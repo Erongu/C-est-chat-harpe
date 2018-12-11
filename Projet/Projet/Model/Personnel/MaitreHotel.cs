@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Model;
 
 namespace Projet.Model.Personnel
 {
-    class MaitreHotel
+    static class MaitreHotel
     {
+        public static Groupe CheckNouveauGroupe()
+        {
+
+        }
+
     }
 }
