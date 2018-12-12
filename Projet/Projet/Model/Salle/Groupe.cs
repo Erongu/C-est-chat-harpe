@@ -48,6 +48,24 @@ namespace Model.Salle
             get;
         }
 
+        public int NumeroTable
+        {
+            get;
+            set;
+        }
+
+        public int NumeroRang
+        {
+            get;
+            set;
+        }
+
+        public int NumeroCarre
+        {
+            get;
+            set;
+        }
+
         //Moyenne du groupe
         private int MoyenneGroupe
         {

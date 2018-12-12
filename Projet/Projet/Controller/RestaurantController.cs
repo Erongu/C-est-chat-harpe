@@ -41,13 +41,15 @@ namespace Controller
 
             Personnel serveur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 0 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 1 }, { "posx", 3 }, { "posy", 1 } });
             Personnel maitre_hotel = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 1 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 2 }, { "posx", 4 }, { "posy", 21 } });
-            Personnel maitre_de_rang1 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 2 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 3 }, { "posx", 7 }, { "posy", 19 } });
+            Personnel maitre_de_rang1 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 2 }, { "prenom", "Carre1" }, { "nom", "Albani" }, { "metier", 3 }, { "posx", 7 }, { "posy", 19 }, { "carre", 1 } });
+            Personnel maitre_de_rang2 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 3 }, { "prenom", "Carre2" }, { "nom", "Albani" }, { "metier", 3 }, { "posx", 8 }, { "posy", 19 }, { "carre", 2 } });
 
             //DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
             MapController.Instance.Initialize();
             personnels.Add(serveur);
             personnels.Add(maitre_hotel);
             personnels.Add(maitre_de_rang1);
+            personnels.Add(maitre_de_rang2);
 
             NetworkController.Instance.Start("127.0.0.1", 8500);
             Client.Connect("127.0.0.1", 8500);
@@ -113,17 +115,29 @@ namespace Controller
                 foreach (var mHotel in maitresDhotels)
                 {
                     //Comparaison liste groupe
-                    //Comparaison liste groupe
                     Groupe grp = MaitreHotel.CheckNouveauGroupe(groupeMAJ, groupes);//On regarde si il y'a un nouveau groupe
                     if (grp != null)
                     {
-                        Console.WriteLine("Le maitre d'hotel acceuil un nouveau groupe de : " + grp.Taille + " client(s).");
-                        groupeMAJ.Add(grp);//On ajoute le groupe a notre liste mise a jour.
+                        //Console.WriteLine("Le maitre d'hotel acceuil un nouveau groupe de : " + grp.Taille + " client(s).");
+                        groupeMAJ.Add(grp);//On ajoute le groupe a la liste
                         Table tbl = MaitreHotel.RechercheTable(restaurant.GetAllTables(), grp);//On lui cherche une table
                         if (tbl != null)//Si il a bien trouvé une table
                         {
-                            //On appel le maitre de rang
-                            Console.WriteLine("Le maitre d'hotel a trouver la table : " + tbl.Numero + " pour le groupe !");
+                            //On attribue un numéro de table au groupe
+                            groupes[groupes.Count - 1].NumeroTable = tbl.Numero;
+                            groupes[groupes.Count - 1].NumeroRang = tbl.Rang;
+                            groupes[groupes.Count - 1].NumeroCarre = tbl.Carre;
+
+                            //On appel le maitre de rang coresspondant au carre de la table
+                            Console.WriteLine("Le maitre d'hotel a trouver la table : " + tbl.Numero + " pour le groupe de " + grp.Taille);
+                            foreach(Personnel personnel in personnels)
+                            {
+                                if((personnel.Metier == (int)PersonnelEnums.Chef_Rang)&&(personnel.Carre == tbl.Carre))
+                                {
+                                    //Console.WriteLine("Le maitre d'hotel confie le groupe au chef de rang : " + personnel.Prenom);
+                                    personnel.Groupe = groupes[groupes.Count - 1];
+                                }
+                            }
 
                         }
                         else//Si aucune table n'a été trouvé on enlève le groupe des deux listes
@@ -148,7 +162,25 @@ namespace Controller
 
                 foreach (var cRang in chefsRangs)
                 {
-
+                    //Si le chef de rang a un groupe 
+                    if (cRang.Groupe != null)
+                    {
+                        //Console.WriteLine("Le chef de rang : " + cRang.Prenom + " doit placer un groupe table : " + cRang.Groupe.NumeroTable);
+                        //Il se déplace a la table
+                        List<int> pos = Personnel.GetPosXTable(cRang.Groupe.NumeroTable, restaurant.GetAllTables());//On prend la position de la table
+                        int SpawnX = cRang.PosX; int SpawnY = cRang.PosY;//On sauvegarde sa place d'origine
+                        //Console.WriteLine("Le chef de rang vas a la table demandé");
+                        cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, pos[0], pos[1] });//On deplace le chef de rang a la table
+                        //Console.WriteLine("Le chef de rang installe le groupe");
+                        restaurant.GetCarre(cRang.Groupe.NumeroCarre).GetRang(cRang.Groupe.NumeroRang).GetTable(cRang.Groupe.NumeroTable).Groupe = cRang.Groupe;//On place le groupe a la table
+                        Thread.Sleep(2000);
+                        //On instancie le groupe
+                        //Console.WriteLine("Le chef de rang retourne a sa position");
+                        cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, SpawnX, SpawnY });//Le chef de rang retourne a sa place d'origine
+                        cRang.Groupe = null;//On reset son groupe
+                        Console.WriteLine("Le chef de rang a placé le groupe !");
+                        //Console.WriteLine("Le chef de rang est pret a palcer un nouveau groupe");
+                    }
                 }
             }
         }
@@ -169,7 +201,7 @@ namespace Controller
                 taskPool.CallPeriodically(5000, () =>
                 {
                     
-                    serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, pos[0], pos[1] });
+                    //serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, pos[0], pos[1] });
                 });                
             }
         }

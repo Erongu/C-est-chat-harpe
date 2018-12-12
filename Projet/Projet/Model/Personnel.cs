@@ -50,7 +50,7 @@ namespace Model
             set;
         }
 
-        public int Rang
+        public int Carre
         {
             get;
         }
@@ -64,7 +64,14 @@ namespace Model
             this.Metier = (int)args["metier"];
             this.PosX = (int)args["posx"];
             this.PosY = (int)args["posy"];
+            if (args.ContainsKey("carre"))
+            {
+                this.Carre = (int)args["carre"];
+            }
+            this.Groupe = null;
         }
+
+       
 
         public static List<int> GetPosXTable(int numero, List<Table> tables)
         {
