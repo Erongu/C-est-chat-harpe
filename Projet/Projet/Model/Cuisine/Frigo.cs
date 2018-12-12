@@ -29,7 +29,7 @@ namespace Model.Cuisine
         }
 
         //Prendre un plat
-        public Plat prendrePlat(string nom)
+        public Plat prendrePlat(int nom)
         {
             Plat pl = GetPlat(nom);
             Plats.Remove(new Plat(nom,0));
@@ -37,7 +37,7 @@ namespace Model.Cuisine
         }
 
         //Getter and setter
-        public Plat GetPlat(string nom)
+        public Plat GetPlat(int nom)
         {
             return Plats.FirstOrDefault(x => x.Nom == nom);
         }

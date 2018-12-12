@@ -134,10 +134,22 @@ namespace Model.Salle
 
         public List<Plat> Commande()
         {
+            DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
             List<Plat> liste = new List<Plat>();
-
-
-
+            foreach (Client client in Clients)//GetEntree
+            {
+                liste.Add(new Plat(DatabaseController.Instance.GetEntree(), this.NumeroTable, Plat.TypePlat.Entree));
+            }
+            foreach (Client client in Clients)//GetPlat
+            {
+                liste.Add(new Plat(DatabaseController.Instance.Getplat(), this.NumeroTable, Plat.TypePlat.Plat));
+            }
+            foreach (Client client in Clients)//GetDessert
+            {
+                liste.Add(new Plat(DatabaseController.Instance.GetDessert(), this.NumeroTable, Plat.TypePlat.Dessert));
+            }
+            Console.WriteLine("Le groupe a commandé");
+            this.Etat = GroupeEnum.AttenteEntree;
             return liste;
         }
 

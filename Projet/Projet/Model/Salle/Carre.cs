@@ -6,7 +6,7 @@ namespace Model.Salle
     class Carre
     {
         //Rangs
-        private List<Rang> Rangs
+        public List<Rang> Rangs
         {
             get;
         } = new List<Rang>();

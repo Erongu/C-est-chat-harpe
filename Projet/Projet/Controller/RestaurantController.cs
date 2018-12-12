@@ -181,7 +181,27 @@ namespace Controller
                     }
                     else//Il s'occupe de prendre les commandes
                     {
+                        foreach(Rang rang in restaurant.GetCarre(cRang.Carre).Rangs)//Pour tout les rangs dont le chef de rang s'occupe
+                        {
+                            foreach (Table table in rang.Tables){//Pour chaque table du rang
+                                //On regarde si des clients on fini de commander
+                                if(table.Groupe != null)
+                                {
+                                    if (table.Groupe.Etat == Groupe.GroupeEnum.CommandeEnd)
+                                    {
+                                        List<int> pos = Personnel.GetPosXTable(table.Numero, restaurant.GetAllTables());
+                                        int SpawnX = cRang.PosX; int SpawnY = cRang.PosY;//On sauvegarde sa place d'origine
+                                        cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, pos[0], pos[1] });//On se déplace a la table
+                                        List<Plat> plats = table.Groupe.Commande(); //On prend les commandes
+                                                                                   //On envoie les commandes a la cuisine
+                                        cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, SpawnX, SpawnY });//Le chef de rang retourne a sa place d'origine
 
+                                    }
+                                }
+                                
+                            }
+                        }
+                        
                     }
                 }
             }

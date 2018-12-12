@@ -8,7 +8,7 @@ namespace Model.Salle
 {
     public class Plat
     {
-        public string Nom
+        public int Nom
         {
             get;
             set;
@@ -34,14 +34,14 @@ namespace Model.Salle
         }
 
         //Constructeur
-        public Plat(string nom, int table, TypePlat type)
+        public Plat(int nom, int table, TypePlat type)
         {
             this.Nom = nom;
             this.Table = table;
             this.Type = type;
         }
 
-        public Plat(string nom, int table)
+        public Plat(int nom, int table)
         {
             this.Nom = nom;
             this.Table = table;
