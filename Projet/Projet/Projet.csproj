@@ -55,6 +55,7 @@
     <Compile Include="Controller\Strategy\Salle\StrategyServeur.cs" />
     <Compile Include="Controller\Strategy\Builder.cs" />
     <Compile Include="Controller\Strategy\ClassTemplate.cs" />
+    <Compile Include="Controller\Strategy\Factory.cs" />
     <Compile Include="Controller\DatabaseController.cs" />
     <Compile Include="Controller\LogController.cs" />
     <Compile Include="Controller\MapController.cs" />
