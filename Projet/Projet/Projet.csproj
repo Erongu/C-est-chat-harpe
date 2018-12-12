@@ -31,7 +31,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup><!--test-->
+  <ItemGroup>
+    <!--test-->
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -48,6 +49,7 @@
     <Compile Include="Controller\Strategy\Builder.cs" />
     <Compile Include="Controller\DatabaseController.cs" />
     <Compile Include="Controller\Strategy\ClassTemplate.cs" />
+    <Compile Include="Controller\Strategy\Salle\StrategyCommis.cs" />
     <Compile Include="Controller\Strategy\Cuisine\StrategyCuisinier.cs" />
     <Compile Include="Controller\Strategy\Cuisine\StrategyPlonge.cs" />
     <Compile Include="Controller\Strategy\Cuisine\StrategyLavage.cs" />
