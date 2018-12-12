@@ -80,12 +80,14 @@ namespace Controller
             Vue.UpdateVue(personnels);
         }
 
+        //Ajout d'un groupe
         public static void AddGroupe()
         {
             var groupe = new Factory().Create<Groupe>();
             groupes.Add(groupe);
         }
 
+        //Lancement des thread
         private static void StartThreads()
         {
             foreach (MethodInfo methodRun in typeof(RestaurantController).GetMethods(BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance))
@@ -101,7 +103,7 @@ namespace Controller
 
         }
 
-        static private void RunMaitreHotel()
+        static private void RunMaitreHotel()//Normalement Fini
         {
             LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
@@ -118,7 +120,6 @@ namespace Controller
                     Groupe grp = MaitreHotel.CheckNouveauGroupe(groupeMAJ, groupes);//On regarde si il y'a un nouveau groupe
                     if (grp != null)
                     {
-                        //Console.WriteLine("Le maitre d'hotel acceuil un nouveau groupe de : " + grp.Taille + " client(s).");
                         groupeMAJ.Add(grp);//On ajoute le groupe a la liste
                         Table tbl = MaitreHotel.RechercheTable(restaurant.GetAllTables(), grp);
                         //On lui cherche une table
@@ -135,7 +136,6 @@ namespace Controller
                             {
                                 if((personnel.Metier == (int)PersonnelEnums.Chef_Rang)&&(personnel.Carre == tbl.Carre))
                                 {
-                                    //Console.WriteLine("Le maitre d'hotel confie le groupe au chef de rang : " + personnel.Prenom);
                                     personnel.Groupe = groupes[groupes.Count - 1];
                                 }
                             }
@@ -153,7 +153,7 @@ namespace Controller
             }
         }
 
-        static private void RunChefRang()
+        static private void RunChefRang()//Placage Fini //Commande non fini
         {
             LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
@@ -163,24 +163,25 @@ namespace Controller
 
                 foreach (var cRang in chefsRangs)
                 {
-                    //Si le chef de rang a un groupe 
+                    //Si le chef de rang a un groupe a placer
                     if (cRang.Groupe != null)
                     {
-                        //Console.WriteLine("Le chef de rang : " + cRang.Prenom + " doit placer un groupe table : " + cRang.Groupe.NumeroTable);
                         //Il se déplace a la table
                         List<int> pos = Personnel.GetPosXTable(cRang.Groupe.NumeroTable, restaurant.GetAllTables());//On prend la position de la table
                         int SpawnX = cRang.PosX; int SpawnY = cRang.PosY;//On sauvegarde sa place d'origine
-                        //Console.WriteLine("Le chef de rang vas a la table demandé");
                         cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, pos[0], pos[1] });//On deplace le chef de rang a la table
-                        //Console.WriteLine("Le chef de rang installe le groupe");
                         restaurant.GetCarre(cRang.Groupe.NumeroCarre).GetRang(cRang.Groupe.NumeroRang).GetTable(cRang.Groupe.NumeroTable).Groupe = cRang.Groupe;//On place le groupe a la table
                         Thread.Sleep(2000);
                         //On instancie le groupe
-                        //Console.WriteLine("Le chef de rang retourne a sa position");
+                        Thread th = new Thread(restaurant.GetCarre(cRang.Groupe.NumeroCarre).GetRang(cRang.Groupe.NumeroRang).GetTable(cRang.Groupe.NumeroTable).Groupe.RunGroupe);
+                        th.Start();
                         cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, SpawnX, SpawnY });//Le chef de rang retourne a sa place d'origine
                         cRang.Groupe = null;//On reset son groupe
                         Console.WriteLine("Le chef de rang a placé le groupe !");
-                        //Console.WriteLine("Le chef de rang est pret a palcer un nouveau groupe");
+                    }
+                    else//Il s'occupe de prendre les commandes
+                    {
+
                     }
                 }
             }

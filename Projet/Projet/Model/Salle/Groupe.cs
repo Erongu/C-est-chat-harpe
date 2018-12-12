@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Controller;
 using Controller.Strategy;
@@ -38,9 +39,10 @@ namespace Model.Salle
             private set;
         }
 
-        public int Etat
+        public GroupeEnum Etat
         {
             get;
+            private set;
         }
 
         public int Taille
@@ -64,6 +66,19 @@ namespace Model.Salle
         {
             get;
             set;
+        }
+
+        public enum GroupeEnum
+        {
+            Commande = 0,
+            CommandeEnd = 1,
+            AttenteEntree = 2,
+            MangeEntree = 3,
+            AttentePlat = 4,
+            MangePlat = 5,
+            AttenteDessert = 6,
+            MangeDessert = 7,
+            AttenteDePayer = 8
         }
 
         //Moyenne du groupe
@@ -114,12 +129,30 @@ namespace Model.Salle
 
             this.Type = MoyenneGroupe;
             this.Taille = Clients.Count;
+            this.Etat = GroupeEnum.Commande;
+        }
+
+        public List<Plat> Commande()
+        {
+            List<Plat> liste = new List<Plat>();
+
+
+
+            return liste;
         }
 
 
         public void RunGroupe()
         {
-
+            while (1 == 1)
+            {
+                if(Etat == GroupeEnum.Commande)//En train de commander
+                {
+                    Thread.Sleep(10000);
+                    this.Etat = GroupeEnum.CommandeEnd;
+                }
+                 
+            }
         }
     }
 }

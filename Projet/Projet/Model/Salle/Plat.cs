@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model.Salle
 {
-    class Plat
+    public class Plat
     {
         public string Nom
         {
@@ -20,7 +20,27 @@ namespace Model.Salle
             set;
         }
 
+        public TypePlat Type
+        {
+            get;
+            set;
+        }
+
+        public enum TypePlat
+        {
+            Entree = 1,
+            Plat = 2,
+            Dessert = 3
+        }
+
         //Constructeur
+        public Plat(string nom, int table, TypePlat type)
+        {
+            this.Nom = nom;
+            this.Table = table;
+            this.Type = type;
+        }
+
         public Plat(string nom, int table)
         {
             this.Nom = nom;
