@@ -44,6 +44,17 @@ namespace Model
             set;
         }
 
+        public Groupe Groupe
+        {
+            get;
+            set;
+        }
+
+        public int Rang
+        {
+            get;
+        }
+
 
         public Personnel(Dictionary<string, IStrategy> strategies, Dictionary<string, object> args) : base(strategies, args)
         {

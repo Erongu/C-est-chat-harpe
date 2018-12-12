@@ -8,7 +8,7 @@ using Controller.Strategy;
 
 namespace Model.Salle
 {
-    public class Groupe
+    public class Groupe : ClassTemplate
     {
         public List<Client> Clients
         {
@@ -67,7 +67,7 @@ namespace Model.Salle
 
 
         //Constructeur
-        public Groupe()
+        public Groupe(Dictionary<string, IStrategy> strategies, Dictionary<string, object> args) : base(strategies, args)
         {
             //Création de la liste de client du groupe
             Random rnd = new Random();

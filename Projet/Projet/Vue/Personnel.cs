@@ -34,6 +34,12 @@ namespace View
 
             if (Metier == 1) { this.Image = Projet.Properties.Resources.serveur; }
             if (Metier == 2) { this.Image = Projet.Properties.Resources.maître_d_hotel; }
+            if (Metier == 3) { this.Image = Projet.Properties.Resources.chef_de_rang; }
+            if (Metier == 4) { this.Image = Projet.Properties.Resources.commis_s; }
+            if (Metier == 5) { this.Image = Projet.Properties.Resources.chef_de_cusine; }
+            if (Metier == 6) { this.Image = Projet.Properties.Resources.chef_de_partie; }
+            if (Metier == 7) { this.Image = Projet.Properties.Resources.commis_c; }
+            if (Metier == 8) { this.Image = Projet.Properties.Resources.plongeur; }
             this.DoubleBuffered = true;
 
             this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint |

@@ -10,11 +10,11 @@ namespace Model.Enums
     {
         Serveur = 1,
         Maitre_Hotel = 2,
-        Chef_Rang,
-        Commis_Salle,
-        Chef_Cuisto,
-        Chef_Partie,
-        Commis_Cuisine,
-        Plongeur
+        Chef_Rang = 3,
+        Commis_Salle = 4,
+        Chef_Cuisto = 5,
+        Chef_Partie = 6,
+        Commis_Cuisine = 7,
+        Plongeur = 8
     }
 }

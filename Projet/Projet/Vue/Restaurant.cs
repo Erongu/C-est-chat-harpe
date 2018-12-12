@@ -72,6 +72,7 @@ namespace View
             this.imagesContainer.Size = new System.Drawing.Size(1314, 800);
             this.imagesContainer.TabIndex = 1;
             this.imagesContainer.TabStop = false;
+            this.imagesContainer.Click += new System.EventHandler(this.imagesContainer_Click);
             // 
             // panel1
             // 
@@ -272,6 +273,11 @@ namespace View
         private void spawnClient_Click(object sender, EventArgs e)
         {
             RestaurantController.AddGroupe();
+        }
+
+        private void imagesContainer_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
