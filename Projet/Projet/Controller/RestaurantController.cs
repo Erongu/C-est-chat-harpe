@@ -41,11 +41,13 @@ namespace Controller
 
             Personnel serveur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 0 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 1 }, { "posx", 3 }, { "posy", 1 } });
             Personnel maitre_hotel = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 1 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 2 }, { "posx", 4 }, { "posy", 21 } });
+            Personnel maitre_de_rang1 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 2 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 3 }, { "posx", 7 }, { "posy", 19 } });
 
             //DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
             MapController.Instance.Initialize();
             personnels.Add(serveur);
             personnels.Add(maitre_hotel);
+            personnels.Add(maitre_de_rang1);
 
             NetworkController.Instance.Start("127.0.0.1", 8500);
             Client.Connect("127.0.0.1", 8500);
@@ -115,15 +117,18 @@ namespace Controller
                     Groupe grp = MaitreHotel.CheckNouveauGroupe(groupeMAJ, groupes);//On regarde si il y'a un nouveau groupe
                     if (grp != null)
                     {
+                        Console.WriteLine("Le maitre d'hotel acceuil un nouveau groupe de : " + grp.Taille + " client(s).");
                         groupeMAJ.Add(grp);//On ajoute le groupe a notre liste mise a jour.
                         Table tbl = MaitreHotel.RechercheTable(restaurant.GetAllTables(), grp);//On lui cherche une table
                         if (tbl != null)//Si il a bien trouvé une table
                         {
                             //On appel le maitre de rang
+                            Console.WriteLine("Le maitre d'hotel a trouver la table : " + tbl.Numero + " pour le groupe !");
 
                         }
                         else//Si aucune table n'a été trouvé on enlève le groupe des deux listes
                         {
+                            Console.WriteLine("Le maitre d'hotel n'a pas trouvé de table au groupe");
                             groupes.RemoveAt(groupes.Count - 1);
                             groupeMAJ.RemoveAt(groupeMAJ.Count - 1);
                         }
@@ -164,7 +169,7 @@ namespace Controller
                 taskPool.CallPeriodically(5000, () =>
                 {
                     
-                    serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, cell.X, cell.Y });
+                    serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, pos[0], pos[1] });
                 });                
             }
         }

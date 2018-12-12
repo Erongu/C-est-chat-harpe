@@ -2,6 +2,7 @@ using Controller.Strategy.Cuisine;
 using Controller.Strategy.Salle;
 using System;
 using System.Collections.Generic;
+using Model.Salle;
 
 namespace Controller.Strategy
 {
