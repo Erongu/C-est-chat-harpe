@@ -246,5 +246,88 @@ namespace Controller
             }
         }
 
+        public int GetEntree()
+        {
+            int platid = 0;
+
+            try
+            {
+                var sqlConnection = new SqlConnection(ConnectionString);
+
+                SqlCommand command = new SqlCommand("choix_entree", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;     
+                sqlConnection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        platid = int.Parse(reader[0].ToString());
+                    }
+                }
+                sqlConnection.Dispose();
+            }
+            catch
+            {
+                LogController.Instance.Error("Database connection timeout");
+            }
+            return platid;
+        }
+
+        public int Getplat()
+        {
+            int platid = 0;
+
+            try
+            {
+                var sqlConnection = new SqlConnection(ConnectionString);
+
+                SqlCommand command = new SqlCommand("choix_plat", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        platid = int.Parse(reader[0].ToString());
+                    }
+                }
+                sqlConnection.Dispose();
+            }
+            catch
+            {
+                LogController.Instance.Error("Database connection timeout");
+            }
+            return platid;
+        }
+
+
+        public int GetDessert()
+        {
+            int platid = 0;
+
+            try
+            {
+                var sqlConnection = new SqlConnection(ConnectionString);
+
+                SqlCommand command = new SqlCommand("choix_dessert", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        platid = int.Parse(reader[0].ToString());
+                    }
+                }
+                sqlConnection.Dispose();
+            }
+            catch
+            {
+                LogController.Instance.Error("Database connection timeout");
+            }
+            return platid;
+        }
+
+
     }   
 }
