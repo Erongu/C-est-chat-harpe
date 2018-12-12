@@ -43,6 +43,7 @@ namespace Controller
             Personnel maitre_hotel = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 1 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 2 }, { "posx", 4 }, { "posy", 21 } });
             Personnel maitre_de_rang1 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 2 }, { "prenom", "Carre1" }, { "nom", "Albani" }, { "metier", 3 }, { "posx", 7 }, { "posy", 19 }, { "carre", 1 } });
             Personnel maitre_de_rang2 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 3 }, { "prenom", "Carre2" }, { "nom", "Albani" }, { "metier", 3 }, { "posx", 8 }, { "posy", 19 }, { "carre", 2 } });
+            Personnel chefcuisto = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 4 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 4 }, { "posx", 8 }, { "posy", 4 }, { "carre", 4 } });
 
             //DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
             MapController.Instance.Initialize();
@@ -50,6 +51,7 @@ namespace Controller
             personnels.Add(maitre_hotel);
             personnels.Add(maitre_de_rang1);
             personnels.Add(maitre_de_rang2);
+            personnels.Add(chefcuisto);
 
             NetworkController.Instance.Start("127.0.0.1", 8500);
             Client.Connect("127.0.0.1", 8500);
@@ -193,7 +195,7 @@ namespace Controller
                                         int SpawnX = cRang.PosX; int SpawnY = cRang.PosY;//On sauvegarde sa place d'origine
                                         cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, pos[0], pos[1] });//On se déplace a la table
                                         List<Plat> plats = table.Groupe.Commande(); //On prend les commandes
-                                                                                   //On envoie les commandes a la cuisine
+                                        //On envoie les commandes a la cuisine
                                         cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, SpawnX, SpawnY });//Le chef de rang retourne a sa place d'origine
 
                                     }
