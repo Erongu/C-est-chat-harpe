@@ -64,14 +64,19 @@ namespace Model
 
         public List<Table> GetAllTables()
         {
-            List<Table> tables = GetCarre(1).GetRang(1).Tables;
+            List<Table> tables = null;
 
-            tables.AddRange(GetCarre(1).GetRang(1).Tables);
-            tables.AddRange(GetCarre(1).GetRang(2).Tables);
-            tables.AddRange(GetCarre(2).GetRang(1).Tables);
-            tables.AddRange(GetCarre(2).GetRang(2).Tables);
+            var allProducts = new List<Table>(GetCarre(1).GetRang(1).Tables.Count +
+                                    GetCarre(1).GetRang(2).Tables.Count +
+                                    GetCarre(1).GetRang(1).Tables.Count +
+                                    GetCarre(2).GetRang(2).Tables.Count);
 
-            return tables;
+            allProducts.AddRange(GetCarre(1).GetRang(1).Tables);
+            allProducts.AddRange(GetCarre(1).GetRang(2).Tables);
+            allProducts.AddRange(GetCarre(2).GetRang(1).Tables);
+            allProducts.AddRange(GetCarre(2).GetRang(2).Tables);
+
+            return (List<Table>)allProducts;
         }
     }
 }

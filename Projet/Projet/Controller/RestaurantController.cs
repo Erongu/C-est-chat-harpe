@@ -120,7 +120,8 @@ namespace Controller
                     {
                         //Console.WriteLine("Le maitre d'hotel acceuil un nouveau groupe de : " + grp.Taille + " client(s).");
                         groupeMAJ.Add(grp);//On ajoute le groupe a la liste
-                        Table tbl = MaitreHotel.RechercheTable(restaurant.GetAllTables(), grp);//On lui cherche une table
+                        Table tbl = MaitreHotel.RechercheTable(restaurant.GetAllTables(), grp);
+                        //On lui cherche une table
                         if (tbl != null)//Si il a bien trouvé une table
                         {
                             //On attribue un numéro de table au groupe
