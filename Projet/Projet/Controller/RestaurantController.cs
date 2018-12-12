@@ -10,6 +10,7 @@ using Model.Salle;
 using System.Linq;
 using System.Reflection;
 using Model.Threading;
+using Projet.Model.Personnel;
 
 namespace Controller
 {
@@ -110,9 +111,22 @@ namespace Controller
                 foreach (var mHotel in maitresDhotels)
                 {
                     //Comparaison liste groupe
-                    if(groupeMAJ != groupes)
+                    //Comparaison liste groupe
+                    Groupe grp = MaitreHotel.CheckNouveauGroupe(groupeMAJ, groupes);//On regarde si il y'a un nouveau groupe
+                    if (grp != null)
                     {
+                        groupeMAJ.Add(grp);//On ajoute le groupe a notre liste mise a jour.
+                        Table tbl = MaitreHotel.RechercheTable(restaurant.GetAllTables(), grp);//On lui cherche une table
+                        if (tbl != null)//Si il a bien trouvé une table
+                        {
+                            //On appel le maitre de rang
 
+                        }
+                        else//Si aucune table n'a été trouvé on enlève le groupe des deux listes
+                        {
+                            groupes.RemoveAt(groupes.Count - 1);
+                            groupeMAJ.RemoveAt(groupeMAJ.Count - 1);
+                        }
                     }
 
                 }
@@ -146,9 +160,10 @@ namespace Controller
             foreach (var serveur in serveurs)
             {
                 var cell = MapController.Instance.GetRandomFreeCell();
-
+                List<int> pos = Personnel.GetPosXTable(21, restaurant.GetAllTables());
                 taskPool.CallPeriodically(5000, () =>
                 {
+                    
                     serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, cell.X, cell.Y });
                 });                
             }

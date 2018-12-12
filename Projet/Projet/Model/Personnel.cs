@@ -1,5 +1,6 @@
 using Controller;
 using Controller.Strategy;
+using Model.Salle;
 using Model.Threading;
 using System.Collections.Generic;
 
@@ -52,6 +53,21 @@ namespace Model
             this.Metier = (int)args["metier"];
             this.PosX = (int)args["posx"];
             this.PosY = (int)args["posy"];
+        }
+
+        public static List<int> GetPosXTable(int numero, List<Table> tables)
+        {
+            List<int> pos = new List<int>();
+            foreach (Table tbl in tables)
+            {
+                if (tbl.Numero == numero)
+                {
+                    pos.Add(tbl.x);
+                    pos.Add(tbl.y);
+                    return pos;
+                }
+            }
+            return pos;
         }
 
 

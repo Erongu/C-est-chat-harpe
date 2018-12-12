@@ -8,7 +8,7 @@ using Controller.Strategy;
 
 namespace Model.Salle
 {
-    class Groupe
+    public class Groupe
     {
         public List<Client> Clients
         {
@@ -39,6 +39,11 @@ namespace Model.Salle
         }
 
         public int Etat
+        {
+            get;
+        }
+
+        public int Taille
         {
             get;
         }
@@ -90,6 +95,7 @@ namespace Model.Salle
             }
 
             this.Type = MoyenneGroupe;
+            this.Taille = Clients.Count;
         }
 
 

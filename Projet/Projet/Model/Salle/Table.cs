@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Model.Salle
 {
-    class Table
+    public class Table
     {
         public Groupe Groupe
         {

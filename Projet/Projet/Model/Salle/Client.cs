@@ -9,7 +9,7 @@ using Controller.Strategy;
 namespace Model.Salle
 {
     
-    class Client : ClassTemplate
+    public class Client : ClassTemplate
     {
         public int Type
         {
