@@ -10,7 +10,7 @@ namespace Model.Salle
 {
     class Groupe
     {
-        private List<Client> Clients
+        public List<Client> Clients
         {
             get;
         } = new List<Client>(); //Liste des clients du groupes
