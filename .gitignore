@@ -266,3 +266,4 @@ Projet/Projet/Controller/RestaurantController.cs
 .vs/slnx.sqlite
 *.sqlite
 *.sqlite
+.vs/
