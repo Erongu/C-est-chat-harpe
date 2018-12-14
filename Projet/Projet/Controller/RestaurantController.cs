@@ -53,6 +53,7 @@ namespace Controller
             Personnel plongeur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id",9 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 8 }, { "posx", 9 }, { "posy", 1 }, { "carre", 4 } });
             Personnel commisalle = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 10 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 4 }, { "posx", 9 }, { "posy", 19 }, { "carre", 4 } });
 
+
             //DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
             MapController.Instance.Initialize();
             personnels.Add(serveur);
@@ -401,7 +402,7 @@ namespace Controller
             }
         }
 
-        static private void RunChefPlat()//Fini
+        static public void RunChefPlat()//Fini
         {
             LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
@@ -514,7 +515,7 @@ namespace Controller
             }
         }
 
-        static private void RunCommisCuisine()//Fini
+        static public void RunCommisCuisine()//Fini
         {
             LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
@@ -597,7 +598,8 @@ namespace Controller
         private static void SpawnNpc()
         {
             LogController.Instance.Info("Génération des NPCs");
-            //personnels = DatabaseController.Instance.GetPersonnels();
+            /*DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
+            personnels = DatabaseController.Instance.GetPersonnels();*/
 
             Vue.InitVue(personnels);
         }
