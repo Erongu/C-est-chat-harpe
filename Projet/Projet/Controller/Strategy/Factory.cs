@@ -20,9 +20,7 @@ namespace Controller.Strategy
                                             {
                                                 {"Move", new StrategyServeur()},
                                                 {"ChooseTable", new StrategyMaitreRang()},
-                                                {"Cook", new StrategyCuisinier()},
-                                                {"Plonge", new StrategyPlonge()},
-                                                {"Lave", new StrategyLavage()}
+                                                {"Cook", new StrategyCuisinier()}
                                             };
             }
             else

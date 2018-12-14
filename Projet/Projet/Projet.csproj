@@ -48,8 +48,6 @@
     <Compile Include="Controller\Network\Client\Client.cs" />
     <Compile Include="Controller\Network\Server\NetworkController.cs" />
     <Compile Include="Controller\Strategy\Cuisine\StrategyCuisinier.cs" />
-    <Compile Include="Controller\Strategy\Cuisine\StrategyLavage.cs" />
-    <Compile Include="Controller\Strategy\Cuisine\StrategyPlonge.cs" />
     <Compile Include="Controller\Strategy\Salle\StrategyCommis.cs" />
     <Compile Include="Controller\Strategy\Salle\StrategyMaitreRang.cs" />
     <Compile Include="Controller\Strategy\Salle\StrategyServeur.cs" />
@@ -86,6 +84,7 @@
     <Compile Include="Model\Pathfinding\NodeComparer.cs" />
     <Compile Include="Model\Pathfinding\Path.cs" />
     <Compile Include="Model\Pathfinding\PriorityQueueB.cs" />
+    <Compile Include="Model\Personnel\Cuisinier.cs" />
     <Compile Include="Model\Personnel\MaitreHotel.cs" />
     <Compile Include="Model\Salle\Carre.cs" />
     <Compile Include="Model\Salle\Client.cs" />
