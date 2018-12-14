@@ -40,20 +40,12 @@ namespace Controller
             Vue = new View.Restaurant();
             Vue.Show();
 
-            Personnel serveur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 0 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 1 }, { "posx", 3 }, { "posy", 1 } });
+            Personnel serveur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 0 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 1 }, { "posx", 7 }, { "posy", 17 }, { "carre", 1 } });
+            Personnel serveur2 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 11 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 1 }, { "posx", 7 }, { "posy", 17 }, { "carre", 2 } });
             Personnel maitre_hotel = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 1 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 2 }, { "posx", 4 }, { "posy", 21 } });
             Personnel maitre_de_rang1 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 2 }, { "prenom", "Carre1" }, { "nom", "Albani" }, { "metier", 3 }, { "posx", 7 }, { "posy", 19 }, { "carre", 1 } });
             Personnel maitre_de_rang2 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 3 }, { "prenom", "Carre2" }, { "nom", "Albani" }, { "metier", 3 }, { "posx", 8 }, { "posy", 19 }, { "carre", 2 } });
             Personnel chefcuisto = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 4 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 5 }, { "posx", 5 }, { "posy", 2 }, { "carre", 4 } });
-            chefcuisto.Plats.Add(new Plat(1, 0, Plat.TypePlat.Plat));
-            chefcuisto.Plats.Add(new Plat(1, 0, Plat.TypePlat.Plat));
-            chefcuisto.Plats.Add(new Plat(1, 0, Plat.TypePlat.Plat));
-            chefcuisto.Plats.Add(new Plat(1, 0, Plat.TypePlat.Plat));
-            chefcuisto.Plats.Add(new Plat(1, 0, Plat.TypePlat.Plat));
-            chefcuisto.Plats.Add(new Plat(1, 0, Plat.TypePlat.Plat));
-            chefcuisto.Plats.Add(new Plat(2, 0, Plat.TypePlat.Plat));
-            chefcuisto.Plats.Add(new Plat(3, 0, Plat.TypePlat.Plat));
-            chefcuisto.Plats.Add(new Plat(1, 0, Plat.TypePlat.Plat));
             Personnel chefpartie1 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 5 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 6 }, { "posx", 6 }, { "posy", 1 }, { "carre", 4 } });
             Personnel chefpartie2 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 6 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 6 }, { "posx", 7 }, { "posy", 1 }, { "carre", 4 } });
             Personnel commiscuisine1 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 7 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 7 }, { "posx", 7 }, { "posy", 2 }, { "carre", 4 } });
@@ -74,6 +66,7 @@ namespace Controller
             personnels.Add(commiscuisine2);
             personnels.Add(plongeur);
             personnels.Add(commisalle);
+            personnels.Add(serveur2);
 
             NetworkController.Instance.Start("127.0.0.1", 8500);
             Client.Connect("127.0.0.1", 8500);
@@ -231,7 +224,7 @@ namespace Controller
             }
         }
 
-        static private void RunServeurs()//Pas fini
+        static private void RunServeurs()//Fini
         {
             LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
@@ -243,17 +236,63 @@ namespace Controller
             foreach (var serveur in serveurs)
             {
                 var cell = MapController.Instance.GetRandomFreeCell();
-                /*taskPool.CallPeriodically(5000, () =>
-                {
+                
                     foreach (Rang rang in restaurant.GetCarre(serveur.Carre).Rangs) 
                     {
                         foreach (Table table in rang.Tables)
                         {
-                            List<Plat> plat = restaurant.Comptoir.GetPlat(table.Numero);
-                            serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, table.x, table.y });
+                            //Analyse du besoin de chaque table
+                            if(table.Groupe != null)
+                            {
+                            if (table.Groupe.Etat == Groupe.GroupeEnum.AttenteEntree)//Si le groupe attend le plat
+                            {
+                                //Check comptoire
+                                if (restaurant.Comptoir.CheckTable(table.Numero, table.Place, Plat.TypePlat.Entree))//Si on a bien tout les plats alors on les prend
+                                {
+                                    restaurant.Comptoir.GetPlat(table.Numero, Plat.TypePlat.Entree);//On prend les plats
+                                    serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, table.x, table.y });//On vas a la table
+                                    restaurant.GetCarre(table.Carre).GetRang(table.Rang).GetTable(table.Numero).Groupe.Etat = Groupe.GroupeEnum.MangeEntree;//On met a jour le groupe
+                                    serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, 7, 17 });//On retourne au comptoir
+                                }
+
+                            }
+                            if (table.Groupe.Etat == Groupe.GroupeEnum.AttentePlat)//Si le groupe attend le plat
+                            {
+                                //Check comptoire
+                                if (restaurant.Comptoir.CheckTable(table.Numero, table.Place, Plat.TypePlat.Plat))//Si on a bien tout les plats alors on les prend
+                                {
+                                    restaurant.Comptoir.GetPlat(table.Numero, Plat.TypePlat.Plat);//On prend les plats
+                                    serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, table.x, table.y });//On vas a la table
+                                    restaurant.GetCarre(table.Carre).GetRang(table.Rang).GetTable(table.Numero).Groupe.Etat = Groupe.GroupeEnum.MangePlat;//On met a jour le groupe
+                                    serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, 7, 17 });//On retourne au comptoir
+                                }
+
+                            }
+                            if (table.Groupe.Etat == Groupe.GroupeEnum.AttenteDessert)//Si le groupe attend le dessert
+                            {
+                                //Check comptoire
+                                if (restaurant.Comptoir.CheckTable(table.Numero, table.Place, Plat.TypePlat.Dessert))//Si on a bien tout les plats alors on les prend
+                                {
+                                    restaurant.Comptoir.GetPlat(table.Numero, Plat.TypePlat.Dessert);//On prend les plats
+                                    serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, table.x, table.y });//On vas a la table
+                                    restaurant.GetCarre(table.Carre).GetRang(table.Rang).GetTable(table.Numero).Groupe.Etat = Groupe.GroupeEnum.MangeDessert;//On met a jour le groupe
+                                    serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, 7, 17 });//On retourne au comptoir
+                                }
+
+                            }
+                            if (table.Groupe.Etat == Groupe.GroupeEnum.AttenteDePayer)//Si le groupe souhaite partir
+                            {
+                                serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, table.x, table.y });//On vas a la table
+                                Thread.Sleep(2000);//Remise au propre de la table
+                                restaurant.GetCarre(table.Carre).GetRang(table.Rang).GetTable(table.Numero).Groupe = null;//On enlève ke groupe de la table
+                                serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, 7, 17 });//On retourne au comptoir
+                            }
+
+                        }
+                            
                         }
                     }
-                });   */             
+                            
             }
         }
 

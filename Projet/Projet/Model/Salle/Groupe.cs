@@ -43,7 +43,7 @@ namespace Model.Salle
         public GroupeEnum Etat
         {
             get;
-            private set;
+            set;
         }
 
         public int Taille
@@ -164,7 +164,22 @@ namespace Model.Salle
                     Thread.Sleep(10000);
                     this.Etat = GroupeEnum.CommandeEnd;
                 }
-                 
+                if (Etat == GroupeEnum.MangeEntree)//En train de commander
+                {
+                    Thread.Sleep(10000);
+                    this.Etat = GroupeEnum.AttentePlat;
+                }
+                if (Etat == GroupeEnum.MangePlat)//En train de commander
+                {
+                    Thread.Sleep(10000);
+                    this.Etat = GroupeEnum.AttenteDessert;
+                }
+                if (Etat == GroupeEnum.MangeDessert)//En train de commander
+                {
+                    Thread.Sleep(10000);
+                    this.Etat = GroupeEnum.AttenteDePayer;
+                }
+
             }
         }
     }
