@@ -10,7 +10,7 @@ namespace Model.Cuisine
     class Evier
     {
         //Liste d'ustensiles
-        private List<Ustensile> Ustensiles
+        public List<Ustensile> Ustensiles
         {
             get;
         } = new List<Ustensile>();

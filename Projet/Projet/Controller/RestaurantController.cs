@@ -43,7 +43,12 @@ namespace Controller
             Personnel maitre_hotel = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 1 }, { "prenom", "Muhammed" }, { "nom", "Albani" }, { "metier", 2 }, { "posx", 4 }, { "posy", 21 } });
             Personnel maitre_de_rang1 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 2 }, { "prenom", "Carre1" }, { "nom", "Albani" }, { "metier", 3 }, { "posx", 7 }, { "posy", 19 }, { "carre", 1 } });
             Personnel maitre_de_rang2 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 3 }, { "prenom", "Carre2" }, { "nom", "Albani" }, { "metier", 3 }, { "posx", 8 }, { "posy", 19 }, { "carre", 2 } });
-            Personnel chefcuisto = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 4 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 4 }, { "posx", 8 }, { "posy", 4 }, { "carre", 4 } });
+            Personnel chefcuisto = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 4 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 5 }, { "posx", 5 }, { "posy", 2 }, { "carre", 4 } });
+            chefcuisto.Plats.Add(new Plat(1, 0, Plat.TypePlat.Plat));
+            chefcuisto.Plats.Add(new Plat(1, 0, Plat.TypePlat.Plat));
+            chefcuisto.Plats.Add(new Plat(6, 0, Plat.TypePlat.Plat));
+            Personnel chefpartie1 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 4 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 6 }, { "posx", 6 }, { "posy", 1 }, { "carre", 4 } });
+            Personnel chefpartie2 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 4 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 6 }, { "posx", 7 }, { "posy", 1 }, { "carre", 4 } });
 
             //DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
             MapController.Instance.Initialize();
@@ -52,6 +57,8 @@ namespace Controller
             personnels.Add(maitre_de_rang1);
             personnels.Add(maitre_de_rang2);
             personnels.Add(chefcuisto);
+            personnels.Add(chefpartie1);
+            personnels.Add(chefpartie2);
 
             NetworkController.Instance.Start("127.0.0.1", 8500);
             Client.Connect("127.0.0.1", 8500);
@@ -155,7 +162,7 @@ namespace Controller
             }
         }
 
-        static private void RunChefRang()//Placage Fini //Commande non fini
+        static private void RunChefRang()//Placage Fini //Envoie des commandes a finir
         {
             LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
@@ -209,7 +216,7 @@ namespace Controller
             }
         }
 
-        static private void RunServeurs()
+        static private void RunServeurs()//Pas fini
         {
             LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
@@ -221,21 +228,21 @@ namespace Controller
             foreach (var serveur in serveurs)
             {
                 var cell = MapController.Instance.GetRandomFreeCell();
-                taskPool.CallPeriodically(5000, () =>
+                /*taskPool.CallPeriodically(5000, () =>
                 {
-                    foreach (Rang rang in serveur.Carre().Rangs()) 
+                    foreach (Rang rang in restaurant.GetCarre(serveur.Carre).Rangs) 
                     {
-                        foreach (Table table in rang.Tables())
+                        foreach (Table table in rang.Tables)
                         {
-                            Plat plat = restaurant.Comptoir().GetPlat(table.Numero);
+                            List<Plat> plat = restaurant.Comptoir.GetPlat(table.Numero);
                             serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, table.x, table.y });
                         }
                     }
-                });                
+                });   */             
             }
         }
 
-        static private void RunCommis()
+        static private void RunCommis()//Pas fini
         {
             LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
@@ -251,7 +258,7 @@ namespace Controller
             }
         }
 
-        static private void RunChef()
+        static private void RunChef()//Fini
         {
             LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
@@ -261,6 +268,52 @@ namespace Controller
 
                 foreach (var cCuisto in chefCuistos)
                 {
+                    //On vérifie si le plat n'existe pas déjà
+                    if(cCuisto.Plats.Count != 0)
+                    {
+                        if((restaurant.VitrineChauffante.Plats.Count != 0)&&(restaurant.VitrineChauffante.GetPlat(cCuisto.Plats[0].Nom) != null))//SI ca existe ici
+                        {
+                            Console.WriteLine("Le chef vas prendre le plat");
+                            cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 13, 2 });//On vas a la vitrine
+                            Thread.Sleep(2000);
+                            Plat plat = restaurant.VitrineChauffante.PrendrePlat(cCuisto.Plats[0].Nom);//On prend le plat
+                            cCuisto.Plats.RemoveAt(0);
+                            Console.WriteLine("Le chef vas apporter le plat");
+                            cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 12, 6 });//On le met sur le conmptoir en le modifiant
+                            Thread.Sleep(2000);
+                            restaurant.Comptoir.AddPlat(plat);
+
+                        }
+                        else if ((restaurant.Frigo.Plats.Count != 0)&&(restaurant.Frigo.GetPlat(cCuisto.Plats[0].Nom) != null))//Si ca existe ici
+                        {
+                            Console.WriteLine("Le chef vas prendre le plat");
+                            cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 14, 2 });//On vas au frigo
+                            Thread.Sleep(2000);
+                            Plat plat = restaurant.Frigo.prendrePlat(cCuisto.Plats[0].Nom);//On prend le plat
+                            cCuisto.Plats.RemoveAt(0);
+                            Console.WriteLine("Le chef vas apporter le plat");
+                            cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 12, 6 });//On le met sur le conmptoir en le modifiant
+                            Thread.Sleep(2000);
+                            restaurant.Comptoir.AddPlat(plat);
+                        }
+                        else//Si le plat n'existe pas en délègue
+                        {
+                            
+                            var chefParties = personnels.Where(x => x.Metier == (int)PersonnelEnums.Chef_Partie).ToList<Personnel>();
+                            if (chefParties[0].Plats.Count >= chefParties[1].Plats.Count)//On distribue equitablement les plats
+                            {
+                                Console.WriteLine("Le chef délègue au chef 2");
+                                chefParties[1].Plats.Add(cCuisto.Plats[0]);
+                                cCuisto.Plats.RemoveAt(0);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Le chef délègue au chef 1");
+                                chefParties[0].Plats.Add(cCuisto.Plats[0]);
+                                cCuisto.Plats.RemoveAt(0);
+                            }
+                        }
+                    }
 
                 }
 
@@ -309,7 +362,7 @@ namespace Controller
 
                 foreach (var plongeur in plongeurs)
                 {
-                    object ustensiles = restaurant.Evier.Ustensiles();
+                    object[] ustensiles = restaurant.Evier.Ustensiles.ToArray();
                     plongeur.Call("Plonge", ustensiles);
                 }
 
@@ -331,7 +384,7 @@ namespace Controller
         static private void RunFour()
         {
             Model.Cuisine.Four four = new Model.Cuisine.Four();
-            four.cuisson();
+            //four.cuisson();
         }
 
         static private void RunPlaque()
