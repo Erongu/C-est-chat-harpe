@@ -362,7 +362,7 @@ namespace Controller
 
                 foreach (var plongeur in plongeurs)
                 {
-                    object ustensiles = restaurant.Evier.Ustensiles();
+                    object ustensiles = restaurant.Evier().Ustensiles();
                     plongeur.Call("Plonge", ustensiles);
                 }
 
