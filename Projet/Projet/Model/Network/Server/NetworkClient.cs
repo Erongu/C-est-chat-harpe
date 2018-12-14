@@ -121,7 +121,8 @@ namespace Model.Network
                     break;
                 case CommandeMessage.Id:
                     var cm = message as CommandeMessage;
-                    LogController.Instance.Debug($" {cm.Plats.Count} plats / {cm.Tables.Count} tables");
+                    //LogController.Instance.Debug($" {cm.Plats.Count} plats / {cm.Tables.Count} tables");
+                    LogController.Instance.Debug($" {cm.Commandes.Count} commandes");
                     break;
             }
 
