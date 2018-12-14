@@ -10,7 +10,7 @@ namespace Model.Cuisine
     class Frigo
     {
         //Liste de plat
-        private List<Plat> Plats
+        public List<Plat> Plats
         {
             get;
         } = new List<Plat>();
@@ -18,7 +18,7 @@ namespace Model.Cuisine
         //Constructeur
         public Frigo()
         {
-           
+            Plats.Add(new Plat(6, 0, Plat.TypePlat.Plat));
         }
 
         //Ajout d'un plat
@@ -32,7 +32,7 @@ namespace Model.Cuisine
         public Plat prendrePlat(int nom)
         {
             Plat pl = GetPlat(nom);
-            Plats.Remove(new Plat(nom,0));
+            Plats.Remove(pl);
             return pl;
         }
 

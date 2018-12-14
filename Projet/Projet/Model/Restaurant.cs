@@ -27,13 +27,13 @@ namespace Model
         {
             get;
             set;
-        }
+        } = new Frigo();
 
-        private VitrineChauffante VitrineChauffante
+        public VitrineChauffante VitrineChauffante
         {
             get;
             set;
-        }
+        } = new VitrineChauffante();
 
         public Evier Evier
         {

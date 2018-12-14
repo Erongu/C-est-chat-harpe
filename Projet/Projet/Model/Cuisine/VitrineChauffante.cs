@@ -10,7 +10,7 @@ namespace Model.Cuisine
     class VitrineChauffante
     {
         //Liste de plat
-        private List<Plat> Plats
+        public List<Plat> Plats
         {
             get;
         } = new List<Plat>();
@@ -18,7 +18,7 @@ namespace Model.Cuisine
         //Constructeur
         public VitrineChauffante()
         {
-
+            
         }
 
         //Ajout d'un plat
@@ -33,7 +33,7 @@ namespace Model.Cuisine
         public Plat PrendrePlat(int nom)
         {
             Plat pl = GetPlat(nom);
-            Plats.Remove(new Plat(nom, 0));
+            Plats.Remove(pl);
             return pl;
         }
 

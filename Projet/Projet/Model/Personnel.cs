@@ -55,6 +55,12 @@ namespace Model
             get;
         }
 
+        public List<Plat> Plats
+        {
+            get;
+            set;
+        } = new List<Plat>();
+
 
         public Personnel(Dictionary<string, IStrategy> strategies, Dictionary<string, object> args) : base(strategies, args)
         {
