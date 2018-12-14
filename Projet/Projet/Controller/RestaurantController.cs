@@ -228,11 +228,16 @@ namespace Controller
             foreach (var serveur in serveurs)
             {
                 var cell = MapController.Instance.GetRandomFreeCell();
-                List<int> pos = Personnel.GetPosXTable(21, restaurant.GetAllTables());
                 taskPool.CallPeriodically(5000, () =>
                 {
-                    
-                    //serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, pos[0], pos[1] });
+                    foreach (Rang rang in serveur.Carre().Rangs()) 
+                    {
+                        foreach (Table table in rang.Tables())
+                        {
+                            Plat plat = restaurant.Comptoir().GetPlat(table.Numero);
+                            serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, table.x, table.y });
+                        }
+                    }
                 });                
             }
         }
@@ -357,7 +362,8 @@ namespace Controller
 
                 foreach (var plongeur in plongeurs)
                 {
-
+                    object ustensiles = restaurant.Evier.Ustensiles();
+                    plongeur.Call("Plonge", ustensiles);
                 }
 
             }
@@ -365,22 +371,25 @@ namespace Controller
 
         static private void RunLaveVaisselle()
         {
-
+            Model.Cuisine.LaveVaisselle laveVaisselle = new Model.Cuisine.LaveVaisselle();
+            laveVaisselle.VideLaveVaisselle();
         }
 
         static private void RunMachineLaver()
         {
-
+            Model.Cuisine.MachineLaver machineLaver = new Model.Cuisine.MachineLaver();
+            machineLaver.VideMachineLaver();
         }
 
         static private void RunFour()
         {
-
+            Model.Cuisine.Four four = new Model.Cuisine.Four();
+            four.cuisson();
         }
 
         static private void RunPlaque()
         {
-
+            Model.Cuisine.Plaque plaque = new Model.Cuisine.Plaque();
         }
 
         private static void SpawnNpc()

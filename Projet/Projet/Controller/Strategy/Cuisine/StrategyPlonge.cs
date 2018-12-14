@@ -1,4 +1,5 @@
 ﻿using Model.Cuisine;
+using System.Linq;
 
 namespace Controller.Strategy.Cuisine
 {
@@ -14,7 +15,8 @@ namespace Controller.Strategy.Cuisine
                     machineLaver.VideMachineLaver();
                     break;
                 case "add":
-                    machineLaver.AddUstensile(new Ustensile((Ustensile.TYPE)args[1]));
+                    foreach (Ustensile ustensile in args.Skip(1))
+                        machineLaver.AddUstensile(ustensile);
                     break;
             }
         }
