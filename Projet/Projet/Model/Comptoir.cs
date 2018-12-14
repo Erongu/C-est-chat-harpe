@@ -16,12 +16,18 @@ namespace Model
         
         public List<Plat> GetPlat(int numeroTable) //Le serveur prend un plat sur le comptoir
         {
-            return Plats.Where(x => x.Table == numeroTable).ToList();
+            List<Plat> plats = Plats.Where(x => x.Table == numeroTable).ToList();
+            foreach(Plat plat in plats)
+            {
+                Plats.Remove(plat);
+            }
+
+            return plats;
         }
 
         public void AddPlat(Plat plat) //Les cuisiniers reservent un plat sur le comptoir
         {
-            if (this.Plats.Count < 14)
+            if (this.Plats.Count < 60)
                 this.Plats.Add(plat);
 
             else

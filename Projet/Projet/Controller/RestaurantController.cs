@@ -228,17 +228,17 @@ namespace Controller
             foreach (var serveur in serveurs)
             {
                 var cell = MapController.Instance.GetRandomFreeCell();
-                taskPool.CallPeriodically(5000, () =>
+                /*taskPool.CallPeriodically(5000, () =>
                 {
-                    foreach (Rang rang in serveur.Carre().Rangs()) 
+                    foreach (Rang rang in restaurant.GetCarre(serveur.Carre).Rangs) 
                     {
-                        foreach (Table table in rang.Tables())
+                        foreach (Table table in rang.Tables)
                         {
-                            Plat plat = restaurant.Comptoir().GetPlat(table.Numero);
+                            List<Plat> plat = restaurant.Comptoir.GetPlat(table.Numero);
                             serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, table.x, table.y });
                         }
                     }
-                });                
+                });   */             
             }
         }
 
@@ -362,7 +362,7 @@ namespace Controller
 
                 foreach (var plongeur in plongeurs)
                 {
-                    object ustensiles = restaurant.Evier().Ustensiles();
+                    object[] ustensiles = restaurant.Evier.Ustensiles.ToArray();
                     plongeur.Call("Plonge", ustensiles);
                 }
 
@@ -384,7 +384,7 @@ namespace Controller
         static private void RunFour()
         {
             Model.Cuisine.Four four = new Model.Cuisine.Four();
-            four.cuisson();
+            //four.cuisson();
         }
 
         static private void RunPlaque()

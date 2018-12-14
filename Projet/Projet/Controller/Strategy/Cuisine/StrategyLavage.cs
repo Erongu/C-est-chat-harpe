@@ -1,4 +1,5 @@
 using Model.Cuisine;
+using System.Linq;
 
 namespace Controller.Strategy.Cuisine
 {
