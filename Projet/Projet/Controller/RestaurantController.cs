@@ -224,8 +224,7 @@ namespace Controller
                 List<int> pos = Personnel.GetPosXTable(21, restaurant.GetAllTables());
                 taskPool.CallPeriodically(5000, () =>
                 {
-                    
-                    //serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, pos[0], pos[1] });
+                    serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, pos[0], pos[1] });
                 });                
             }
         }
