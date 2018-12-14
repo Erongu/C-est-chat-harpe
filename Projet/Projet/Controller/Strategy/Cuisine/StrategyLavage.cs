@@ -13,7 +13,10 @@ namespace Controller.Strategy.Cuisine
                     laveVaisselle.VideLaveVaisselle();                 
                     break;
                 case "add":
-                    laveVaisselle.AddUstensile(new Ustensile((Ustensile.TYPE)args[1]));
+                    foreach (Ustensile ustensile in args.Skip(1)) 
+                    {
+                        laveVaisselle.AddUstensile(ustensile);
+                    }
                     break;
             }
         }

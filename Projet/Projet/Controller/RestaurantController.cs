@@ -224,8 +224,7 @@ namespace Controller
                 List<int> pos = Personnel.GetPosXTable(21, restaurant.GetAllTables());
                 taskPool.CallPeriodically(5000, () =>
                 {
-                    
-                    //serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, pos[0], pos[1] });
+                    serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, pos[0], pos[1] });
                 });                
             }
         }
@@ -304,7 +303,8 @@ namespace Controller
 
                 foreach (var plongeur in plongeurs)
                 {
-
+                    object ustensiles = restaurant.Evier.Ustensiles();
+                    plongeur.Call("Plonge", ustensiles);
                 }
 
             }
@@ -312,22 +312,25 @@ namespace Controller
 
         static private void RunLaveVaisselle()
         {
-
+            Model.Cuisine.LaveVaisselle laveVaisselle = new Model.Cuisine.LaveVaisselle();
+            laveVaisselle.VideLaveVaisselle();
         }
 
         static private void RunMachineLaver()
         {
-
+            Model.Cuisine.MachineLaver machineLaver = new Model.Cuisine.MachineLaver();
+            machineLaver.VideMachineLaver();
         }
 
         static private void RunFour()
         {
-
+            Model.Cuisine.Four four = new Model.Cuisine.Four();
+            four.cuisson();
         }
 
         static private void RunPlaque()
         {
-
+            Model.Cuisine.Plaque plaque = new Model.Cuisine.Plaque();
         }
 
         private static void SpawnNpc()
