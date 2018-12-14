@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Controller;
 using Controller.Strategy;
+using Model.Cuisine;
 
 namespace Model.Salle
 {
@@ -24,13 +25,13 @@ namespace Model.Salle
         public int Pain
         {
             get;
-            private set;
+            set;
         }
 
         public int Bouteille
         {
             get;
-            private set;
+            set;
         }
 
         public int NombrePlat

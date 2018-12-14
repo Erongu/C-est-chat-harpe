@@ -7,7 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
-
+using Model.Cuisine;
 using System.Threading.Tasks;
 
 namespace Controller
@@ -134,33 +134,25 @@ namespace Controller
 
 
 
-        public List<string> GetRecette(int plat)
+        public List<Etape> GetRecette(int plat)
         {
             try
             {
-                var results = new List<string>();
+                var results = new List<Etape>();
                 var sqlConnection = new SqlConnection(ConnectionString);
 
                 sqlConnection.Open();
 
                 var command = sqlConnection.CreateCommand(); //Création de la commande
-                command.CommandText = $"SELECT * FROM recette WHERE id_plat {0}plat";
+                command.CommandText = "SELECT  nombre,action,temps,etape,id_plat,id_ingredient,part FROM recette inner join plat on recette.id_plat = plat.id  WHERE id_plat = @plat order by etape ";//(plat) VALUES (@plat)
+                command.Parameters.AddWithValue("@plat", plat);
+                command.ExecuteNonQuery();
 
                 var reader = command.ExecuteReader();
 
                 while (reader.Read())
                 {
-                    var objet = new Dictionary<string, object>
-                    {
-                        { "nombre", reader[0] },
-                        { "action", reader[1] },
-                        { "temps", reader[2] },
-                        { "etape", reader[4] },
-                        { "id_plat", reader[5] },
-                        { "id_ingredient", reader[6] }
-                    };
-
-                   
+                    results.Add(new Etape(int.Parse(reader[1].ToString()),int.Parse(reader[2].ToString()),int.Parse(reader[5].ToString()),int.Parse(reader[6].ToString())));
                 }
 
                 reader.Close();
@@ -171,7 +163,7 @@ namespace Controller
             catch
             {
                 LogController.Instance.Error("Database connection timeout");
-                return new List<string>();
+                return new List<Etape>();
             }
         }
 

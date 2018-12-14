@@ -24,32 +24,27 @@ namespace Model.Cuisine
         //Laver un Ustensile
         public void laverUstensible()
         {    
-            Ustensile ust = Ustensiles[0];
-            Ustensiles.RemoveAt(0);
+            if(Ustensiles.Count != 0)
+            {
+                Console.WriteLine("Le Plongeur lave un ustensile");
+                Ustensile ust = Ustensiles[0];
+                Ustensiles.RemoveAt(0);
 
-            if (ust.Type == Ustensile.TYPE.COUTEAUCUISINE)
-            {
-                Thread.Sleep(500);
-                //addStock(couteaucuisine); ///////////
+                if (ust.Type == Ustensile.TYPE.COUTEAUCUISINE)
+                {
+                    Thread.Sleep(500);
+                }
+                else if (ust.Type == Ustensile.TYPE.CUILLERE)
+                {
+                    Thread.Sleep(500);
+                }
+                else
+                {
+                    Thread.Sleep(1000);
+                }
             }
-            else if (ust.Type == Ustensile.TYPE.CUILLERE)
-            {
-                Thread.Sleep(500);
-                //addStock(cuillere); /////////////////
-            }
-            else
-            {
-                Thread.Sleep(1000);
-                //addStock(casserole); ////////////////
-            }
+            
 
-            /**
-             * 
-             * MAJ STOCK
-             * 
-             * 
-             * 
-             */
         }
 
     }

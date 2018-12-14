@@ -7,30 +7,55 @@ using System.Threading.Tasks;
 
 namespace Model.Cuisine
 {
-    class Etape
+    public class Etape
     {
-        private string Action
+        public enum ActionEnum
+        {
+            Prendre = 1,
+            Preparer = 2,
+            Cuire = 3,
+            Cuire_Four = 4
+        }
+        public ActionEnum Action
         {
             get;
             set;
         }
 
-        private int Temps
+        public int Temps
         {
             get;
             set;
         }
 
-        private Ingredient Ingredient
+        public int Ingredient
         {
             get;
             set;
         }
 
-        private int NumeroEtape
+        public int NumeroEtape
         {
             get;
             set;
+        }
+
+        public int Part
+        {
+            get;
+            set;
+        }
+
+        public Etape(int action,int temps, int ingredient,int part )
+        {
+            
+            if(action == 1) { Action = ActionEnum.Prendre; }
+            if (action == 2) { Action = ActionEnum.Preparer; }
+            if (action == 3) { Action = ActionEnum.Cuire; }
+            if (action == 4) { Action = ActionEnum.Cuire_Four; }
+            this.Temps = temps;
+            this.Ingredient = ingredient;
+            this.Part = part;
         }
 
     }
