@@ -221,10 +221,16 @@ namespace Controller
             foreach (var serveur in serveurs)
             {
                 var cell = MapController.Instance.GetRandomFreeCell();
-                List<int> pos = Personnel.GetPosXTable(21, restaurant.GetAllTables());
                 taskPool.CallPeriodically(5000, () =>
                 {
-                    serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, pos[0], pos[1] });
+                    foreach (Rang rang in serveur.Carre().Rangs()) 
+                    {
+                        foreach (Table table in rang.Tables())
+                        {
+                            Plat plat = restaurant.Comptoir().GetPlat(table.Numero);
+                            serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, table.x, table.y });
+                        }
+                    }
                 });                
             }
         }
