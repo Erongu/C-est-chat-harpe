@@ -12,6 +12,7 @@ using System.Reflection;
 using Model.Threading;
 using Projet.Model.Personnel;
 using Model.Cuisine;
+using Model.Network.Protocol.Salle;
 
 namespace Controller
 {
@@ -26,7 +27,7 @@ namespace Controller
         private static List<Personnel> personnels = new List<Personnel>();
         private static List<Groupe> groupes = new List<Groupe>() { };
 
-        public static Network.Client.Client Client = new Network.Client.Client();
+        public static Network.Client.ClientSalle Client = new Network.Client.ClientSalle();
 
         static void Main(string[] args)
         {
@@ -231,6 +232,7 @@ namespace Controller
                                         List<Plat> plats = table.Groupe.Commande(); //On prend les commandes
                                         //On envoie les commandes a la cuisine
                                         Console.WriteLine("[PERSONNEL]Le chef de rang a pris une commande");
+                                        Client.Send(new CommandeMessage(plats));
                                         cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, SpawnX, SpawnY });//Le chef de rang retourne a sa place d'origine
 
                                     }

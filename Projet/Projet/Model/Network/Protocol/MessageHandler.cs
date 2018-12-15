@@ -23,7 +23,6 @@ namespace Model.Network.Protocol
                 case PingMessage.Id:
                     message = new PingMessage();
                     break;
-
                 case PongMessage.Id:
                     message = new PongMessage();
                     break;

@@ -27,6 +27,8 @@ namespace Controller.Strategy.Salle
                 {
                     ((Personnel)instance).PosX = point.X;
                     ((Personnel)instance).PosY = point.Y;
+                    Thread.Sleep((int)(500 / RestaurantController.Vitesse));
+
                 }
 
             }
