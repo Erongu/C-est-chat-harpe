@@ -51,6 +51,9 @@ namespace Model.Network
             ResumeReceive();
         }
 
+
+
+
         private void ResumeReceive()
         {
             if (!Connected)
@@ -122,7 +125,8 @@ namespace Model.Network
                 case CommandeMessage.Id:
                     var cm = message as CommandeMessage;
                     //LogController.Instance.Debug($" {cm.Plats.Count} plats / {cm.Tables.Count} tables");
-                    LogController.Instance.Debug($" {cm.Commandes.Count} commandes");
+                    LogController.Instance.Debug($" {cm.Plats.Count} plats");
+                    //cm.Plats ===>Pour le cuisinier
                     break;
             }
 

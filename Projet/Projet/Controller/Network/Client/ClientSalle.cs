@@ -9,10 +9,11 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Model.Network.Protocol.Salle;
 
 namespace Controller.Network.Client
 {
-    public class Client
+    public class ClientSalle
     {
         private Socket m_socket;
         private BufferPool Buffer { get; set; }
@@ -21,7 +22,7 @@ namespace Controller.Network.Client
             get { return m_socket != null && m_socket.Connected; }
         }
 
-        public Client()
+        public ClientSalle()
         {
             Buffer = new BufferPool();
         }

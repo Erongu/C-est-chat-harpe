@@ -12,6 +12,7 @@ using System.Reflection;
 using Model.Threading;
 using Projet.Model.Personnel;
 using Model.Cuisine;
+using Model.Network.Protocol.Salle;
 
 namespace Controller
 {
@@ -26,7 +27,7 @@ namespace Controller
         private static List<Personnel> personnels = new List<Personnel>();
         private static List<Groupe> groupes = new List<Groupe>() { };
 
-        public static Network.Client.Client Client = new Network.Client.Client();
+        public static Network.Client.ClientSalle Client = new Network.Client.ClientSalle();
 
         static void Main(string[] args)
         {
@@ -52,6 +53,7 @@ namespace Controller
             Personnel commiscuisine2 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 8 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 7 }, { "posx", 7 }, { "posy", 2 }, { "carre", 4 } });
             Personnel plongeur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id",9 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 8 }, { "posx", 9 }, { "posy", 1 }, { "carre", 4 } });
             Personnel commisalle = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 10 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 4 }, { "posx", 9 }, { "posy", 19 }, { "carre", 4 } });
+
 
             //DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
             MapController.Instance.Initialize();
@@ -211,6 +213,7 @@ namespace Controller
                                         cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, pos[0], pos[1] });//On se déplace a la table
                                         List<Plat> plats = table.Groupe.Commande(); //On prend les commandes
                                         //On envoie les commandes a la cuisine
+                                        Client.Send(new CommandeMessage(plats));
                                         cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, SpawnX, SpawnY });//Le chef de rang retourne a sa place d'origine
 
                                     }
@@ -401,7 +404,7 @@ namespace Controller
             }
         }
 
-        static private void RunChefPlat()//Fini
+        static public void RunChefPlat()//Fini
         {
             LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
@@ -514,7 +517,7 @@ namespace Controller
             }
         }
 
-        static private void RunCommisCuisine()//Fini
+        static public void RunCommisCuisine()//Fini
         {
             LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
@@ -597,7 +600,8 @@ namespace Controller
         private static void SpawnNpc()
         {
             LogController.Instance.Info("Génération des NPCs");
-            //personnels = DatabaseController.Instance.GetPersonnels();
+            /*DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
+            personnels = DatabaseController.Instance.GetPersonnels();*/
 
             Vue.InitVue(personnels);
         }
