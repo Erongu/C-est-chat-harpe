@@ -33,6 +33,7 @@ namespace Controller
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
 
             restaurant = new Factory().Create<Restaurant>();
 
@@ -124,18 +125,17 @@ namespace Controller
                 }
             }
 
-            foreach(Personnel perso in personnels)//On lance certains thread en mode non bloquant
+            foreach(Personnel perso in personnels.Where(x => x.Metier == (int)PersonnelEnums.Commis_Cuisine || x.Metier == (int)PersonnelEnums.Chef_Partie))//On lance certains thread en mode non bloquant
             {
-                if(perso.Metier == (int)PersonnelEnums.Commis_Cuisine)
-                {
-                    Thread newThread = new Thread(runCommis);
+                Thread newThread = null;
+
+                if (perso.Metier == (int)PersonnelEnums.Commis_Cuisine)
+                    newThread = new Thread(runCommis);
+                else if (perso.Metier == (int)PersonnelEnums.Chef_Partie)
+                    newThread = new Thread(runChefPlat);
+
+                if(newThread != null)
                     newThread.Start(perso.ID);
-                }
-                if (perso.Metier == (int)PersonnelEnums.Chef_Partie)
-                {
-                    Thread newThread = new Thread(runChefPlat);
-                    newThread.Start(perso.ID);
-                }
             }
 
         }
@@ -150,7 +150,6 @@ namespace Controller
             {
                 var maitresDhotels = personnels.Where(x => x.Metier == (int)PersonnelEnums.Maitre_Hotel);
                 
-
                 foreach (var mHotel in maitresDhotels)
                 {
                     //Comparaison liste groupe
@@ -371,7 +370,7 @@ namespace Controller
             }
         }
 
-        static private void RunChef()//Fini
+        static private void RunChef() //Fini
         {
             LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
 
@@ -384,34 +383,45 @@ namespace Controller
                     //On vérifie si le plat n'existe pas déjà
                     if(cCuisto.Plats.Count != 0)
                     {
-                        if((restaurant.VitrineChauffante.Plats.Count != 0)&&(restaurant.VitrineChauffante.GetPlat(cCuisto.Plats[0].Nom) != null))//SI ca existe ici
+                        if((restaurant.VitrineChauffante.Plats.Count != 0)&&(restaurant.VitrineChauffante.GetPlat(cCuisto.Plats[0].Nom) != null)) //SI ca existe ici
                         {
-                            cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 13, 2 });//On vas a la vitrine
+                            cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 13, 2 }) ; //On vas a la vitrine
+
                             Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));
-                            Plat plat = restaurant.VitrineChauffante.PrendrePlat(cCuisto.Plats[0].Nom);//On prend le plat
+
+                            Plat plat = restaurant.VitrineChauffante.PrendrePlat(cCuisto.Plats[0].Nom); //On prend le plat
+
                             cCuisto.Plats.RemoveAt(0);
-                            Console.WriteLine("[PERSONNEL]Le chef apporte un plat au comptoir");
-                            cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 12, 6 });//On le met sur le conmptoir en le modifiant
+
+                            LogController.Instance.Info("Le chef apporte un plat au comptoir");
+
+                            cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 12, 6 }); //On le met sur le conmptoir en le modifiant
+
                             Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));
                             restaurant.Comptoir.AddPlat(plat);
 
                         }
-                        else if ((restaurant.Frigo.Plats.Count != 0)&&(restaurant.Frigo.GetPlat(cCuisto.Plats[0].Nom) != null))//Si ca existe ici
+                        else if ((restaurant.Frigo.Plats.Count != 0)&&(restaurant.Frigo.GetPlat(cCuisto.Plats[0].Nom) != null)) //Si ca existe ici
                         {
-                            cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 14, 2 });//On vas au frigo
+                            cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 14, 2 }); //On vas au frigo
                             Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));
-                            Plat plat = restaurant.Frigo.prendrePlat(cCuisto.Plats[0].Nom);//On prend le plat
+
+                            Plat plat = restaurant.Frigo.prendrePlat(cCuisto.Plats[0].Nom); //On prend le plat
+
                             cCuisto.Plats.RemoveAt(0);
-                            Console.WriteLine("[PERSONNEL]Le chef apporte un plat au comptoir");
-                            cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 12, 6 });//On le met sur le conmptoir en le modifiant
+
+                            LogController.Instance.Info("Le chef apporte un plat au comptoir");
+
+                            cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 12, 6 }); //On le met sur le conmptoir en le modifiant
+
                             Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));
                             restaurant.Comptoir.AddPlat(plat);
                         }
-                        else//Si le plat n'existe pas en délègue
+                        else //Si le plat n'existe pas en délègue
                         {
                             
                             var chefParties = personnels.Where(x => x.Metier == (int)PersonnelEnums.Chef_Partie).ToList<Personnel>();
-                            if (chefParties[0].Plats.Count >= chefParties[1].Plats.Count)//On distribue equitablement les plats
+                            if (chefParties[0].Plats.Count >= chefParties[1].Plats.Count) //On distribue equitablement les plats
                             {
                                 Console.WriteLine("[PERSONNEL]Le chef délègue au sous-chef 2");
                                 chefParties[1].Plats.Add(cCuisto.Plats[0]);
@@ -431,10 +441,10 @@ namespace Controller
             }
         }
 
-        static public void runChefPlat(object id)//Fini
+        static public void runChefPlat(object id) //Fini
         {
            
-            while (1 == 1)
+            while (true)
             {
                 //On vérifie si le plat n'existe pas déjà
                 if (personnels[(int)id].Plats.Count != 0)
@@ -481,7 +491,6 @@ namespace Controller
                         else//Sinon on cuisine
                         {
                             //Get recette
-                            DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
                             List<Etape> strss = DatabaseController.Instance.GetRecette(personnels[(int)id].Plats[0].Nom);
                             int nbPlat = 0;
                             foreach (Etape str in strss)//On traite chaque êtape
@@ -552,13 +561,12 @@ namespace Controller
 
         static public void runCommis(object id)//Fini
         {
-            while (1 == 1)
+            while (true)
             {
                 
                 if (personnels[(int)id].Plats.Count != 0)
                 {
                     //Get recette
-                    DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
                     List<Etape> strss = DatabaseController.Instance.GetRecette(personnels[(int)id].Plats[0].Nom);
                     DatabaseController.Instance.UpdateStock(personnels[(int)id].Plats[0].Nom);//Update du stock
                     int nbPlat = 0;
@@ -616,14 +624,24 @@ namespace Controller
             Vue.InitVue(personnels);
         }
 
-        static private void GenerateurGroupe()
+        private static void GenerateurGroupe()
         {
-            while (1 == 1)
+            while (true)
             {
-                Thread.Sleep(100000);
+                Thread.Sleep((int)(100000 / Vitesse));
                 //Toute les 100 secondes un groupe arrive
                 AddGroupe();
             }
+        }
+
+        public static void ReceivePlats(List<Plat> plats)
+        {
+            var cuisiniers = personnels.Where(x => x.Metier == (int)PersonnelEnums.Chef_Cuisto);
+
+            var cuisinierChoisis = cuisiniers.FirstOrDefault();
+
+            if(cuisinierChoisis != null)
+                cuisinierChoisis.Plats.AddRange(plats);
         }
     }
 }

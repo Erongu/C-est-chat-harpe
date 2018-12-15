@@ -124,13 +124,12 @@ namespace Model.Network
                     break;
                 case CommandeMessage.Id:
                     var cm = message as CommandeMessage;
-                    //LogController.Instance.Debug($" {cm.Plats.Count} plats / {cm.Tables.Count} tables");
-                    LogController.Instance.Debug($" {cm.Plats.Count} plats");
-                    //cm.Plats ===>Pour le cuisinier
+                    LogController.Instance.Debug($"Reception de {cm.Plats.Count} plats");
+                    //cm.Plats ===> Pour le cuisinier
+
+                    RestaurantController.ReceivePlats(cm.Plats);
                     break;
             }
-
-
         }
 
         protected virtual void Dispose()

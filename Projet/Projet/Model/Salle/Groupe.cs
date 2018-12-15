@@ -135,7 +135,6 @@ namespace Model.Salle
 
         public List<Plat> Commande()
         {
-            DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
             List<Plat> liste = new List<Plat>();
             foreach (Client client in Clients)//GetEntree
             {
