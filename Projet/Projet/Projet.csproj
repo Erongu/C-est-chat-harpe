@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\Network\Client\Client.cs" />
+    <Compile Include="Controller\Network\Client\ClientSalle.cs" />
     <Compile Include="Controller\Network\Server\NetworkController.cs" />
     <Compile Include="Controller\Strategy\Cuisine\StrategyCuisinier.cs" />
     <Compile Include="Controller\Strategy\Salle\StrategyCommis.cs" />

@@ -1,4 +1,5 @@
 ﻿using Model.Network.Protocol.IO;
+using Model.Salle;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Model.Network.Protocol.Salle
             get => Id;
         }
 
-        public List<int> Commandes
+        public List<Plat> Plats
         {
             get;
             set;
@@ -28,20 +29,20 @@ namespace Model.Network.Protocol.Salle
 
         }
 
-        public CommandeMessage(List<int> commandes)
+        public CommandeMessage(List<Plat> plats)
         {
-            Commandes = commandes;
+            Plats = plats;
         }
 
         public override void Serialize(Writer writer)
         {
             base.Serialize(writer); // Pour écrire l'id du message
 
-            writer.WriteInt(Commandes.Count);
+            writer.WriteInt(Plats.Count);
 
-            foreach(var commande in Commandes)
+            foreach(var plat in Plats)
             {
-                writer.WriteInt(commande);
+                plat.Serialize(writer);
             }
 
         }
@@ -49,11 +50,14 @@ namespace Model.Network.Protocol.Salle
         public override void Deserialize(Reader reader)
         {
             var length = reader.ReadInt();
-            Commandes = new List<int>();
+            Plats = new List<Plat>();
 
             for (var i = 0; i < length; i++)
             {
-                Commandes.Add(reader.ReadInt());
+                var plat = new Plat();
+                plat.Deserialize(reader);
+
+                Plats.Add(plat);
             }
 
         }

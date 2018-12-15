@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Network.Protocol.IO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,11 @@ namespace Model.Salle
             Dessert = 3
         }
 
+        public Plat()
+        {
+
+        }
+
         //Constructeur
         public Plat(int nom, int table, TypePlat type)
         {
@@ -41,11 +47,18 @@ namespace Model.Salle
             this.Type = type;
         }
 
-        public Plat(int nom, int table)
+        public void Serialize(Writer writer)
         {
-            this.Nom = nom;
-            this.Table = table;
+            writer.WriteInt(Nom);
+            writer.WriteInt(Table);
+            writer.WriteInt((int)Type);
         }
 
+        public void Deserialize(Reader reader)
+        {
+            Nom = reader.ReadInt();
+            Table = reader.ReadInt();
+            Type = (TypePlat)reader.ReadInt();
+        }
     }
 }
