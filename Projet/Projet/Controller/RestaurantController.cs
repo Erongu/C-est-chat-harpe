@@ -46,8 +46,8 @@ namespace Controller
             Personnel maitre_de_rang1 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 2 }, { "prenom", "Carre1" }, { "nom", "Albani" }, { "metier", 3 }, { "posx", 7 }, { "posy", 19 }, { "carre", 1 } });
             Personnel maitre_de_rang2 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 3 }, { "prenom", "Carre2" }, { "nom", "Albani" }, { "metier", 3 }, { "posx", 8 }, { "posy", 19 }, { "carre", 2 } });
             Personnel chefcuisto = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 4 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 5 }, { "posx", 5 }, { "posy", 2 }, { "carre", 4 } });
-            Personnel chefpartie1 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 5 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 6 }, { "posx", 6 }, { "posy", 1 }, { "carre", 4 } });
-            Personnel chefpartie2 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 6 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 6 }, { "posx", 7 }, { "posy", 1 }, { "carre", 4 } });
+            Personnel chefpartie1 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 5 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 6 }, { "posx", 6 }, { "posy", 6 }, { "carre", 4 } });
+            Personnel chefpartie2 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 6 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 6 }, { "posx", 7 }, { "posy", 6 }, { "carre", 4 } });
             Personnel commiscuisine1 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 7 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 7 }, { "posx", 7 }, { "posy", 2 }, { "carre", 4 } });
             Personnel commiscuisine2 = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id", 8 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 7 }, { "posx", 7 }, { "posy", 2 }, { "carre", 4 } });
             Personnel plongeur = new Factory().Create<Personnel>(new Dictionary<string, object> { { "id",9 }, { "prenom", "Chef" }, { "nom", "Albani" }, { "metier", 8 }, { "posx", 9 }, { "posy", 1 }, { "carre", 4 } });
@@ -96,6 +96,10 @@ namespace Controller
 
             // clients.Add(new Factory().Create<Client>());
             Vue.UpdateVue(personnels);
+            if(Projet.Properties.Settings.Default.Vitesse != Vitesse)
+            {
+                Projet.Properties.Settings.Default.Vitesse = Vitesse;
+            }
         }
 
         //Ajout d'un groupe
@@ -116,6 +120,20 @@ namespace Controller
                     Thread thread = new Thread(new ThreadStart(action));
 
                     thread.Start();
+                }
+            }
+
+            foreach(Personnel perso in personnels)//On lance certains thread en mode non bloquant
+            {
+                if(perso.Metier == (int)PersonnelEnums.Commis_Cuisine)
+                {
+                    Thread newThread = new Thread(runCommis);
+                    newThread.Start(perso.ID);
+                }
+                if (perso.Metier == (int)PersonnelEnums.Chef_Partie)
+                {
+                    Thread newThread = new Thread(runChefPlat);
+                    newThread.Start(perso.ID);
                 }
             }
 
@@ -149,7 +167,7 @@ namespace Controller
                             groupes[groupes.Count - 1].NumeroCarre = tbl.Carre;
 
                             //On appel le maitre de rang coresspondant au carre de la table
-                            Console.WriteLine("Le maitre d'hotel a trouver la table : " + tbl.Numero + " pour le groupe de " + grp.Taille);
+                            Console.WriteLine("[PERSONNEL]Le maitre d'hotel a trouver la table : " + tbl.Numero + " pour le groupe de " + grp.Taille);
                             foreach(Personnel personnel in personnels)
                             {
                                 if((personnel.Metier == (int)PersonnelEnums.Chef_Rang)&&(personnel.Carre == tbl.Carre))
@@ -161,7 +179,7 @@ namespace Controller
                         }
                         else//Si aucune table n'a été trouvé on enlève le groupe des deux listes
                         {
-                            Console.WriteLine("Le maitre d'hotel n'a pas trouvé de table au groupe");
+                            Console.WriteLine("[PERSONNEL]Le maitre d'hotel n'a pas trouvé de table au groupe");
                             groupes.RemoveAt(groupes.Count - 1);
                             groupeMAJ.RemoveAt(groupeMAJ.Count - 1);
                         }
@@ -195,7 +213,7 @@ namespace Controller
                         th.Start();
                         cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, SpawnX, SpawnY });//Le chef de rang retourne a sa place d'origine
                         cRang.Groupe = null;//On reset son groupe
-                        Console.WriteLine("Le chef de rang a placé le groupe !");
+                        Console.WriteLine("[PERSONNEL]Le chef de rang a placé un groupe !");
                     }
                     else//Il s'occupe de prendre les commandes
                     {
@@ -212,6 +230,7 @@ namespace Controller
                                         cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, pos[0], pos[1] });//On se déplace a la table
                                         List<Plat> plats = table.Groupe.Commande(); //On prend les commandes
                                         //On envoie les commandes a la cuisine
+                                        Console.WriteLine("[PERSONNEL]Le chef de rang a pris une commande");
                                         cRang.Call("Move", new object[4] { cRang.PosX, cRang.PosY, SpawnX, SpawnY });//Le chef de rang retourne a sa place d'origine
 
                                     }
@@ -252,6 +271,7 @@ namespace Controller
                                 {
                                     restaurant.Comptoir.GetPlat(table.Numero, Plat.TypePlat.Entree);//On prend les plats
                                     serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, table.x, table.y });//On vas a la table
+                                    Console.WriteLine("[PERSONNEL]Le serveur a servi une entree");
                                     restaurant.GetCarre(table.Carre).GetRang(table.Rang).GetTable(table.Numero).Groupe.Etat = Groupe.GroupeEnum.MangeEntree;//On met a jour le groupe
                                     serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, 7, 17 });//On retourne au comptoir
                                 }
@@ -264,6 +284,7 @@ namespace Controller
                                 {
                                     restaurant.Comptoir.GetPlat(table.Numero, Plat.TypePlat.Plat);//On prend les plats
                                     serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, table.x, table.y });//On vas a la table
+                                    Console.WriteLine("[PERSONNEL]Le serveur a servi un plat");
                                     restaurant.GetCarre(table.Carre).GetRang(table.Rang).GetTable(table.Numero).Groupe.Etat = Groupe.GroupeEnum.MangePlat;//On met a jour le groupe
                                     serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, 7, 17 });//On retourne au comptoir
                                 }
@@ -276,6 +297,7 @@ namespace Controller
                                 {
                                     restaurant.Comptoir.GetPlat(table.Numero, Plat.TypePlat.Dessert);//On prend les plats
                                     serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, table.x, table.y });//On vas a la table
+                                    Console.WriteLine("[PERSONNEL]Le serveur a servi une dessert");
                                     restaurant.GetCarre(table.Carre).GetRang(table.Rang).GetTable(table.Numero).Groupe.Etat = Groupe.GroupeEnum.MangeDessert;//On met a jour le groupe
                                     serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, 7, 17 });//On retourne au comptoir
                                 }
@@ -284,7 +306,8 @@ namespace Controller
                             if (table.Groupe.Etat == Groupe.GroupeEnum.AttenteDePayer)//Si le groupe souhaite partir
                             {
                                 serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, table.x, table.y });//On vas a la table
-                                Thread.Sleep(2000);//Remise au propre de la table
+                                Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));//Remise au propre de la table
+                                Console.WriteLine("[PERSONNEL]Le serveur a nettoye une table");
                                 restaurant.GetCarre(table.Carre).GetRang(table.Rang).GetTable(table.Numero).Groupe = null;//On enlève ke groupe de la table
                                 serveur.Call("Move", new object[4] { serveur.PosX, serveur.PosY, 7, 17 });//On retourne au comptoir
                             }
@@ -319,18 +342,24 @@ namespace Controller
                                 cSalle.Call("Move", new object[4] { cSalle.PosX, cSalle.PosY, table.x, table.y });
                                 restaurant.GetCarre(table.Carre).GetRang(table.Rang).GetTable(table.Numero).Groupe.Pain = nb;
                                 restaurant.GetCarre(table.Carre).GetRang(table.Rang).GetTable(table.Numero).Groupe.Bouteille = nb;
+                                Console.WriteLine("[PERSONNEL]Le commis a remis du pain et de l'eau");
+                                cSalle.Call("Move", new object[4] { cSalle.PosX, cSalle.PosY, 4, 19 });
                             }
                             else if(table.Groupe.Pain == 0)//Si il manque du pain
                             {
                                 List<int> pos = Personnel.GetPosXTable(table.Numero, restaurant.GetAllTables());//On prend la position de la table
                                 cSalle.Call("Move", new object[4] { cSalle.PosX, cSalle.PosY, table.x, table.y });
                                 restaurant.GetCarre(table.Carre).GetRang(table.Rang).GetTable(table.Numero).Groupe.Pain = nb;
+                                Console.WriteLine("[PERSONNEL]Le commis a remis du pain");
+                                cSalle.Call("Move", new object[4] { cSalle.PosX, cSalle.PosY, 4, 19 });
                             }
                             else if (table.Groupe.Bouteille == 0)//Si il manque des bouteilles
                             {
                                 List<int> pos = Personnel.GetPosXTable(table.Numero, restaurant.GetAllTables());//On prend la position de la table
                                 cSalle.Call("Move", new object[4] { cSalle.PosX, cSalle.PosY, table.x, table.y });
                                 restaurant.GetCarre(table.Carre).GetRang(table.Rang).GetTable(table.Numero).Groupe.Bouteille = nb;
+                                Console.WriteLine("[PERSONNEL]Le commis a remis de l'eau");
+                                cSalle.Call("Move", new object[4] { cSalle.PosX, cSalle.PosY, 4, 19 });
                             }
                         }
                         
@@ -355,27 +384,25 @@ namespace Controller
                     {
                         if((restaurant.VitrineChauffante.Plats.Count != 0)&&(restaurant.VitrineChauffante.GetPlat(cCuisto.Plats[0].Nom) != null))//SI ca existe ici
                         {
-                            Console.WriteLine("Le chef vas prendre le plat");
                             cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 13, 2 });//On vas a la vitrine
-                            Thread.Sleep(2000);
+                            Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));
                             Plat plat = restaurant.VitrineChauffante.PrendrePlat(cCuisto.Plats[0].Nom);//On prend le plat
                             cCuisto.Plats.RemoveAt(0);
-                            Console.WriteLine("Le chef vas apporter le plat");
+                            Console.WriteLine("[PERSONNEL]Le chef apporte un plat au comptoir");
                             cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 12, 6 });//On le met sur le conmptoir en le modifiant
-                            Thread.Sleep(2000);
+                            Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));
                             restaurant.Comptoir.AddPlat(plat);
 
                         }
                         else if ((restaurant.Frigo.Plats.Count != 0)&&(restaurant.Frigo.GetPlat(cCuisto.Plats[0].Nom) != null))//Si ca existe ici
                         {
-                            Console.WriteLine("Le chef vas prendre le plat");
                             cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 14, 2 });//On vas au frigo
-                            Thread.Sleep(2000);
+                            Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));
                             Plat plat = restaurant.Frigo.prendrePlat(cCuisto.Plats[0].Nom);//On prend le plat
                             cCuisto.Plats.RemoveAt(0);
-                            Console.WriteLine("Le chef vas apporter le plat");
+                            Console.WriteLine("[PERSONNEL]Le chef apporte un plat au comptoir");
                             cCuisto.Call("Move", new object[4] { cCuisto.PosX, cCuisto.PosY, 12, 6 });//On le met sur le conmptoir en le modifiant
-                            Thread.Sleep(2000);
+                            Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));
                             restaurant.Comptoir.AddPlat(plat);
                         }
                         else//Si le plat n'existe pas en délègue
@@ -384,13 +411,13 @@ namespace Controller
                             var chefParties = personnels.Where(x => x.Metier == (int)PersonnelEnums.Chef_Partie).ToList<Personnel>();
                             if (chefParties[0].Plats.Count >= chefParties[1].Plats.Count)//On distribue equitablement les plats
                             {
-                                Console.WriteLine("Le chef délègue au chef 2");
+                                Console.WriteLine("[PERSONNEL]Le chef délègue au sous-chef 2");
                                 chefParties[1].Plats.Add(cCuisto.Plats[0]);
                                 cCuisto.Plats.RemoveAt(0);
                             }
                             else
                             {
-                                Console.WriteLine("Le chef délègue au chef 1");
+                                Console.WriteLine("[PERSONNEL]Le chef délègue au sous-chef 1");
                                 chefParties[0].Plats.Add(cCuisto.Plats[0]);
                                 cCuisto.Plats.RemoveAt(0);
                             }
@@ -402,181 +429,107 @@ namespace Controller
             }
         }
 
-        static public void RunChefPlat()//Fini
+        static public void runChefPlat(object id)//Fini
         {
-            LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
-
-            while (true)
+           
+            while (1 == 1)
             {
-                var chefPlats = personnels.Where(x => x.Metier == (int)PersonnelEnums.Chef_Partie);
-
-                foreach (var cPlats in chefPlats)
+                //On vérifie si le plat n'existe pas déjà
+                if (personnels[(int)id].Plats.Count != 0)
                 {
-                    //Check si le plat existe
-                    //On vérifie si le plat n'existe pas déjà
-                    if (cPlats.Plats.Count != 0)
+                    if ((restaurant.VitrineChauffante.Plats.Count != 0) && (restaurant.VitrineChauffante.GetPlat(personnels[(int)id].Plats[0].Nom) != null))//SI ca existe ici
                     {
-                        if ((restaurant.VitrineChauffante.Plats.Count != 0) && (restaurant.VitrineChauffante.GetPlat(cPlats.Plats[0].Nom) != null))//SI ca existe ici
-                        {
-                            Console.WriteLine("Le chef vas prendre le plat");
-                            cPlats.Call("Move", new object[4] { cPlats.PosX, cPlats.PosY, 13, 2 });//On vas a la vitrine
-                            Thread.Sleep(2000);
-                            Plat plat = restaurant.VitrineChauffante.PrendrePlat(cPlats.Plats[0].Nom);//On prend le plat
-                            cPlats.Plats.RemoveAt(0);
-                            Console.WriteLine("Le chef vas apporter le plat");
-                            cPlats.Call("Move", new object[4] { cPlats.PosX, cPlats.PosY, 12, 6 });//On le met sur le conmptoir en le modifiant
-                            Thread.Sleep(2000);
-                            restaurant.Comptoir.AddPlat(plat);
+                        personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 13, 2 });//On vas a la vitrine
+                        Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));
+                        Plat plat = restaurant.VitrineChauffante.PrendrePlat(personnels[(int)id].Plats[0].Nom);//On prend le plat
+                        personnels[(int)id].Plats.RemoveAt(0);
+                        Console.WriteLine("[PERSONNEL]Le sous-chef aporte un plat au comptoir");
+                        personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 12, 6 });//On le met sur le conmptoir en le modifiant
+                        Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));
+                        restaurant.Comptoir.AddPlat(plat);
 
-                        }
-                        else if ((restaurant.Frigo.Plats.Count != 0) && (restaurant.Frigo.GetPlat(cPlats.Plats[0].Nom) != null))//Si ca existe ici
-                        {
-                            Console.WriteLine("Le chef vas prendre le plat");
-                            cPlats.Call("Move", new object[4] { cPlats.PosX, cPlats.PosY, 14, 2 });//On vas au frigo
-                            Thread.Sleep(2000);
-                            Plat plat = restaurant.Frigo.prendrePlat(cPlats.Plats[0].Nom);//On prend le plat
-                            cPlats.Plats.RemoveAt(0);
-                            Console.WriteLine("Le chef vas apporter le plat");
-                            cPlats.Call("Move", new object[4] { cPlats.PosX, cPlats.PosY, 12, 6 });//On le met sur le conmptoir en le modifiant
-                            Thread.Sleep(2000);
-                            restaurant.Comptoir.AddPlat(plat);
-                        }
-                        else //Si le plat n'existe pas en délègue
-                        {
-
-                            var commisCuisine = personnels.Where(x => x.Metier == (int)PersonnelEnums.Commis_Cuisine).ToList<Personnel>();
-                            if ((commisCuisine[0].Plats.Count >= commisCuisine[1].Plats.Count)&&(commisCuisine[1].Plats.Count < 3))//On distribue equitablement les plats
-                            {
-                                Console.WriteLine("Le chef délègue au commis 2");
-                                commisCuisine[1].Plats.Add(cPlats.Plats[0]);
-                                cPlats.Plats.RemoveAt(0);
-                            }
-                            else if((commisCuisine[1].Plats.Count >= commisCuisine[0].Plats.Count) && (commisCuisine[0].Plats.Count < 3))//On distribue les plats
-                            {
-                                Console.WriteLine("Le chef délègue au commis 1");
-                                commisCuisine[0].Plats.Add(cPlats.Plats[0]);
-                                cPlats.Plats.RemoveAt(0);
-                            }
-                            else//Sinon on cuisine
-                            {
-                                //Get recette
-                                DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
-                                List<Etape> strss = DatabaseController.Instance.GetRecette(cPlats.Plats[0].Nom);
-                                int nbPlat = 0;
-                                foreach(Etape str in strss)//On traite chaque êtape
-                                {
-                                    if (str.Action == Etape.ActionEnum.Prendre)
-                                    {
-                                        nbPlat = str.Part;
-                                        Console.WriteLine("Je prend");
-                                        cPlats.Call("Move", new object[4] { cPlats.PosX, cPlats.PosY, 13, 2 });//On vas au frigo prendre l'aliment
-                                        Thread.Sleep(5000);
-                                    }
-                                    else if (str.Action == Etape.ActionEnum.Preparer)
-                                    {
-                                        Console.WriteLine("Je prépare pendant : " + str.Temps + " secondes");
-                                        cPlats.Call("Move", new object[4] { cPlats.PosX, cPlats.PosY, 5, 6 });//On vas au plan de travail préparer
-                                        Thread.Sleep(str.Temps * 10);
-                                        restaurant.Evier.Ustensiles.Add(new Ustensile(Ustensile.TYPE.COUTEAUCUISINE));
-                                    }
-                                    else if (str.Action == Etape.ActionEnum.Cuire)
-                                    {
-                                        Console.WriteLine("Je cuit pendant " + str.Temps + " secondes");
-                                        cPlats.Call("Move", new object[4] { cPlats.PosX, cPlats.PosY, 8, 2 });//On vas au plaque
-                                        Thread.Sleep(str.Temps * 10);
-                                        restaurant.Evier.Ustensiles.Add(new Ustensile(Ustensile.TYPE.CASSEROLE));
-                                    }
-                                    else if (str.Action == Etape.ActionEnum.Cuire_Four)
-                                    {
-                                        Console.WriteLine("Je cuit au four pendant " + str.Temps + " secondes");
-                                        cPlats.Call("Move", new object[4] { cPlats.PosX, cPlats.PosY, 5, 2 });//On vas au four
-                                        Thread.Sleep(str.Temps * 10);
-                                        restaurant.Evier.Ustensiles.Add(new Ustensile(Ustensile.TYPE.CASSEROLE));
-                                    }
-                                }
-                                Console.WriteLine("Le commis aporte le plat");
-
-                                cPlats.Call("Move", new object[4] { cPlats.PosX, cPlats.PosY, 12, 6 });//On le met sur le conmptoir en le modifiant//On le met dans le comptoir et on met la suite dans la vitrine
-                                Thread.Sleep(2000);
-                                restaurant.Comptoir.AddPlat(cPlats.Plats[0]);
-                                for (int i = 0; i < nbPlat - 1; i++)
-                                {
-                                    restaurant.VitrineChauffante.AddPlat(cPlats.Plats[0]);
-                                }
-                                cPlats.Plats.RemoveAt(0);//On supprime le plat de la liste a faire
-
-                            }
-                            
-                        }
-
-                    }  
-                }
-
-            }
-        }
-
-        static public void RunCommisCuisine()//Fini
-        {
-            LogController.Instance.Debug("Start Thread on Id: " + Thread.CurrentThread.ManagedThreadId);
-
-            while (true)
-            {
-                var commisCuisine = personnels.Where(x => x.Metier == (int)PersonnelEnums.Commis_Cuisine);
-
-                foreach (var cCuisine in commisCuisine)
-                {
-                    if(cCuisine.Plats.Count != 0)
+                    }
+                    else if ((restaurant.Frigo.Plats.Count != 0) && (restaurant.Frigo.GetPlat(personnels[(int)id].Plats[0].Nom) != null))//Si ca existe ici
                     {
-                        //Get recette
-                        DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
-                        List<Etape> strss = DatabaseController.Instance.GetRecette(cCuisine.Plats[0].Nom);
-                        DatabaseController.Instance.UpdateStock(cCuisine.Plats[0].Nom);//Update du stock
-                        int nbPlat = 0;
-                        foreach (Etape str in strss)//On traite chaque êtape
+                        personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 14, 2 });//On vas au frigo
+                        Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));
+                        Plat plat = restaurant.Frigo.prendrePlat(personnels[(int)id].Plats[0].Nom);//On prend le plat
+                        personnels[(int)id].Plats.RemoveAt(0);
+                        Console.WriteLine("[PERSONNEL]Le sous-chef aporte un plat au comptoir");
+                        personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 12, 6 });//On le met sur le conmptoir en le modifiant
+                        Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));
+                        restaurant.Comptoir.AddPlat(plat);
+                    }
+                    else //Si le plat n'existe pas en délègue
+                    {
+
+                        var commisCuisine = personnels.Where(x => x.Metier == (int)PersonnelEnums.Commis_Cuisine).ToList<Personnel>();
+                        if ((commisCuisine[0].Plats.Count >= commisCuisine[1].Plats.Count) && (commisCuisine[1].Plats.Count < 3))//On distribue equitablement les plats
                         {
-                            if (str.Action == Etape.ActionEnum.Prendre)
-                            {
-                                nbPlat = str.Part;
-                                Console.WriteLine("Je prend");
-                                cCuisine.Call("Move", new object[4] { cCuisine.PosX, cCuisine.PosY, 13, 2 });//On vas au frigo prendre l'aliment
-                                Thread.Sleep(5000);
-                            }
-                            else if(str.Action == Etape.ActionEnum.Preparer)
-                            {
-                                Console.WriteLine("Je prépare pendant : " + str.Temps + " secondes");
-                                cCuisine.Call("Move", new object[4] { cCuisine.PosX, cCuisine.PosY, 5, 6 });//On vas au plan de travail préparer
-                                Thread.Sleep(str.Temps * 10);
-                                restaurant.Evier.Ustensiles.Add(new Ustensile(Ustensile.TYPE.COUTEAUCUISINE));
-                            }
-                            else if (str.Action == Etape.ActionEnum.Cuire)
-                            {
-                                Console.WriteLine("Je cuit pendant " + str.Temps + " secondes");
-                                cCuisine.Call("Move", new object[4] { cCuisine.PosX, cCuisine.PosY, 8, 2 });//On vas au plaque
-                                Thread.Sleep(str.Temps * 10);
-                                restaurant.Evier.Ustensiles.Add(new Ustensile(Ustensile.TYPE.CASSEROLE));
-                            }
-                            else if (str.Action == Etape.ActionEnum.Cuire_Four)
-                            {
-                                Console.WriteLine("Je cuit au four pendant " + str.Temps + " secondes");
-                                cCuisine.Call("Move", new object[4] { cCuisine.PosX, cCuisine.PosY, 5, 2 });//On vas au four
-                                Thread.Sleep(str.Temps * 10);
-                                restaurant.Evier.Ustensiles.Add(new Ustensile(Ustensile.TYPE.CASSEROLE));
-                            }
+                            Console.WriteLine("[PERSONNEL]Le sous-chef délègue au commis de cuisine 2");
+                            commisCuisine[1].Plats.Add(personnels[(int)id].Plats[0]);
+                            personnels[(int)id].Plats.RemoveAt(0);
                         }
-                        Console.WriteLine("Le commis aporte le plat");
-                        
-                        cCuisine.Call("Move", new object[4] { cCuisine.PosX, cCuisine.PosY, 12, 6 });//On le met sur le conmptoir en le modifiant//On le met dans le comptoir et on met la suite dans la vitrine
-                        Thread.Sleep(2000);
-                        restaurant.Comptoir.AddPlat(cCuisine.Plats[0]);
-                        for(int i = 0; i < nbPlat - 1; i++)
+                        else if ((commisCuisine[1].Plats.Count >= commisCuisine[0].Plats.Count) && (commisCuisine[0].Plats.Count < 3))//On distribue les plats
                         {
-                            restaurant.VitrineChauffante.AddPlat(cCuisine.Plats[0]);
+                            Console.WriteLine("[PERSONNEL]Le sous-chef délègue au commis de cuisine 1");
+                            commisCuisine[0].Plats.Add(personnels[(int)id].Plats[0]);
+                            personnels[(int)id].Plats.RemoveAt(0);
                         }
-                        cCuisine.Plats.RemoveAt(0);//On supprime le plat de la liste a faire
+                        else//Sinon on cuisine
+                        {
+                            //Get recette
+                            DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
+                            List<Etape> strss = DatabaseController.Instance.GetRecette(personnels[(int)id].Plats[0].Nom);
+                            int nbPlat = 0;
+                            foreach (Etape str in strss)//On traite chaque êtape
+                            {
+                                if (str.Action == Etape.ActionEnum.Prendre)
+                                {
+                                    nbPlat = str.Part;
+                                    Console.WriteLine("[PERSONNEL]Le sous-chef prend un aliment");
+                                    personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 13, 2 });//On vas au frigo prendre l'aliment
+                                    Thread.Sleep((int)(5000 / Projet.Properties.Settings.Default.Vitesse));
+                                }
+                                else if (str.Action == Etape.ActionEnum.Preparer)
+                                {
+                                    Console.WriteLine("[PERSONNEL]Le sous-chef prepare un aliment");
+                                    personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 5, 6 });//On vas au plan de travail préparer
+                                    Thread.Sleep((int)((str.Temps) / Projet.Properties.Settings.Default.Vitesse));
+                                    restaurant.Evier.Ustensiles.Add(new Ustensile(Ustensile.TYPE.COUTEAUCUISINE));
+                                }
+                                else if (str.Action == Etape.ActionEnum.Cuire)
+                                {
+                                    Console.WriteLine("[PERSONNEL]Le sous-chef cuit sur la plaque");
+                                    personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 8, 2 });//On vas au plaque
+                                    Thread.Sleep((int)((str.Temps) / Projet.Properties.Settings.Default.Vitesse));
+                                    restaurant.Evier.Ustensiles.Add(new Ustensile(Ustensile.TYPE.CASSEROLE));
+                                }
+                                else if (str.Action == Etape.ActionEnum.Cuire_Four)
+                                {
+                                    Console.WriteLine("[PERSONNEL]Le sous-chef cuit au four");
+                                    personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 5, 2 });//On vas au four
+                                    Thread.Sleep((int)((str.Temps) / Projet.Properties.Settings.Default.Vitesse));
+                                    restaurant.Evier.Ustensiles.Add(new Ustensile(Ustensile.TYPE.CASSEROLE));
+                                }
+                            }
+                            Console.WriteLine("[PERSONNEL]Le sous-chef apporte un plat au comptoir");
+
+                            personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 12, 6 });//On le met sur le conmptoir en le modifiant//On le met dans le comptoir et on met la suite dans la vitrine
+                            Thread.Sleep((int)((2000) / Projet.Properties.Settings.Default.Vitesse));
+                            restaurant.Comptoir.AddPlat(personnels[(int)id].Plats[0]);
+                            for (int i = 0; i < nbPlat - 1; i++)
+                            {
+                                restaurant.VitrineChauffante.AddPlat(personnels[(int)id].Plats[0]);
+                            }
+                            personnels[(int)id].Plats.RemoveAt(0);//On supprime le plat de la liste a faire
+
+                        }
+                    }
+
                     }
                 }
-
-            }
+            
         }
 
         static private void RunPlongeur()//Fini
@@ -595,6 +548,63 @@ namespace Controller
             }
         }
 
+        static public void runCommis(object id)//Fini
+        {
+            while (1 == 1)
+            {
+                
+                if (personnels[(int)id].Plats.Count != 0)
+                {
+                    //Get recette
+                    DatabaseController.Instance.Initialize("10.176.50.249", "chef", "password", "resto");
+                    List<Etape> strss = DatabaseController.Instance.GetRecette(personnels[(int)id].Plats[0].Nom);
+                    DatabaseController.Instance.UpdateStock(personnels[(int)id].Plats[0].Nom);//Update du stock
+                    int nbPlat = 0;
+                    foreach (Etape str in strss)//On traite chaque êtape
+                    {
+                        if (str.Action == Etape.ActionEnum.Prendre)
+                        {
+                            nbPlat = str.Part;
+                            Console.WriteLine("[PERSONNEL]Le commis de cuisine prend un aliment");
+                            personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 13, 2 });//On vas au frigo prendre l'aliment
+                            Thread.Sleep((int)(5000 / Projet.Properties.Settings.Default.Vitesse));
+                        }
+                        else if (str.Action == Etape.ActionEnum.Preparer)
+                        {
+                            Console.WriteLine("[PERSONNEL]Le commis de cuisine prepare un aliment");
+                            personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 5, 6 });//On vas au plan de travail préparer
+                            Thread.Sleep((int)((str.Temps) / Projet.Properties.Settings.Default.Vitesse));
+                            restaurant.Evier.Ustensiles.Add(new Ustensile(Ustensile.TYPE.COUTEAUCUISINE));
+                        }
+                        else if (str.Action == Etape.ActionEnum.Cuire)
+                        {
+                            Console.WriteLine("[PERSONNEL]Le commis de cuisine cuit sur la plaque");
+                            personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 8, 2 });//On vas au plaque
+                            Thread.Sleep((int)((str.Temps) / Projet.Properties.Settings.Default.Vitesse));
+                            restaurant.Evier.Ustensiles.Add(new Ustensile(Ustensile.TYPE.CASSEROLE));
+                        }
+                        else if (str.Action == Etape.ActionEnum.Cuire_Four)
+                        {
+                            Console.WriteLine("[PERSONNEL]Le commis de cuisine cuit au four");
+                            personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 5, 2 });//On vas au four
+                            Thread.Sleep((int)((str.Temps) / Projet.Properties.Settings.Default.Vitesse));
+                            restaurant.Evier.Ustensiles.Add(new Ustensile(Ustensile.TYPE.CASSEROLE));
+                        }
+                    }
+                    Console.WriteLine("[PERSONNEL]Le commis de cuisine apporte le plat au comptoir");
+
+                    personnels[(int)id].Call("Move", new object[4] { personnels[(int)id].PosX, personnels[(int)id].PosY, 12, 6 });//On le met sur le conmptoir en le modifiant//On le met dans le comptoir et on met la suite dans la vitrine
+                    Thread.Sleep((int)(2000 / Projet.Properties.Settings.Default.Vitesse));
+                    restaurant.Comptoir.AddPlat(personnels[(int)id].Plats[0]);
+                    for (int i = 0; i < nbPlat - 1; i++)
+                    {
+                        restaurant.VitrineChauffante.AddPlat(personnels[(int)id].Plats[0]);
+                    }
+                    personnels[(int)id].Plats.RemoveAt(0);//On supprime le plat de la liste a faire
+                }
+            }
+        }
+
         private static void SpawnNpc()
         {
             LogController.Instance.Info("Génération des NPCs");
@@ -602,6 +612,16 @@ namespace Controller
             personnels = DatabaseController.Instance.GetPersonnels();*/
 
             Vue.InitVue(personnels);
+        }
+
+        static private void GenerateurGroupe()
+        {
+            while (1 == 1)
+            {
+                Thread.Sleep(100000);
+                //Toute les 100 secondes un groupe arrive
+                AddGroupe();
+            }
         }
     }
 }

@@ -32,15 +32,15 @@ namespace Model.Cuisine
 
                 if (ust.Type == Ustensile.TYPE.COUTEAUCUISINE)
                 {
-                    Thread.Sleep(500);
+                    Thread.Sleep((int)((30000) / Projet.Properties.Settings.Default.Vitesse));
                 }
                 else if (ust.Type == Ustensile.TYPE.CUILLERE)
                 {
-                    Thread.Sleep(500);
+                    Thread.Sleep((int)((30000) / Projet.Properties.Settings.Default.Vitesse));
                 }
                 else
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep((int)((10000) / Projet.Properties.Settings.Default.Vitesse));
                 }
             }
             
